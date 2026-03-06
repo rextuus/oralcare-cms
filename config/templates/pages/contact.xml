@@ -27,6 +27,13 @@
             <tag name="sulu.rlp.part"/>
         </property>
 
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
         <property name="url" type="route" mandatory="true">
             <meta>
                 <title lang="en">Resourcelocator</title>
@@ -84,16 +91,76 @@
                                 <property name="days" type="text_line">
                                     <meta>
                                         <title lang="en">Days (e.g. Mon - Fri)</title>
+                                        <title lang="de">Tage (z.B. Mo - Fr)</title>
                                     </meta>
                                 </property>
                                 <property name="time" type="text_line">
                                     <meta>
                                         <title lang="en">Time (e.g. 08:00 - 18:00)</title>
+                                        <title lang="de">Zeit (z.B. 08:00 - 18:00)</title>
                                     </meta>
                                 </property>
                             </properties>
                         </type>
                     </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="faqs">
+            <meta>
+                <title lang="en">Common Questions (FAQs)</title>
+                <title lang="de">Häufige Fragen (FAQs)</title>
+            </meta>
+            <properties>
+                <property name="questions" type="block">
+                    <meta>
+                        <title lang="en">Questions</title>
+                        <title lang="de">Fragen</title>
+                    </meta>
+                    <types>
+                        <type name="question_answer">
+                            <meta>
+                                <title lang="en">Question &amp; Answer</title>
+                                <title lang="de">Frage &amp; Antwort</title>
+                            </meta>
+                            <properties>
+                                <property name="question" type="text_line">
+                                    <meta>
+                                        <title lang="en">Question</title>
+                                        <title lang="de">Frage</title>
+                                    </meta>
+                                </property>
+                                <property name="answer" type="text_area">
+                                    <meta>
+                                        <title lang="en">Answer</title>
+                                        <title lang="de">Antwort</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="additional_info">
+            <meta>
+                <title lang="en">Additional Information</title>
+                <title lang="de">Zusätzliche Informationen</title>
+            </meta>
+            <properties>
+                <property name="emergency_info" type="text_area">
+                    <meta>
+                        <title lang="en">Emergency Care Info</title>
+                        <title lang="de">Notfallversorgung Info</title>
+                    </meta>
+                </property>
+                <property name="languages_info" type="text_area">
+                    <meta>
+                        <title lang="en">Languages Spoken Info</title>
+                        <title lang="de">Gesprochene Sprachen Info</title>
+                    </meta>
                 </property>
             </properties>
         </section>

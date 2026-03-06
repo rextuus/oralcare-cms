@@ -1,51 +1,301 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <section class="hero">
-        <div class="container">
-            <h1>{{ content.title }}</h1>
-            {% if content.subtitle is not empty %}
-                <p>{{ content.subtitle }}</p>
-            {% endif %}
-            <a href="#contact" class="btn">Book Appointment</a>
+    {# Load global settings for contact info #}
+    {% set snippets = sulu_snippet_load_by_area('footer_settings') %}
+    {% set footerSettings = snippets|first %}
+
+    {# Hero Section #}
+    <section class="relative pt-16 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
+                    <div>
+                        {% if content.hero_badge is not empty %}
+                            <span class="inline-block py-1 px-4 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary font-semibold text-sm mb-4">
+                                {{ content.hero_badge }}
+                            </span>
+                        {% endif %}
+                        <h1 class="text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1]">
+                            {{ content.title|raw }}
+                        </h1>
+                        {% if content.hero_subtitle is not empty %}
+                            <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                                {{ content.hero_subtitle|nl2br }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="{{ sulu_content_path('/contact') }}" class="bg-primary hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2">
+                            {{ 'Termin online buchen'|trans }}
+                            <span class="material-symbols-outlined">calendar_today</span>
+                        </a>
+                        <a href="#services" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
+                            {{ 'Leistungen ansehen'|trans }}
+                        </a>
+                    </div>
+                    {# Social Proof / Reviews #}
+                    <div class="flex items-center gap-6 pt-4">
+                        <div class="flex -space-x-3">
+                            {% if content.hero_review_images is not empty %}
+                                {% for avatar in content.hero_review_images %}
+                                    <img alt="{{ avatar.title }}" class="w-12 h-12 rounded-full border-4 border-white dark:border-slate-900" src="{{ avatar.thumbnails['sulu-100x100']|default(avatar.url) }}"/>
+                                {% endfor %}
+                            {% else %}
+                                <img alt="Patient review" class="w-12 h-12 rounded-full border-4 border-white dark:border-slate-900" src="https://i.pravatar.cc/150?u=1"/>
+                                <img alt="Patient review" class="w-12 h-12 rounded-full border-4 border-white dark:border-slate-900" src="https://i.pravatar.cc/150?u=2"/>
+                                <img alt="Patient review" class="w-12 h-12 rounded-full border-4 border-white dark:border-slate-900" src="https://i.pravatar.cc/150?u=3"/>
+                            {% endif %}
+                        </div>
+                        <div>
+                            <div class="flex text-yellow-400">
+                                <span class="material-symbols-outlined text-sm">star</span>
+                                <span class="material-symbols-outlined text-sm">star</span>
+                                <span class="material-symbols-outlined text-sm">star</span>
+                                <span class="material-symbols-outlined text-sm">star</span>
+                                <span class="material-symbols-outlined text-sm">star</span>
+                            </div>
+                            <p class="text-sm font-medium text-slate-500 dark:text-slate-400">
+                                {{ content.hero_review_text|default('Über 2.000 zufriedene Patienten'|trans) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative animate-in fade-in zoom-in duration-1000">
+                    <div class="absolute -top-6 -left-6 w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-2xl"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl text-primary"></div>
+                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20">
+                        {% if content.hero_image is not empty %}
+                            {% set image = content.hero_image|first %}
+                            <img src="{{ image.thumbnails['sulu-1200x']|default(image.url) }}" alt="{{ image.title }}" class="w-full h-[600px] object-cover">
+                        {% else %}
+                            <img alt="Smiling male dentist in a modern office" class="w-full h-[600px] object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop">
+                        {% endif %}
+                    </div>
+                    {% if content.hero_avail_title is not empty or content.hero_avail_text is not empty %}
+                        <div class="absolute bottom-8 left-8 right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
+                            <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                                    {{ content.hero_avail_title|default('Nächster freier Termin'|trans) }}
+                                </p>
+                                <p class="text-primary font-bold">
+                                    {{ content.hero_avail_text|default('Heute, 14:30 Uhr'|trans) }}
+                                </p>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="absolute bottom-8 left-8 right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
+                            <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
+                                <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ 'Nächster freier Termin'|trans }}</p>
+                                <p class="text-primary font-bold">{{ 'Heute, 14:30 Uhr'|trans }}</p>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </section>
 
-    {% if content.article is not empty %}
-        <section class="section">
-            <div class="container">
-                {{ content.article|raw }}
-            </div>
-        </section>
-    {% endif %}
+    {# About Section #}
+    <section class="py-24 bg-white dark:bg-slate-900 transition-colors" id="about">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="grid grid-cols-2 gap-4">
+                    {% if content.about_images is not empty %}
+                        {% for image in content.about_images %}
+                            <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ image.title }}" class="rounded-3xl h-64 w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }}">
+                        {% endfor %}
+                    {% else %}
+                        <img alt="Dental examination chair" class="rounded-3xl h-64 w-full object-cover shadow-lg mt-8" src="https://images.unsplash.com/photo-1629909608135-ca29ed974bb9?q=80&w=2047&auto=format&fit=crop">
+                        <img alt="Modern dental equipment" class="rounded-3xl h-64 w-full object-cover shadow-lg" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070&auto=format&fit=crop">
+                        <img alt="Sterile tools" class="rounded-3xl h-64 w-full object-cover shadow-lg" src="https://images.unsplash.com/photo-1597764690523-15bea4c581c9?q=80&w=2070&auto=format&fit=crop">
+                        <img alt="Patient consultation" class="rounded-3xl h-64 w-full object-cover shadow-lg -mt-8" src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1974&auto=format&fit=crop">
+                    {% endif %}
+                </div>
+                <div class="space-y-6">
+                    <div class="inline-flex items-center gap-2 text-primary font-bold tracking-wider uppercase text-sm">
+                        <span class="w-8 h-px bg-primary"></span>
+                        {{ content.about_badge|default('Über die Praxis'|trans) }}
+                    </div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
+                    {% if content.about_description_1 is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {{ content.about_description_1|nl2br }}
+                        </p>
+                    {% endif %}
+                    {% if content.about_description_2 is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                            {{ content.about_description_2|nl2br }}
+                        </p>
+                    {% endif %}
 
-    {% if content.services_list is not empty %}
-        <section class="section" style="background-color: #f9f9f9;">
-            <div class="container">
-                {% if content.services_title is not empty %}
-                    <h2 style="text-align: center; margin-bottom: 3rem;">{{ content.services_title }}</h2>
-                {% endif %}
-
-                <div class="grid">
-                    {% for service in content.services_list %}
-                        <div class="card">
-                            {% if service.icon is not empty %}
-                                <div style="font-size: 2rem; color: var(--primary-color); margin-bottom: 1rem;">
-                                    <i class="ti ti-{{ service.icon }}"></i>
+                    {% if content.about_features is not empty %}
+                        <div class="grid grid-cols-2 gap-6 pt-4">
+                            {% for feature in content.about_features %}
+                                <div class="flex items-start gap-3">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
+                                        {% if feature.icon is not empty and 'ti-' in feature.icon %}
+                                            <i class="ti {{ feature.icon }} text-primary text-xl"></i>
+                                        {% else %}
+                                            <span class="material-symbols-outlined text-primary">{{ feature.icon|default('verified')|raw }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white">{{ feature.title }}</h4>
+                                        <p class="text-sm text-slate-500">{{ feature.subtitle }}</p>
+                                    </div>
                                 </div>
-                            {% endif %}
-                            <h3>{{ service.title }}</h3>
-                            <p>{{ service.description }}</p>
+                            {% endfor %}
                         </div>
-                    {% endfor %}
+                    {% endif %}
                 </div>
             </div>
-        </section>
-    {% endif %}
+        </div>
+    </section>
 
-    {% set a = sulu_snippet_load_by_area('address') %}
-    {{ dump(a) }}
-    {% if content.address is not empty %}
+    {# Services Section #}
+    <section class="py-24 bg-background-light dark:bg-slate-900/50" id="services">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
+            <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
+            {% if content.services_subtitle is not empty %}
+                <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
+                    {{ content.services_subtitle|nl2br }}
+                </p>
+            {% endif %}
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
+            {% for service in content.services_list %}
+                <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group">
+                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                        {% if service.icon is not empty and 'ti-' in service.icon %}
+                            <i class="ti {{ service.icon }} text-3xl text-primary group-hover:text-white transition-colors"></i>
+                        {% else %}
+                            <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">{{ service.icon|default('medical_services')|raw }}</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                        {{ service.description|nl2br }}
+                    </p>
+                    {% if service.features is not empty %}
+                        <ul class="space-y-3 mb-8 text-left">
+                            {% for feature in service.features %}
+                                <li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                                    <span class="material-symbols-outlined text-primary text-base">check_circle</span> {{ feature.text }}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                    {% if service.link is not empty %}
+                        <a class="inline-flex items-center font-bold text-primary hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+                            {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined ml-1">arrow_forward</span>
+                        </a>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </section>
 
-    {% endif %}
+    {# Contact Section #}
+    <section class="py-24 bg-white dark:bg-slate-900" id="contact">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-8">{{ content.visit_title|default('Besuchen Sie uns'|trans) }}</h2>
+                    <div class="space-y-6">
+                        {% if footerSettings %}
+                            {% if footerSettings.content.address is defined and footerSettings.content.address %}
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg">
+                                        <span class="material-symbols-outlined text-primary">location_on</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white text-lg">{{ 'Unser Standort'|trans }}</h4>
+                                        <p class="text-slate-600 dark:text-slate-400">{{ footerSettings.content.address|nl2br }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            <div class="flex items-start gap-4">
+                                <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg">
+                                    <span class="material-symbols-outlined text-primary">schedule</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900 dark:text-white text-lg">{{ 'Öffnungszeiten'|trans }}</h4>
+                                    <p class="text-slate-600 dark:text-slate-400">
+                                        {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
+                                        {{ 'Sa: 09:00 - 14:00'|trans }}
+                                    </p>
+                                </div>
+                            </div>
+                            {% if (footerSettings.content.email is defined and footerSettings.content.email) or (footerSettings.content.phone is defined and footerSettings.content.phone) %}
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg">
+                                        <span class="material-symbols-outlined text-primary">alternate_email</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-slate-900 dark:text-white text-lg">{{ 'E-Mail & Telefon'|trans }}</h4>
+                                        <p class="text-slate-600 dark:text-slate-400">
+                                            {% if footerSettings.content.email %}
+                                                <a href="mailto:{{ footerSettings.content.email }}" class="hover:text-primary transition-colors">{{ footerSettings.content.email }}</a><br/>
+                                            {% endif %}
+                                            {% if footerSettings.content.phone %}
+                                                <a href="tel:{{ footerSettings.content.phone|replace({' ': ''}) }}" class="hover:text-primary transition-colors">{{ footerSettings.content.phone }}</a>
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    {% if content.emergency_text is not empty %}
+                        <div class="mt-10 p-6 bg-primary rounded-2xl text-white">
+                            <h4 class="text-xl font-bold mb-2">{{ content.emergency_title|default('Notfalltermin?'|trans) }}</h4>
+                            <p class="opacity-90 mb-6">{{ content.emergency_text|nl2br }}</p>
+                            {% if footerSettings and footerSettings.content.phone %}
+                                <a class="bg-white text-primary px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 hover:bg-slate-100 transition-colors" href="tel:{{ footerSettings.content.phone|replace({' ': ''}) }}">
+                                    <span class="material-symbols-outlined">phone_in_talk</span>
+                                    {{ 'Jetzt anrufen'|trans }}
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="rounded-[2.5rem] overflow-hidden shadow-2xl h-[500px] border-4 border-white dark:border-slate-800 relative group">
+                    {% if content.map_link is not empty %}
+                        <iframe
+                            src="{{ content.map_link }}"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            class="opacity-80 dark:opacity-40">
+                        </iframe>
+                        <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                            <div class="bg-primary p-3 rounded-full shadow-2xl animate-bounce">
+                                <span class="material-symbols-outlined text-white text-3xl">location_on</span>
+                            </div>
+                        </div>
+                    {% else %}
+                        <img alt="Map Location" class="w-full h-full object-cover" src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2033&auto=format&fit=crop">
+                        <div class="absolute inset-0 bg-primary/10 group-hover:bg-transparent transition-colors"></div>
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                            <div class="relative">
+                                <div class="absolute inset-0 bg-primary animate-ping rounded-full opacity-75"></div>
+                                <div class="relative bg-primary w-12 h-12 rounded-full flex items-center justify-center border-4 border-white shadow-xl">
+                                    <span class="material-symbols-outlined text-white">location_on</span>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

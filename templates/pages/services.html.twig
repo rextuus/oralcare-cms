@@ -1,43 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <section class="section">
-        <div class="container">
-            <h1 style="text-align: center; margin-bottom: 1rem;">{{ content.title }}</h1>
-            {% if content.subtitle is not empty %}
-                <p style="text-align: center; font-size: 1.25rem; color: var(--secondary-color); margin-bottom: 2rem;">{{ content.subtitle }}</p>
-            {% endif %}
-
-            {% if content.article is not empty %}
-                <div class="article-content" style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
-                    {{ content.article|raw }}
-                </div>
-            {% endif %}
-
-            <div class="grid">
-                {% for service in content.services_list %}
-                    <div class="card service-card">
-                        {% if service.image is defined and service.image is not empty %}
-                            {% set mediaId = service.image.ids|default(service.image)|first %}
-                            {% set media = sulu_resolve_media(mediaId, app.request.locale) %}
-                            {% if media %}
-                                <div style="margin-bottom: 1.5rem; border-radius: 8px; overflow: hidden; height: 200px;">
-                                    <img src="{{ media.thumbnails['sulu-400x400']|default(media.url) }}"
-                                         alt="{{ service.title }}"
-                                         style="width: 100%; height: 100%; object-fit: cover;">
-                                </div>
-                            {% endif %}
-                        {% elseif service.icon is not empty %}
-                            <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
-                                <i class="ti ti-{{ service.icon }}"></i>
-                            </div>
-                        {% endif %}
-
-                        <h3 style="text-align: center;">{{ service.title }}</h3>
-                        <p style="text-align: center;">{{ service.description }}</p>
-                    </div>
-                {% endfor %}
+    {# Hero Section #}
+    <header class="relative pt-16 pb-20 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="max-w-3xl">
+                {% if content.hero_badge is not empty %}
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary text-sm font-semibold mb-4">
+                        {{ content.hero_badge }}
+                    </span>
+                {% endif %}
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">
+                    {{ content.title|raw }}
+                </h1>
+                {% if content.hero_subtitle is not empty %}
+                    <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                        {{ content.hero_subtitle|nl2br }}
+                    </p>
+                {% endif %}
             </div>
         </div>
-    </section>
+        <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary/5 rounded-full blur-3xl -z-10"></div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
+            {% for service in content.services_list %}
+                <article class="group flex flex-col bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                    <div class="h-64 overflow-hidden">
+                        {% if service.image is not empty %}
+                            {% set image = service.image|first %}
+                            <img src="{{ image.thumbnails['sulu-800x600']|default(image.url) }}" alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                            <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
+                        {% endif %}
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
+                                {% if service.icon is not empty  %}
+                                    <i class="ti {{ service.icon }} text-2xl"></i>
+                                {% else %}
+                                    <span class="material-symbols-outlined">{{ service.icon|default('medical_services')|raw }}</span>
+                                {% endif %}
+                            </div>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            {{ service.description|nl2br }}
+                        </p>
+                        {% if service.link is not empty %}
+                            <a class="inline-flex items-center font-semibold text-primary group-hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+                                {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+        {# CTA Section #}
+        {% if content.cta_title is not empty or content.cta_subtitle is not empty %}
+            <section class="mt-32 relative rounded-3xl overflow-hidden bg-primary px-8 py-16 text-center text-white">
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ content.cta_title|default('Bereit zu buchen?'|trans) }}</h2>
+                    {% if content.cta_subtitle is not empty %}
+                        <p class="text-blue-100 text-lg mb-10">
+                            {{ content.cta_subtitle|nl2br }}
+                        </p>
+                    {% endif %}
+                    {% if content.cta_button_link is not empty %}
+                        <a href="{{ sulu_content_path(content.cta_button_link|first.url) }}" class="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg inline-block">
+                            {{ content.cta_button_text|default('Termin jetzt buchen'|trans) }}
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="absolute top-0 right-0 p-8 opacity-10">
+                    <span class="material-symbols-outlined text-[12rem]">calendar_month</span>
+                </div>
+                <div class="absolute bottom-0 left-0 p-8 opacity-10">
+                    <span class="material-symbols-outlined text-[8rem]">verified</span>
+                </div>
+            </section>
+        {% endif %}
+    </main>
 {% endblock %}

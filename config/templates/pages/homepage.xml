@@ -15,16 +15,6 @@
     </meta>
 
     <properties>
-        <property name="address" type="snippet_selection">
-            <meta>
-                <title lang="en">Footer Social Media</title>
-            </meta>
-            <params>
-                <param name="default" value="address"/>
-            </params>
-        </property>
-
-
         <property name="title" type="text_line" mandatory="true">
             <meta>
                 <title lang="en">Title</title>
@@ -46,19 +36,156 @@
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="subtitle" type="text_line">
+        <section name="hero">
             <meta>
-                <title lang="en">Subtitle</title>
-                <title lang="de">Untertitel</title>
+                <title lang="en">Hero</title>
+                <title lang="de">Hero</title>
             </meta>
-        </property>
+            <properties>
+                <property name="hero_badge" type="text_line">
+                    <meta>
+                        <title lang="en">Badge</title>
+                        <title lang="de">Badge</title>
+                    </meta>
+                </property>
+                <property name="hero_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">Subtitle</title>
+                        <title lang="de">Untertitel</title>
+                    </meta>
+                </property>
+                <property name="hero_image" type="media_selection">
+                    <meta>
+                        <title lang="en">Image</title>
+                        <title lang="de">Bild</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+                <section name="hero_reviews">
+                    <meta>
+                        <title lang="en">Reviews / Social Proof</title>
+                        <title lang="de">Bewertungen / Social Proof</title>
+                    </meta>
+                    <properties>
+                        <property name="hero_review_images" type="media_selection">
+                            <meta>
+                                <title lang="en">Review Avatars</title>
+                                <title lang="de">Bewertungs-Avatare</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                            </params>
+                        </property>
+                        <property name="hero_review_text" type="text_line">
+                            <meta>
+                                <title lang="en">Review Text</title>
+                                <title lang="de">Bewertungstext</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </section>
+                <section name="hero_availability">
+                    <meta>
+                        <title lang="en">Availability Card</title>
+                        <title lang="de">Verfügbarkeitskarte</title>
+                    </meta>
+                    <properties>
+                        <property name="hero_avail_title" type="text_line">
+                            <meta>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+                        <property name="hero_avail_text" type="text_line">
+                            <meta>
+                                <title lang="en">Availability Text</title>
+                                <title lang="de">Verfügbarkeitstext</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </section>
+            </properties>
+        </section>
 
-        <property name="article" type="text_editor">
+        <section name="about">
             <meta>
-                <title lang="en">Article</title>
-                <title lang="de">Artikel</title>
+                <title lang="en">About</title>
+                <title lang="de">Über uns</title>
             </meta>
-        </property>
+            <properties>
+                <property name="about_badge" type="text_line">
+                    <meta>
+                        <title lang="en">Badge</title>
+                        <title lang="de">Badge</title>
+                    </meta>
+                </property>
+                <property name="about_title" type="text_line">
+                    <meta>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                </property>
+                <property name="about_description_1" type="text_area">
+                    <meta>
+                        <title lang="en">Description 1</title>
+                        <title lang="de">Beschreibung 1</title>
+                    </meta>
+                </property>
+                <property name="about_description_2" type="text_area">
+                    <meta>
+                        <title lang="en">Description 2</title>
+                        <title lang="de">Beschreibung 2</title>
+                    </meta>
+                </property>
+                <property name="about_images" type="media_selection">
+                    <meta>
+                        <title lang="en">Images (4)</title>
+                        <title lang="de">Bilder (4)</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="max" value="4"/>
+                    </params>
+                </property>
+                <property name="about_features" type="block">
+                    <meta>
+                        <title lang="en">Features</title>
+                        <title lang="de">Merkmale</title>
+                    </meta>
+                    <types>
+                        <type name="feature">
+                            <meta>
+                                <title lang="en">Feature</title>
+                                <title lang="de">Merkmal</title>
+                            </meta>
+                            <properties>
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="subtitle" type="text_line">
+                                    <meta>
+                                        <title lang="en">Subtitle</title>
+                                        <title lang="de">Untertitel</title>
+                                    </meta>
+                                </property>
+                                <property name="icon" type="text_line">
+                                    <meta>
+                                        <title lang="en">Icon Name (Material Symbol e.g. 'dentistry' or Tabler 'ti-...')</title>
+                                        <title lang="de">Icon Name (Material Symbol z.B. 'dentistry' oder Tabler 'ti-...')</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
 
         <section name="services">
             <meta>
@@ -70,6 +197,12 @@
                     <meta>
                         <title lang="en">Services Title</title>
                         <title lang="de">Leistungen Titel</title>
+                    </meta>
+                </property>
+                <property name="services_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">Services Subtitle</title>
+                        <title lang="de">Leistungen Untertitel</title>
                     </meta>
                 </property>
                 <property name="services_list" type="block">
@@ -98,12 +231,73 @@
                                 </property>
                                 <property name="icon" type="text_line">
                                     <meta>
-                                        <title lang="en">Icon Name (e.g. Tooth)</title>
+                                        <title lang="en">Icon Name (Material Symbol e.g. 'dentistry' or Tabler 'ti-...')</title>
+                                        <title lang="de">Icon Name (Material Symbol z.B. 'dentistry' oder Tabler 'ti-...')</title>
+                                    </meta>
+                                </property>
+                                <property name="features" type="block">
+                                    <meta>
+                                        <title lang="en">Bullet points</title>
+                                        <title lang="de">Aufzählungspunkte</title>
+                                    </meta>
+                                    <types>
+                                        <type name="feature">
+                                            <properties>
+                                                <property name="text" type="text_line"/>
+                                            </properties>
+                                        </type>
+                                    </types>
+                                </property>
+                                <property name="link" type="page_selection">
+                                    <meta>
+                                        <title lang="en">Link</title>
+                                        <title lang="de">Link</title>
                                     </meta>
                                 </property>
                             </properties>
                         </type>
                     </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="visit_us">
+            <meta>
+                <title lang="en">Visit Us</title>
+                <title lang="de">Besuchen Sie uns</title>
+            </meta>
+            <properties>
+                <property name="visit_title" type="text_line">
+                    <meta>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                </property>
+                <section name="emergency_box">
+                    <meta>
+                        <title lang="en">Emergency Box</title>
+                        <title lang="de">Notfall-Box</title>
+                    </meta>
+                    <properties>
+                        <property name="emergency_title" type="text_line">
+                            <meta>
+                                <title lang="en">Emergency Title</title>
+                                <title lang="de">Notfall Titel</title>
+                            </meta>
+                        </property>
+                        <property name="emergency_text" type="text_area">
+                            <meta>
+                                <title lang="en">Emergency Text</title>
+                                <title lang="de">Notfall Text</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </section>
+                <property name="map_link" type="text_line">
+                    <meta>
+                        <title lang="en">Google Maps Link (Embed URL)</title>
+                        <title lang="de">Google Maps Link (Embed URL)</title>
+                    </meta>
                 </property>
             </properties>
         </section>

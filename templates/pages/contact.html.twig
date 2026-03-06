@@ -1,60 +1,148 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <section class="section">
-        <div class="container">
-            <h1 style="text-align: center; margin-bottom: 3rem;">{{ content.title }}</h1>
-
-            <div class="grid">
-                <div class="contact-info">
-                    <h2>Get in Touch</h2>
-                    {% if content.address is not empty %}
-                        <div class="contact-item">
-                            <strong>Address:</strong>
-                            <p>{{ content.address|nl2br }}</p>
-                        </div>
-                    {% endif %}
-
-                    {% if content.phone is not empty %}
-                        <div class="contact-item">
-                            <strong>Phone:</strong>
-                            <p><a href="tel:{{ content.phone }}">{{ content.phone }}</a></p>
-                        </div>
-                    {% endif %}
-
-                    {% if content.email is not empty %}
-                        <div class="contact-item">
-                            <strong>Email:</strong>
-                            <p><a href="mailto:{{ content.email }}">{{ content.email }}</a></p>
-                        </div>
-                    {% endif %}
-                </div>
-
-                <div class="opening-hours">
-                    <h2>Opening Hours</h2>
-                    <table class="hours-table">
-                        {% for entry in content.hours %}
-                            <tr>
-                                <td>{{ entry.days }}</td>
-                                <td>{{ entry.time }}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </div>
-            </div>
-
-            {% if content.map_link is not empty %}
-                <div class="map-container" style="margin-top: 4rem;">
-                    <iframe
-                        src="{{ content.map_link }}"
-                        width="100%"
-                        height="450"
-                        style="border:0;"
-                        allowfullscreen=""
-                        loading="lazy">
-                    </iframe>
-                </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div class="mb-10">
+            <h1 class="text-4xl font-bold font-display text-slate-900 dark:text-white mb-2">{{ content.title }}</h1>
+            {% if content.subtitle is not empty %}
+                <p class="text-slate-500 dark:text-slate-400">{{ content.subtitle }}</p>
             {% endif %}
         </div>
-    </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div class="lg:col-span-5 space-y-10">
+                <section>
+                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">contact_support</span>
+                        {{ 'So erreichen Sie uns'|trans }}
+                    </h2>
+                    <div class="space-y-4">
+                        {% if content.email is not empty %}
+                            <a href="mailto:{{ content.email }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">mail</span>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'E-Mail'|trans }}</p>
+                                    <p class="font-medium">{{ content.email }}</p>
+                                </div>
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+                            </a>
+                        {% endif %}
+
+                        {% if content.hours is not empty %}
+                            <div class="flex items-start p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 shrink-0">
+                                    <span class="material-symbols-outlined">schedule</span>
+                                </div>
+                                <div>
+                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'Öffnungszeiten'|trans }}</p>
+                                    <div class="space-y-1">
+                                        {% for entry in content.hours %}
+                                            <p class="font-medium text-sm">
+                                                <span class="text-slate-500 dark:text-slate-400">{{ entry.days }}:</span> {{ entry.time }}
+                                            </p>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </section>
+
+                {% if content.questions is not empty %}
+                    <section>
+                        <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">quiz</span>
+                            {{ 'Häufige Fragen'|trans }}
+                        </h2>
+                        <div class="space-y-3">
+                            {% for item in content.questions %}
+                                <details class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+                                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                                        {{ item.question }}
+                                        <span class="material-symbols-outlined expand-icon transition-transform text-slate-400 group-open:rotate-180">expand_more</span>
+                                    </summary>
+                                    <div class="px-4 pb-4 text-slate-500 dark:text-slate-400 leading-relaxed text-sm">
+                                        {{ item.answer|nl2br }}
+                                    </div>
+                                </details>
+                            {% endfor %}
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+
+            <div class="lg:col-span-7">
+                <div class="sticky top-28 space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 p-2">
+                        <div class="relative w-full aspect-video lg:aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
+                            {% if content.map_link is not empty %}
+                                <iframe
+                                    src="{{ content.map_link }}"
+                                    width="100%"
+                                    height="100%"
+                                    style="border:0;"
+                                    allowfullscreen=""
+                                    loading="lazy"
+                                    class="opacity-80 dark:opacity-40">
+                                </iframe>
+                                <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
+                                    <div class="bg-primary p-3 rounded-full shadow-2xl animate-bounce">
+                                        <span class="material-symbols-outlined text-white text-3xl">location_on</span>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="absolute inset-0 flex items-center justify-center text-slate-400">
+                                    {{ 'Keine Karte verfügbar'|trans }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="p-6">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                                <div class="flex items-start gap-4">
+                                    <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-lg text-primary">
+                                        <span class="material-symbols-outlined">location_on</span>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-lg dark:text-white">{{ 'Unser Standort'|trans }}</h3>
+                                        <p class="text-slate-500 dark:text-slate-400">{{ content.address|nl2br }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-col sm:flex-row gap-3">
+                                    {% if content.phone is not empty %}
+                                        <a href="tel:{{ content.phone|replace({' ': ''}) }}" class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition whitespace-nowrap">
+                                            <span class="material-symbols-outlined">call</span>
+                                            {{ 'Jetzt anrufen'|trans }}
+                                        </a>
+                                    {% endif %}
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ content.address|url_encode }}" target="_blank" class="bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition whitespace-nowrap">
+                                        <span class="material-symbols-outlined">directions</span>
+                                        {{ 'Anfahrt'|trans }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {% if content.emergency_info is not empty %}
+                            <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
+                                <span class="material-symbols-outlined text-primary mb-2">emergency</span>
+                                <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Notfallversorgung'|trans }}</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info }}</p>
+                            </div>
+                        {% endif %}
+                        {% if content.languages_info is not empty %}
+                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+                                <span class="material-symbols-outlined text-slate-500 mb-2">language</span>
+                                <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Gesprochene Sprachen'|trans }}</h4>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info }}</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

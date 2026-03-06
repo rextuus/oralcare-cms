@@ -27,6 +27,13 @@
             <tag name="sulu.rlp.part"/>
         </property>
 
+        <property name="subtitle" type="text_area">
+            <meta>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
         <property name="url" type="route" mandatory="true">
             <meta>
                 <title lang="en">Resourcelocator</title>
@@ -36,56 +43,173 @@
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="subtitle" type="text_line">
-            <meta>
-                <title lang="en">Subtitle</title>
-                <title lang="de">Untertitel</title>
-            </meta>
-        </property>
-
-        <property name="team_members" type="block">
+        <section name="team_members_section">
             <meta>
                 <title lang="en">Team Members</title>
                 <title lang="de">Teammitglieder</title>
             </meta>
-            <types>
-                <type name="member">
+            <properties>
+                <property name="team_members" type="block">
                     <meta>
-                        <title lang="en">Member</title>
-                        <title lang="de">Mitglied</title>
+                        <title lang="en">Members</title>
+                        <title lang="de">Mitglieder</title>
                     </meta>
-                    <properties>
-                        <property name="name" type="text_line" mandatory="true">
+                    <types>
+                        <type name="member">
                             <meta>
-                                <title lang="en">Name</title>
-                                <title lang="de">Name</title>
+                                <title lang="en">Member</title>
+                                <title lang="de">Mitglied</title>
                             </meta>
-                        </property>
-                        <property name="position" type="text_line">
-                            <meta>
-                                <title lang="en">Position</title>
-                                <title lang="de">Position</title>
-                            </meta>
-                        </property>
-                        <property name="description" type="text_area">
-                            <meta>
-                                <title lang="en">Bio</title>
-                                <title lang="de">Biografie</title>
-                            </meta>
-                        </property>
-                        <property name="image" type="media_selection">
-                            <meta>
-                                <title lang="en">Image</title>
-                                <title lang="de">Bild</title>
-                            </meta>
-                            <params>
-                                <param name="types" value="image"/>
-                                <param name="defaultDisplayOption" value="left"/>
-                            </params>
-                        </property>
-                    </properties>
-                </type>
-            </types>
-        </property>
+                            <properties>
+                                <property name="name" type="text_line">
+                                    <meta>
+                                        <title lang="en">Name</title>
+                                        <title lang="de">Name</title>
+                                    </meta>
+                                </property>
+                                <property name="role" type="text_line">
+                                    <meta>
+                                        <title lang="en">Role / Category</title>
+                                        <title lang="de">Rolle / Kategorie</title>
+                                    </meta>
+                                </property>
+                                <property name="description" type="text_area">
+                                    <meta>
+                                        <title lang="en">Description</title>
+                                        <title lang="de">Beschreibung</title>
+                                    </meta>
+                                </property>
+                                <property name="image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="email" type="text_line">
+                                    <meta>
+                                        <title lang="en">Email</title>
+                                        <title lang="de">E-Mail</title>
+                                    </meta>
+                                </property>
+                                <property name="calendar_url" type="text_line">
+                                    <meta>
+                                        <title lang="en">Calendar/Booking URL</title>
+                                        <title lang="de">Kalender/Buchungs-URL</title>
+                                    </meta>
+                                </property>
+                                <property name="badge_color" type="single_select">
+                                    <meta>
+                                        <title lang="en">Badge Color</title>
+                                        <title lang="de">Badge-Farbe</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="blue">
+                                                <meta>
+                                                    <title lang="en">Blue</title>
+                                                    <title lang="de">Blau</title>
+                                                </meta>
+                                            </param>
+                                            <param name="purple">
+                                                <meta>
+                                                    <title lang="en">Purple</title>
+                                                    <title lang="de">Lila</title>
+                                                </meta>
+                                            </param>
+                                            <param name="teal">
+                                                <meta>
+                                                    <title lang="en">Teal</title>
+                                                    <title lang="de">Blaugrün</title>
+                                                </meta>
+                                            </param>
+                                            <param name="amber">
+                                                <meta>
+                                                    <title lang="en">Amber</title>
+                                                    <title lang="de">Bernstein</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+                                <property name="category" type="single_select">
+                                    <meta>
+                                        <title lang="en">Category (Filter)</title>
+                                        <title lang="de">Kategorie (Filter)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="dentists">
+                                                <meta>
+                                                    <title lang="en">Dentists</title>
+                                                    <title lang="de">Zahnärzte</title>
+                                                </meta>
+                                            </param>
+                                            <param name="prophylaxis">
+                                                <meta>
+                                                    <title lang="en">Prophylaxis</title>
+                                                    <title lang="de">Prophylaxe</title>
+                                                </meta>
+                                            </param>
+                                            <param name="specialists">
+                                                <meta>
+                                                    <title lang="en">Specialists</title>
+                                                    <title lang="de">Spezialisten</title>
+                                                </meta>
+                                            </param>
+                                            <param name="assistants">
+                                                <meta>
+                                                    <title lang="en">Assistants</title>
+                                                    <title lang="de">Assistenz</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="careers_section">
+            <meta>
+                <title lang="en">Careers / Join us</title>
+                <title lang="de">Karriere / Werden Sie Teil des Teams</title>
+            </meta>
+            <properties>
+                <property name="careers_title" type="text_line">
+                    <meta>
+                        <title lang="en">Title</title>
+                        <title lang="de">Titel</title>
+                    </meta>
+                </property>
+                <property name="careers_text" type="text_area">
+                    <meta>
+                        <title lang="en">Text</title>
+                        <title lang="de">Text</title>
+                    </meta>
+                </property>
+                <property name="careers_button_text" type="text_line">
+                    <meta>
+                        <title lang="en">Button Text</title>
+                        <title lang="de">Button Text</title>
+                    </meta>
+                </property>
+                <property name="careers_button_link" type="page_selection">
+                    <meta>
+                        <title lang="en">Button Link</title>
+                        <title lang="de">Button Link</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
     </properties>
 </template>

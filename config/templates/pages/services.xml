@@ -36,62 +36,123 @@
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="subtitle" type="text_line">
+        <section name="hero_section">
             <meta>
-                <title lang="en">Subtitle</title>
-                <title lang="de">Untertitel</title>
+                <title lang="en">Hero Section</title>
+                <title lang="de">Hero Bereich</title>
             </meta>
-        </property>
-
-        <property name="article" type="text_editor">
-            <meta>
-                <title lang="en">Description</title>
-                <title lang="de">Beschreibung</title>
-            </meta>
-        </property>
-
-        <property name="services_list" type="block">
-            <meta>
-                <title lang="en">Services</title>
-                <title lang="de">Leistungen</title>
-            </meta>
-            <types>
-                <type name="service">
+            <properties>
+                <property name="hero_badge" type="text_line">
                     <meta>
-                        <title lang="en">Service</title>
-                        <title lang="de">Leistung</title>
+                        <title lang="en">Hero Badge</title>
+                        <title lang="de">Hero Badge</title>
                     </meta>
-                    <properties>
-                        <property name="title" type="text_line">
+                </property>
+                <property name="hero_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">Hero Subtitle</title>
+                        <title lang="de">Hero Untertitel</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="services_section">
+            <meta>
+                <title lang="en">Clinical Services</title>
+                <title lang="de">Klinische Leistungen</title>
+            </meta>
+            <properties>
+                <property name="services_list" type="block">
+                    <meta>
+                        <title lang="en">Services</title>
+                        <title lang="de">Leistungen</title>
+                    </meta>
+                    <types>
+                        <type name="service">
                             <meta>
-                                <title lang="en">Title</title>
-                                <title lang="de">Titel</title>
+                                <title lang="en">Service</title>
+                                <title lang="de">Leistung</title>
                             </meta>
-                        </property>
-                        <property name="description" type="text_area">
-                            <meta>
-                                <title lang="en">Description</title>
-                                <title lang="de">Beschreibung</title>
-                            </meta>
-                        </property>
-                        <property name="icon" type="text_line">
-                            <meta>
-                                <title lang="en">Icon Name (e.g. Tooth)</title>
-                            </meta>
-                        </property>
-                        <property name="image" type="media_selection">
-                            <meta>
-                                <title lang="en">Optional Image</title>
-                                <title lang="de">Optionales Bild</title>
-                            </meta>
-                            <params>
-                                <param name="types" value="image"/>
-                                <param name="defaultDisplayOption" value="left"/>
-                            </params>
-                        </property>
-                    </properties>
-                </type>
-            </types>
-        </property>
+                            <properties>
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="description" type="text_area">
+                                    <meta>
+                                        <title lang="en">Description</title>
+                                        <title lang="de">Beschreibung</title>
+                                    </meta>
+                                </property>
+                                <property name="icon" type="text_line">
+                                    <meta>
+                                        <title lang="en">Icon Name (Material Symbol e.g. 'dentistry' or Tabler 'ti-...')</title>
+                                        <title lang="de">Icon Name (Material Symbol z.B. 'dentistry' oder Tabler 'ti-...')</title>
+                                    </meta>
+                                </property>
+                                <property name="image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="link" type="page_selection">
+                                    <meta>
+                                        <title lang="en">Internal Link (Optional)</title>
+                                        <title lang="de">Interner Link (Optional)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="cta_section">
+            <meta>
+                <title lang="en">Call to Action (Ready to book?)</title>
+                <title lang="de">Call to Action (Bereit zu buchen?)</title>
+            </meta>
+            <properties>
+                <property name="cta_title" type="text_line">
+                    <meta>
+                        <title lang="en">CTA Title</title>
+                        <title lang="de">CTA Titel</title>
+                    </meta>
+                </property>
+                <property name="cta_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">CTA Subtitle</title>
+                        <title lang="de">CTA Untertitel</title>
+                    </meta>
+                </property>
+                <property name="cta_button_text" type="text_line">
+                    <meta>
+                        <title lang="en">Button Text</title>
+                        <title lang="de">Button Text</title>
+                    </meta>
+                </property>
+                <property name="cta_button_link" type="page_selection">
+                    <meta>
+                        <title lang="en">Button Link</title>
+                        <title lang="de">Button Link</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
     </properties>
 </template>

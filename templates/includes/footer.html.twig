@@ -1,71 +1,90 @@
-{# Direct Lookup: Automatically finds the Footer Settings snippet by its template key #}
-{% set snippets = sulu_snippet_load_by_filter({'template': 'footer_settings'}) %}
+{% set snippets = sulu_snippet_load_by_area('footer_settings') %}
 {% set footerSettings = snippets|first %}
 
-<footer class="footer">
-    <div class="container">
-        <div class="footer-grid">
-            {# Column 1: Our Services (Editable via Snippet) #}
-            <div class="footer-col">
-                <h4>Our Services</h4>
-                <ul>
+<footer class="bg-navy text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8">
+            <div class="space-y-6">
+                <div class="flex items-center gap-2">
+                    <div class="bg-primary p-2 rounded-lg">
+                        <span class="material-symbols-outlined text-white">medical_services</span>
+                    </div>
+                    <span class="font-display font-bold text-2xl tracking-tight">OralCare<span class="text-primary">.</span></span>
+                </div>
+                <p class="text-slate-400 leading-relaxed text-sm">
+                    {{ 'Wir bieten erstklassige zahnmedizinische Versorgung in einer komfortablen Umgebung. Unser Team nutzt modernste Technik für Ihr gesundes Lächeln.'|trans }}
+                </p>
+                <div class="flex gap-4">
+                    <a class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-all text-white" href="#">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg>
+                    </a>
+                    <a class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-primary transition-all text-white" href="#">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.315 2c2.43 0 2.784.012 3.855.06 1.061.044 1.781.209 2.442.465a4.91 4.91 0 0 1 1.773 1.152 4.91 4.91 0 0 1 1.152 1.773c.256.661.421 1.381.465 2.442.048 1.071.06 1.425.06 3.855s-.012 2.784-.06 3.855c-.044 1.061-.209 1.781-.465 2.442a4.91 4.91 0 0 1-1.152 1.773 4.91 4.91 0 0 1-1.773 1.152c-.661.256-1.381.421-2.442.465-1.071.048-1.425.06-3.855.06s-2.784-.012-3.855-.06c-1.061-.044-1.781-.209-2.442-.465a4.91 4.91 0 0 1-1.773-1.152 4.91 4.91 0 0 1-1.152-1.773c-.256-.661-.421-1.381-.465-2.442C2.012 14.857 2 14.503 2 12.073s.012-2.784.06-3.855c.044-1.061.209-1.781.465-2.442a4.91 4.91 0 0 1 1.152-1.773 4.91 4.91 0 0 1 1.773-1.152c.661-.256 1.381-.421 2.442-.465 1.071-.048 1.425-.06 3.855-.06zm0 2.25c-2.413 0-2.7.012-3.652.056-.88.04-1.357.187-1.675.31a3.166 3.166 0 0 0-1.168.76 3.166 3.166 0 0 0-.76 1.168c-.123.318-.27.795-.31 1.675-.044.952-.056 1.239-.056 3.652s.012 2.7.056 3.652c.04.88.187 1.357.31 1.675.148.384.346.711.606.971.26.26.587.458.971.606.318.123.795.27 1.675.31.952.044 1.239.056 3.652.056s2.7-.012 3.652-.056c.88-.04 1.357-.187 1.675-.31a3.166 3.166 0 0 0 1.168-.76 3.166 3.166 0 0 0 .76-1.168c.123-.318.27-.795.31-1.675.044-.952.056-1.239.056-3.652s-.012-2.7-.056-3.652c-.04-.88-.187-1.357-.31-1.675a3.166 3.166 0 0 0-.76-1.168 3.166 3.166 0 0 0-1.168-.76c-.318-.123-.795-.27-1.675-.31-.952-.044-1.239-.056-3.652-.056zM12.315 7.123a4.95 4.95 0 1 1 0 9.9 4.95 4.95 0 0 1 0-9.9zm0 2.25a2.7 2.7 0 1 0 0 5.4 2.7 2.7 0 0 0 0-5.4zm4.846-3.321a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0z"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Schnellzugriff'|trans }}</h4>
+                <ul class="space-y-4 text-slate-400">
+                    <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_root_path() }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Startseite'|trans }}</a></li>
+                    {% for item in sulu_page_navigation_root_tree('main', 1) %}
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Unsere Leistungen'|trans }}</h4>
+                <ul class="space-y-4 text-slate-400">
                     {% if footerSettings and footerSettings.content.top_services is defined and footerSettings.content.top_services is not empty %}
                         {% for item in footerSettings.content.top_services %}
-                            {# Correctly resolve the page selection #}
                             {% set target = '#' %}
                             {% if item.link is not empty %}
                                 {% set target = sulu_content_path(item.link|first.url) %}
                             {% endif %}
-                            <li><a href="{{ target }}">{{ item.title }}</a></li>
+                            <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ target }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
                         {% endfor %}
                     {% else %}
-                        {# Fallback if no snippet is set #}
-                        <li><a href="{{ sulu_content_path('/services') }}">General Dentistry</a></li>
-                        <li><a href="{{ sulu_content_path('/services') }}">Cosmetic Procedures</a></li>
-                        <li><a href="{{ sulu_content_path('/services') }}">Orthodontics</a></li>
-                        <li><a href="{{ sulu_content_path('/services') }}">Teeth Whitening</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Prophylaxe'|trans }}</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Implantate'|trans }}</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Kieferorthopädie'|trans }}</a></li>
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Bleaching'|trans }}</a></li>
                     {% endif %}
                 </ul>
             </div>
-
-            {# Column 2: Quick Links (All Pages) #}
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="{{ sulu_content_root_path() }}">Home</a></li>
-                    {% for item in sulu_page_navigation_root_tree('main', 1) %}
-                        <li><a href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-            {# Column 3: Contact #}
-            <div class="footer-col">
-                <h4>Contact Us</h4>
-                <div class="footer-contact">
+            <div>
+                <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Kontakt'|trans }}</h4>
+                <ul class="space-y-4">
                     {% if footerSettings and footerSettings.content.address is defined and footerSettings.content.address %}
-                        <p><i class="ti ti-map-pin"></i> {{ footerSettings.content.address }}</p>
-                    {% else %}
-                        <p><i class="ti ti-map-pin"></i> 123 Dental Lane, Oral City</p>
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-primary mt-1">location_on</span>
+                            <span class="text-slate-400 text-sm">{{ footerSettings.content.address|nl2br }}</span>
+                        </li>
                     {% endif %}
-
                     {% if footerSettings and footerSettings.content.phone is defined and footerSettings.content.phone %}
-                        <p><i class="ti ti-phone"></i> {{ footerSettings.content.phone }}</p>
-                    {% else %}
-                        <p><i class="ti ti-phone"></i> +1 (555) 123-4567</p>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">call</span>
+                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="tel:{{ footerSettings.content.phone|replace({' ': ''}) }}">{{ footerSettings.content.phone }}</a>
+                        </li>
                     {% endif %}
-
                     {% if footerSettings and footerSettings.content.email is defined and footerSettings.content.email %}
-                        <p><i class="ti ti-mail"></i> {{ footerSettings.content.email }}</p>
-                    {% else %}
-                        <p><i class="ti ti-mail"></i> hello@oralcare.com</p>
+                        <li class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">mail</span>
+                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="mailto:{{ footerSettings.content.email }}">{{ footerSettings.content.email }}</a>
+                        </li>
                     {% endif %}
-                </div>
+                </ul>
             </div>
         </div>
-
-        <div class="footer-bottom">
-            <p>&copy; {{ 'now'|date('Y') }} OralCare Dental Clinic. All rights reserved.</p>
+    </div>
+    <div class="border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
+                <p>&copy; {{ 'now'|date('Y') }} OralCare Dental Clinic. {{ 'Alle Rechte vorbehalten.'|trans }}</p>
+                <div class="flex gap-8">
+                    <a class="hover:text-white transition-colors" href="#">{{ 'Datenschutz'|trans }}</a>
+                    <a class="hover:text-white transition-colors" href="#">{{ 'Impressum'|trans }}</a>
+                </div>
+            </div>
         </div>
     </div>
 </footer>

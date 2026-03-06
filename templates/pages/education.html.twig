@@ -1,0 +1,226 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+            <div class="max-w-lg w-full">
+                <h1 class="text-4xl font-extrabold mb-4 tracking-tight text-slate-900 dark:text-white">{{ content.title }}</h1>
+                {% if content.hero_subtitle is not empty %}
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">{{ content.hero_subtitle|nl2br }}</p>
+                {% endif %}
+                <div class="relative">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
+                    <input class="w-full pl-12 pr-4 py-4 rounded-2xl bg-white dark:bg-gray-800 border-none shadow-sm ring-1 ring-gray-200 dark:ring-gray-700 focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="{{ 'Nach zahnärztlichen Tipps, Anleitungen und Artikeln suchen...'|trans }}" type="text"/>
+                </div>
+            </div>
+            <div class="flex flex-wrap gap-2" id="education-filter">
+                <button data-filter="all" class="filter-btn px-6 py-2.5 bg-primary text-white rounded-full font-medium shadow-lg shadow-blue-500/20 active-filter">{{ 'Alle'|trans }}</button>
+                <button data-filter="hygiene" class="filter-btn px-6 py-2.5 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-primary transition-all">{{ 'Hygiene'|trans }}</button>
+                <button data-filter="prevention" class="filter-btn px-6 py-2.5 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-primary transition-all">{{ 'Prävention'|trans }}</button>
+                <button data-filter="treatment" class="filter-btn px-6 py-2.5 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-primary transition-all">{{ 'Behandlung'|trans }}</button>
+                <button data-filter="tech" class="filter-btn px-6 py-2.5 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full font-medium border border-gray-200 dark:border-gray-700 hover:border-primary transition-all">{{ 'Technik'|trans }}</button>
+            </div>
+        </div>
+
+        {% if content.featured_list is not empty %}
+            <section class="mb-16">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ 'Ausgewählte Artikel'|trans }}</h2>
+                    <a class="text-primary font-semibold hover:underline flex items-center gap-1" href="#">
+                        {{ 'Alle ansehen'|trans }} <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    {% for item in content.featured_list %}
+                        {% if loop.first %}
+                            <article class="lg:col-span-8 group cursor-pointer bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-gray-100 dark:border-gray-700 education-card" data-category="{{ item.article_category_key|default('all') }}">
+                                {% set target = '#' %}
+                                {% if item.article_link is not empty %}
+                                    {% set target = sulu_content_path(item.article_link|first.url) %}
+                                {% endif %}
+                                <a href="{{ target }}" class="flex flex-col h-full">
+                                    <div class="relative overflow-hidden h-[400px]">
+                                        {% if item.article_image is not empty %}
+                                            {% set image = item.article_image|first %}
+                                            <img src="{{ image.thumbnails['sulu-1200x']|default(image.url) }}" alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                        {% else %}
+                                            <img alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?q=80&w=1200&auto=format&fit=crop">
+                                        {% endif %}
+                                        <div class="absolute top-6 left-6">
+                                            {% set category_label = 'Schulung'|trans %}
+                                            {% if item.article_category_key == 'hygiene' %}{% set category_label = 'Hygiene'|trans %}
+                                            {% elseif item.article_category_key == 'prevention' %}{% set category_label = 'Prävention'|trans %}
+                                            {% elseif item.article_category_key == 'treatment' %}{% set category_label = 'Behandlung'|trans %}
+                                            {% elseif item.article_category_key == 'tech' %}{% set category_label = 'Technik'|trans %}
+                                            {% endif %}
+                                            <span class="bg-primary/90 backdrop-blur-sm text-white px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">{{ category_label }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-8 flex-grow">
+                                        <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-4">
+                                            <span>{{ item.article_date }}</span>
+                                            <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                            <span>{{ item.article_read_time }}</span>
+                                        </div>
+                                        <h3 class="text-3xl font-bold mb-4 group-hover:text-primary transition-colors text-slate-900 dark:text-white">{{ item.article_title }}</h3>
+                                        <p class="text-gray-600 dark:text-gray-400 line-clamp-2 text-lg">{{ item.article_description }}</p>
+                                        <div class="mt-8 flex items-center gap-3">
+                                            {% if item.author_image is not empty %}
+                                                {% set author_img = item.author_image|first %}
+                                                <img src="{{ author_img.thumbnails['sulu-100x100']|default(author_img.url) }}" alt="{{ item.author_name }}" class="w-10 h-10 rounded-full object-cover">
+                                            {% else %}
+                                                <img alt="{{ item.author_name }}" class="w-10 h-10 rounded-full object-cover" src="https://i.pravatar.cc/100?u={{ item.author_name|url_encode }}">
+                                            {% endif %}
+                                            <div>
+                                                <p class="text-sm font-bold text-slate-900 dark:text-white">{{ item.author_name }}</p>
+                                                <p class="text-xs text-gray-500">{{ item.author_role }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </article>
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="lg:col-span-4 flex flex-col gap-8">
+                        {% for item in content.featured_list %}
+                            {% if not loop.first %}
+                                <article class="group cursor-pointer education-card" data-category="{{ item.article_category_key|default('all') }}">
+                                    {% set target = '#' %}
+                                    {% if item.article_link is not empty %}
+                                        {% set target = sulu_content_path(item.article_link|first.url) %}
+                                    {% endif %}
+                                    <a href="{{ target }}">
+                                        <div class="aspect-video mb-4 overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                                            {% if item.article_image is not empty %}
+                                                {% set image = item.article_image|first %}
+                                                <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                            {% else %}
+                                                <img alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop">
+                                            {% endif %}
+                                        </div>
+                                        {% set category_label = 'Schulung'|trans %}
+                                        {% if item.article_category_key == 'hygiene' %}{% set category_label = 'Hygiene'|trans %}
+                                        {% elseif item.article_category_key == 'prevention' %}{% set category_label = 'Prävention'|trans %}
+                                        {% elseif item.article_category_key == 'treatment' %}{% set category_label = 'Behandlung'|trans %}
+                                        {% elseif item.article_category_key == 'tech' %}{% set category_label = 'Technik'|trans %}
+                                        {% endif %}
+                                        <span class="text-primary text-xs font-bold uppercase tracking-wider mb-2 block">{{ category_label }}</span>
+                                        <h4 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors leading-tight text-slate-900 dark:text-white">{{ item.article_title }}</h4>
+                                        <div class="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400">
+                                            <span>{{ item.article_date }}</span>
+                                            <span>{{ item.article_read_time }}</span>
+                                        </div>
+                                    </a>
+                                </article>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+
+        {% if content.updates_list is not empty %}
+            <section class="py-12 border-t border-gray-200 dark:border-gray-800">
+                <h2 class="text-2xl font-bold mb-8 text-slate-900 dark:text-white">{{ 'Neueste Updates'|trans }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    {% for update in content.updates_list %}
+                        <article class="group cursor-pointer education-card" data-category="{{ update.article_category_key|default('all') }}">
+{% set target = '#' %}
+                            {% if update.article_link is not empty %}
+                                {% set target = sulu_content_path(update.article_link|first.url) %}
+                            {% endif %}
+                            <a href="{{ target }}">
+                                <div class="relative aspect-[16/10] mb-5 overflow-hidden rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
+                                    {% if update.article_image is not empty %}
+                                        {% set image = update.article_image|first %}
+                                        <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ update.article_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                                    {% else %}
+                                        <img alt="{{ update.article_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=400&auto=format&fit=crop">
+                                    {% endif %}
+                                    <div class="absolute top-4 right-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm p-2 rounded-full shadow-sm">
+                                        <span class="material-symbols-outlined text-primary text-lg">bookmark_border</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2 mb-3">
+                                    {% set category_label = 'Schulung'|trans %}
+                                    {% if update.article_category_key == 'hygiene' %}{% set category_label = 'Hygiene'|trans %}
+                                    {% elseif update.article_category_key == 'prevention' %}{% set category_label = 'Prävention'|trans %}
+                                    {% elseif update.article_category_key == 'treatment' %}{% set category_label = 'Behandlung'|trans %}
+                                    {% elseif update.article_category_key == 'tech' %}{% set category_label = 'Technik'|trans %}
+                                    {% endif %}
+                                    <span class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-primary text-[10px] font-bold uppercase rounded-md">{{ category_label }}</span>
+                                    <span class="text-gray-400 text-xs">{{ update.article_read_time }}</span>
+                                </div>
+                                <h3 class="text-xl font-bold mb-3 leading-snug group-hover:text-primary transition-colors text-slate-900 dark:text-white">{{ update.article_title }}</h3>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2">{{ update.article_description }}</p>
+                            </a>
+                        </article>
+                    {% endfor %}
+                </div>
+                <div class="mt-16 flex justify-center">
+                    <button class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-8 py-3 rounded-full font-bold hover:bg-gray-50 dark:hover:bg-gray-700 transition-all shadow-sm text-slate-900 dark:text-white">
+                        {{ 'Weitere Artikel laden'|trans }}
+                    </button>
+                </div>
+            </section>
+        {% endif %}
+    </main>
+
+    {% if content.newsletter_title is not empty or content.newsletter_description is not empty %}
+        <section class="bg-primary text-white py-20 mt-12 overflow-hidden relative">
+            <div class="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+                <h2 class="text-4xl font-extrabold mb-6">{{ content.newsletter_title|default('Informiert bleiben über Ihre Zahngesundheit'|trans) }}</h2>
+                <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">{{ content.newsletter_description|default('Abonnieren Sie unseren Newsletter und erhalten Sie monatlich Tipps, Sonderangebote und die neuesten Nachrichten aus der Zahntechnik direkt in Ihren Posteingang.'|trans) }}</p>
+                <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+                    <input class="flex-grow px-6 py-4 rounded-full text-slate-900 focus:outline-none focus:ring-4 focus:ring-white/20" placeholder="{{ 'Ihre E-Mail-Adresse'|trans }}" type="email"/>
+                    <button class="bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-all shadow-xl" type="submit">{{ 'Jetzt abonnieren'|trans }}</button>
+                </form>
+                <p class="mt-6 text-sm text-blue-200">{{ 'Kein Spam, nur hochwertige Beratung. Abmeldung jederzeit möglich.'|trans }}</p>
+            </div>
+        </section>
+    {% endif %}
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('#education-filter .filter-btn');
+            const articleCards = document.querySelectorAll('.education-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.getAttribute('data-filter');
+
+                    // Update active button state
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('bg-primary', 'text-white', 'shadow-lg', 'shadow-blue-500/20', 'active-filter');
+                        btn.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300', 'border', 'border-gray-200', 'dark:border-gray-700');
+                    });
+
+                    button.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-600', 'dark:text-gray-300', 'border', 'border-gray-200', 'dark:border-gray-700');
+                    button.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-blue-500/20', 'active-filter');
+
+                    // Filter cards
+                    articleCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

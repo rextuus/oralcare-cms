@@ -1,0 +1,295 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>education</key>
+
+    <view>pages/education</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Patient Education</title>
+        <title lang="de">Patientenschulung</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <section name="hero_section">
+            <meta>
+                <title lang="en">Hero Section</title>
+                <title lang="de">Hero Bereich</title>
+            </meta>
+            <properties>
+                <property name="hero_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">Hero Subtitle</title>
+                        <title lang="de">Hero Untertitel</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="featured_articles">
+            <meta>
+                <title lang="en">Featured Articles</title>
+                <title lang="de">Ausgewählte Artikel</title>
+            </meta>
+            <properties>
+                <property name="featured_list" type="block">
+                    <meta>
+                        <title lang="en">Articles (Limit 3 recommended)</title>
+                        <title lang="de">Artikel (Limit 3 empfohlen)</title>
+                    </meta>
+                    <types>
+                        <type name="article">
+                            <meta>
+                                <title lang="en">Article</title>
+                                <title lang="de">Artikel</title>
+                            </meta>
+                            <properties>
+                                <property name="article_title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="article_description" type="text_area">
+                                    <meta>
+                                        <title lang="en">Description</title>
+                                        <title lang="de">Beschreibung</title>
+                                    </meta>
+                                </property>
+                                <property name="article_image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_category_key" type="single_select">
+                                    <meta>
+                                        <title lang="en">Category (Filter)</title>
+                                        <title lang="de">Kategorie (Filter)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="hygiene">
+                                                <meta>
+                                                    <title lang="en">Hygiene</title>
+                                                    <title lang="de">Hygiene</title>
+                                                </meta>
+                                            </param>
+                                            <param name="prevention">
+                                                <meta>
+                                                    <title lang="en">Prevention</title>
+                                                    <title lang="de">Prävention</title>
+                                                </meta>
+                                            </param>
+                                            <param name="treatment">
+                                                <meta>
+                                                    <title lang="en">Treatment</title>
+                                                    <title lang="de">Behandlung</title>
+                                                </meta>
+                                            </param>
+                                            <param name="tech">
+                                                <meta>
+                                                    <title lang="en">Tech</title>
+                                                    <title lang="de">Technik</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+                                <property name="article_date" type="text_line">
+                                    <meta>
+                                        <title lang="en">Date (e.g. Oct 12, 2023)</title>
+                                        <title lang="de">Datum (z.B. 12. Okt. 2023)</title>
+                                    </meta>
+                                </property>
+                                <property name="article_read_time" type="text_line">
+                                    <meta>
+                                        <title lang="en">Read Time (e.g. 5 min read)</title>
+                                        <title lang="de">Lesezeit (z.B. 5 Min. Lesezeit)</title>
+                                    </meta>
+                                </property>
+                                <property name="author_name" type="text_line">
+                                    <meta>
+                                        <title lang="en">Author Name</title>
+                                        <title lang="de">Name des Autors</title>
+                                    </meta>
+                                </property>
+                                <property name="author_role" type="text_line">
+                                    <meta>
+                                        <title lang="en">Author Role</title>
+                                        <title lang="de">Rolle des Autors</title>
+                                    </meta>
+                                </property>
+                                <property name="author_image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Author Image</title>
+                                        <title lang="de">Bild des Autors</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_link" type="page_selection">
+                                    <meta>
+                                        <title lang="en">Internal Link (Optional)</title>
+                                        <title lang="de">Interner Link (Optional)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="latest_updates">
+            <meta>
+                <title lang="en">Latest Updates</title>
+                <title lang="de">Neueste Updates</title>
+            </meta>
+            <properties>
+                <property name="updates_list" type="block">
+                    <meta>
+                        <title lang="en">Articles</title>
+                        <title lang="de">Artikel</title>
+                    </meta>
+                    <types>
+                        <type name="article">
+                            <meta>
+                                <title lang="en">Article</title>
+                                <title lang="de">Artikel</title>
+                            </meta>
+                            <properties>
+                                <property name="article_title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="article_description" type="text_area">
+                                    <meta>
+                                        <title lang="en">Description</title>
+                                        <title lang="de">Beschreibung</title>
+                                    </meta>
+                                </property>
+                                <property name="article_image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_category_key" type="single_select">
+                                    <meta>
+                                        <title lang="en">Category (Filter)</title>
+                                        <title lang="de">Kategorie (Filter)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="hygiene">
+                                                <meta>
+                                                    <title lang="en">Hygiene</title>
+                                                    <title lang="de">Hygiene</title>
+                                                </meta>
+                                            </param>
+                                            <param name="prevention">
+                                                <meta>
+                                                    <title lang="en">Prevention</title>
+                                                    <title lang="de">Prävention</title>
+                                                </meta>
+                                            </param>
+                                            <param name="treatment">
+                                                <meta>
+                                                    <title lang="en">Treatment</title>
+                                                    <title lang="de">Behandlung</title>
+                                                </meta>
+                                            </param>
+                                            <param name="tech">
+                                                <meta>
+                                                    <title lang="en">Tech</title>
+                                                    <title lang="de">Technik</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                    </params>
+                                </property>
+                                <property name="article_read_time" type="text_line">
+                                    <meta>
+                                        <title lang="en">Read Time</title>
+                                        <title lang="de">Lesezeit</title>
+                                    </meta>
+                                </property>
+                                <property name="article_link" type="page_selection">
+                                    <meta>
+                                        <title lang="en">Internal Link (Optional)</title>
+                                        <title lang="de">Interner Link (Optional)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="newsletter_section">
+            <meta>
+                <title lang="en">Newsletter</title>
+                <title lang="de">Newsletter</title>
+            </meta>
+            <properties>
+                <property name="newsletter_title" type="text_line">
+                    <meta>
+                        <title lang="en">Newsletter Title</title>
+                        <title lang="de">Newsletter Titel</title>
+                    </meta>
+                </property>
+                <property name="newsletter_description" type="text_area">
+                    <meta>
+                        <title lang="en">Newsletter Description</title>
+                        <title lang="de">Newsletter Beschreibung</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>
