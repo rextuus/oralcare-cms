@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>contact</key>
+
+    <view>pages/contact</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Contact</title>
+        <title lang="de">Kontakt</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <section name="contact_info">
+            <meta>
+                <title lang="en">Contact Information</title>
+                <title lang="de">Kontaktinformationen</title>
+            </meta>
+            <properties>
+                <property name="address" type="text_area">
+                    <meta>
+                        <title lang="en">Address</title>
+                        <title lang="de">Adresse</title>
+                    </meta>
+                </property>
+                <property name="phone" type="text_line">
+                    <meta>
+                        <title lang="en">Phone</title>
+                        <title lang="de">Telefon</title>
+                    </meta>
+                </property>
+                <property name="email" type="text_line">
+                    <meta>
+                        <title lang="en">Email</title>
+                        <title lang="de">E-Mail</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="opening_hours">
+            <meta>
+                <title lang="en">Opening Hours</title>
+                <title lang="de">Öffnungszeiten</title>
+            </meta>
+            <properties>
+                <property name="hours" type="block">
+                    <meta>
+                        <title lang="en">Hours</title>
+                        <title lang="de">Zeiten</title>
+                    </meta>
+                    <types>
+                        <type name="entry">
+                            <meta>
+                                <title lang="en">Entry</title>
+                                <title lang="de">Eintrag</title>
+                            </meta>
+                            <properties>
+                                <property name="days" type="text_line">
+                                    <meta>
+                                        <title lang="en">Days (e.g. Mon - Fri)</title>
+                                    </meta>
+                                </property>
+                                <property name="time" type="text_line">
+                                    <meta>
+                                        <title lang="en">Time (e.g. 08:00 - 18:00)</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <property name="map_link" type="text_line">
+            <meta>
+                <title lang="en">Google Maps Link (Embed URL)</title>
+            </meta>
+        </property>
+    </properties>
+</template>

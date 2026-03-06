@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 1rem;">{{ content.title }}</h1>
+            {% if content.subtitle is not empty %}
+                <p style="text-align: center; font-size: 1.25rem; color: var(--secondary-color); margin-bottom: 2rem;">{{ content.subtitle }}</p>
+            {% endif %}
+
+            {% if content.article is not empty %}
+                <div class="article-content" style="max-width: 800px; margin: 0 auto 4rem; text-align: center;">
+                    {{ content.article|raw }}
+                </div>
+            {% endif %}
+
+            <div class="grid">
+                {% for service in content.services_list %}
+                    <div class="card service-card">
+                        {% if service.image is defined and service.image is not empty %}
+                            {% set mediaId = service.image.ids|default(service.image)|first %}
+                            {% set media = sulu_resolve_media(mediaId, app.request.locale) %}
+                            {% if media %}
+                                <div style="margin-bottom: 1.5rem; border-radius: 8px; overflow: hidden; height: 200px;">
+                                    <img src="{{ media.thumbnails['sulu-400x400']|default(media.url) }}"
+                                         alt="{{ service.title }}"
+                                         style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                            {% endif %}
+                        {% elseif service.icon is not empty %}
+                            <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1.5rem; text-align: center;">
+                                <i class="ti ti-{{ service.icon }}"></i>
+                            </div>
+                        {% endif %}
+
+                        <h3 style="text-align: center;">{{ service.title }}</h3>
+                        <p style="text-align: center;">{{ service.description }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}

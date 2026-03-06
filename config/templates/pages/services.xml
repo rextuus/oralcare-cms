@@ -1,0 +1,97 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>services</key>
+
+    <view>pages/services</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Services</title>
+        <title lang="de">Leistungen</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
+        <property name="article" type="text_editor">
+            <meta>
+                <title lang="en">Description</title>
+                <title lang="de">Beschreibung</title>
+            </meta>
+        </property>
+
+        <property name="services_list" type="block">
+            <meta>
+                <title lang="en">Services</title>
+                <title lang="de">Leistungen</title>
+            </meta>
+            <types>
+                <type name="service">
+                    <meta>
+                        <title lang="en">Service</title>
+                        <title lang="de">Leistung</title>
+                    </meta>
+                    <properties>
+                        <property name="title" type="text_line">
+                            <meta>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
+                            </meta>
+                        </property>
+                        <property name="description" type="text_area">
+                            <meta>
+                                <title lang="en">Description</title>
+                                <title lang="de">Beschreibung</title>
+                            </meta>
+                        </property>
+                        <property name="icon" type="text_line">
+                            <meta>
+                                <title lang="en">Icon Name (e.g. Tooth)</title>
+                            </meta>
+                        </property>
+                        <property name="image" type="media_selection">
+                            <meta>
+                                <title lang="en">Optional Image</title>
+                                <title lang="de">Optionales Bild</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                                <param name="defaultDisplayOption" value="left"/>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+    </properties>
+</template>

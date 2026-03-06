@@ -14,48 +14,45 @@
         }) }}
     {% endblock %}
 
-    {% block style %}{% endblock %}
+    {% block style %}
+        {{ encore_entry_link_tags('app', null, 'website') }}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+    {% endblock %}
 </head>
 <body>
-    <header>
+    <header class="header">
         {% block header %}
-            <nav>
-                <ul>
-                    <li>
-                        <a href="{{ sulu_content_root_path() }}">Homepage</a>
-                    </li>
-
-                    {% for item in sulu_page_navigation_root_tree('main', 1, {
-                        title: 'title',
-                        url: 'url',
-                    }) %}
-                        <li>
-                            <a href="{{ sulu_content_path(item.url) }}"
-                               title="{{ item.title }}">{{ item.title }}</a>
+            <div class="container">
+                <nav class="nav">
+                    <a href="{{ sulu_content_root_path() }}" class="logo">
+                        <i class="ti ti-tooth"></i> OralCare Dental
+                    </a>
+                    <ul class="nav-menu">
+                        <li class="nav-item {{ app.request.pathInfo == '/' ? 'active' : '' }}">
+                            <a href="{{ sulu_content_root_path() }}" class="nav-link">Home</a>
                         </li>
-                    {% endfor %}
-                </ul>
-            </nav>
+
+                        {% for item in sulu_page_navigation_root_tree('main', 1) %}
+                            <li class="nav-item {{ app.request.pathInfo == sulu_content_path(item.url) ? 'active' : '' }}">
+                                <a href="{{ sulu_content_path(item.url) }}"
+                                   class="nav-link"
+                                   title="{{ item.title }}">{{ item.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="{{ sulu_content_path('/contact') }}" class="btn btn-header">Book Now</a>
+                </nav>
+            </div>
         {% endblock %}
     </header>
-
-    {#
-    <form action="{{ path('sulu_search.website_search') }}" method="GET">
-        <input name="q" type="text" placeholder="Search"/>
-        <input type="submit" value="Go"/>
-    </form>
-    #}
 
     <main>
         {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        {% block footer %}
-            <p>Copyright {{ 'now'|date('Y') }} SULU</p>
-        {% endblock %}
-    </footer>
+    {% include 'includes/footer.html.twig' %}
 
     {% block javascripts %}{% endblock %}
+            {{ encore_entry_script_tags('app') }}
 </body>
 </html>

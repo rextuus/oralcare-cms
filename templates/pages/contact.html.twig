@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 3rem;">{{ content.title }}</h1>
+
+            <div class="grid">
+                <div class="contact-info">
+                    <h2>Get in Touch</h2>
+                    {% if content.address is not empty %}
+                        <div class="contact-item">
+                            <strong>Address:</strong>
+                            <p>{{ content.address|nl2br }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% if content.phone is not empty %}
+                        <div class="contact-item">
+                            <strong>Phone:</strong>
+                            <p><a href="tel:{{ content.phone }}">{{ content.phone }}</a></p>
+                        </div>
+                    {% endif %}
+
+                    {% if content.email is not empty %}
+                        <div class="contact-item">
+                            <strong>Email:</strong>
+                            <p><a href="mailto:{{ content.email }}">{{ content.email }}</a></p>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <div class="opening-hours">
+                    <h2>Opening Hours</h2>
+                    <table class="hours-table">
+                        {% for entry in content.hours %}
+                            <tr>
+                                <td>{{ entry.days }}</td>
+                                <td>{{ entry.time }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+            {% if content.map_link is not empty %}
+                <div class="map-container" style="margin-top: 4rem;">
+                    <iframe
+                        src="{{ content.map_link }}"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
+                </div>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

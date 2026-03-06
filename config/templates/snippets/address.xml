@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>address</key>
+
+    <meta>
+        <title lang="de">Adresse &amp; Kontakt</title>
+    </meta>
+
+    <properties>
+        <property name="company" type="text_line">
+            <meta><title lang="de">Firma</title></meta>
+        </property>
+        <property name="street" type="text_line">
+            <meta><title lang="de">Straße</title></meta>
+        </property>
+    </properties>
+
+    <areas>
+        <area key="address" cache-invalidation="true">
+            <meta>
+                <title lang="en">Menu Social Media Links</title>
+            </meta>
+        </area>
+    </areas>
+
+</template>

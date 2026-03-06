@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>social_media</key>
+
+    <meta>
+        <title lang="en">Social Media</title>
+        <title lang="de">Social Media</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <property name="facebookImage" colspan="3" type="single_media_selection">
+            <meta>
+                <title lang="en">Facebook Icon</title>
+                <title lang="de">Facebook Icon</title>
+            </meta>
+        </property>
+
+        <property name="facebookLink" colspan="9" type="url">
+            <meta>
+                <title lang="en">Facebook Link</title>
+                <title lang="de">Facebook Link</title>
+            </meta>
+            <params>
+                <param name="schemes" type="collection">
+                    <param name="http://"/>
+                    <param name="https://"/>
+                </param>
+            </params>
+        </property>
+
+        <property name="twitterImage" colspan="3" type="single_media_selection">
+            <meta>
+                <title lang="en">Twitter Icon</title>
+                <title lang="de">Twitter Icon</title>
+            </meta>
+        </property>
+
+        <property name="twitterLink" colspan="9" type="url">
+            <meta>
+                <title lang="en">Twitter Link</title>
+                <title lang="de">Twitter Link</title>
+            </meta>
+            <params>
+                <param name="schemes" type="collection">
+                    <param name="http://"/>
+                    <param name="https://"/>
+                </param>
+            </params>
+        </property>
+    </properties>
+</template>

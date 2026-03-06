@@ -1,0 +1,317 @@
+$primary-color: #007bff;
+$secondary-color: #6c757d;
+$success-color: #28a745;
+$info-color: #17a2b8;
+$warning-color: #ffc107;
+$danger-color: #dc3545;
+$light-color: #f8f9fa;
+$dark-color: #343a40;
+$font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+:root {
+    --primary-color: #{$primary-color};
+    --secondary-color: #{$secondary-color};
+    --success-color: #{$success-color};
+    --info-color: #{$info-color};
+    --warning-color: #{$warning-color};
+    --danger-color: #{$danger-color};
+    --light-color: #{$light-color};
+    --dark-color: #{$dark-color};
+    --font-family: #{$font-family};
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: 1.6;
+    color: var(--dark-color);
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+}
+
+.header {
+    background: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    padding: 1.25rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 500;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+
+    &:hover {
+        color: var(--primary-color);
+        background: rgba(0, 123, 255, 0.05);
+    }
+}
+
+.nav-item.active .nav-link {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.logo {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    letter-spacing: -0.5px;
+
+    i {
+        font-size: 2rem;
+    }
+}
+
+.logo-light {
+    color: #fff;
+}
+
+.btn-header {
+    background: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.2);
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0, 123, 255, 0.3);
+        color: #fff;
+    }
+}
+
+.footer {
+    background: #1a1e21;
+    color: #cbd5e0;
+    padding: 5rem 0 2rem;
+    margin-top: 0;
+
+    h4 {
+        color: #fff;
+        margin-bottom: 2rem;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+            margin-bottom: 0.75rem;
+
+            a {
+                color: #cbd5e0;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                display: inline-block;
+
+                &:hover {
+                    color: var(--primary-color);
+                    transform: translateX(5px);
+                }
+            }
+        }
+    }
+
+    p {
+        line-height: 1.6;
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-contact {
+        p {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+
+            i {
+                color: var(--primary-color);
+                font-size: 1.2rem;
+            }
+        }
+    }
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 2rem;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+}
+
+.team-card {
+    text-align: center;
+
+    .team-image {
+        width: 150px;
+        height: 150px;
+        margin: 0 auto 1.5rem;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 3px solid var(--primary-color);
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    .position {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+    }
+}
+
+.contact-info {
+    .contact-item {
+        margin-bottom: 1.5rem;
+
+        strong {
+            display: block;
+            color: var(--primary-color);
+            margin-bottom: 0.25rem;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.3s;
+
+            &:hover {
+                color: var(--primary-color);
+            }
+        }
+    }
+}
+
+.hours-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+        padding: 0.75rem 0;
+        border-bottom: 1px solid #eee;
+
+        &:last-child {
+            text-align: right;
+            font-weight: 600;
+        }
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+}
+
+.map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.article-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
+
+.article-content h2, .article-content h3 {
+    margin-top: 2rem;
+    color: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    nav {
+        flex-direction: column;
+    }
+
+    nav ul {
+        margin-top: 1rem;
+    }
+
+    nav ul li {
+        margin: 0 0.75rem;
+    }
+}

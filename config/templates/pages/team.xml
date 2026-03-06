@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>team</key>
+
+    <view>pages/team</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Team</title>
+        <title lang="de">Team</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="subtitle" type="text_line">
+            <meta>
+                <title lang="en">Subtitle</title>
+                <title lang="de">Untertitel</title>
+            </meta>
+        </property>
+
+        <property name="team_members" type="block">
+            <meta>
+                <title lang="en">Team Members</title>
+                <title lang="de">Teammitglieder</title>
+            </meta>
+            <types>
+                <type name="member">
+                    <meta>
+                        <title lang="en">Member</title>
+                        <title lang="de">Mitglied</title>
+                    </meta>
+                    <properties>
+                        <property name="name" type="text_line" mandatory="true">
+                            <meta>
+                                <title lang="en">Name</title>
+                                <title lang="de">Name</title>
+                            </meta>
+                        </property>
+                        <property name="position" type="text_line">
+                            <meta>
+                                <title lang="en">Position</title>
+                                <title lang="de">Position</title>
+                            </meta>
+                        </property>
+                        <property name="description" type="text_area">
+                            <meta>
+                                <title lang="en">Bio</title>
+                                <title lang="de">Biografie</title>
+                            </meta>
+                        </property>
+                        <property name="image" type="media_selection">
+                            <meta>
+                                <title lang="en">Image</title>
+                                <title lang="de">Bild</title>
+                            </meta>
+                            <params>
+                                <param name="types" value="image"/>
+                                <param name="defaultDisplayOption" value="left"/>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
+    </properties>
+</template>

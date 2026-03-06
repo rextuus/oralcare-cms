@@ -1,7 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <h1>{{ content.title }}</h1>
+    <div class="container" style="padding-top: 4rem; padding-bottom: 4rem;">
+        <h1>{{ content.title }}</h1>
 
-    {{ content.article|raw }}
+        <div class="article-content">
+            {{ content.article|raw }}
+        </div>
+    </div>
 {% endblock %}

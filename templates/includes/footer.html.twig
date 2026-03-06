@@ -1,0 +1,71 @@
+{# Direct Lookup: Automatically finds the Footer Settings snippet by its template key #}
+{% set snippets = sulu_snippet_load_by_filter({'template': 'footer_settings'}) %}
+{% set footerSettings = snippets|first %}
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            {# Column 1: Our Services (Editable via Snippet) #}
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    {% if footerSettings and footerSettings.content.top_services is defined and footerSettings.content.top_services is not empty %}
+                        {% for item in footerSettings.content.top_services %}
+                            {# Correctly resolve the page selection #}
+                            {% set target = '#' %}
+                            {% if item.link is not empty %}
+                                {% set target = sulu_content_path(item.link|first.url) %}
+                            {% endif %}
+                            <li><a href="{{ target }}">{{ item.title }}</a></li>
+                        {% endfor %}
+                    {% else %}
+                        {# Fallback if no snippet is set #}
+                        <li><a href="{{ sulu_content_path('/services') }}">General Dentistry</a></li>
+                        <li><a href="{{ sulu_content_path('/services') }}">Cosmetic Procedures</a></li>
+                        <li><a href="{{ sulu_content_path('/services') }}">Orthodontics</a></li>
+                        <li><a href="{{ sulu_content_path('/services') }}">Teeth Whitening</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            {# Column 2: Quick Links (All Pages) #}
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="{{ sulu_content_root_path() }}">Home</a></li>
+                    {% for item in sulu_page_navigation_root_tree('main', 1) %}
+                        <li><a href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {# Column 3: Contact #}
+            <div class="footer-col">
+                <h4>Contact Us</h4>
+                <div class="footer-contact">
+                    {% if footerSettings and footerSettings.content.address is defined and footerSettings.content.address %}
+                        <p><i class="ti ti-map-pin"></i> {{ footerSettings.content.address }}</p>
+                    {% else %}
+                        <p><i class="ti ti-map-pin"></i> 123 Dental Lane, Oral City</p>
+                    {% endif %}
+
+                    {% if footerSettings and footerSettings.content.phone is defined and footerSettings.content.phone %}
+                        <p><i class="ti ti-phone"></i> {{ footerSettings.content.phone }}</p>
+                    {% else %}
+                        <p><i class="ti ti-phone"></i> +1 (555) 123-4567</p>
+                    {% endif %}
+
+                    {% if footerSettings and footerSettings.content.email is defined and footerSettings.content.email %}
+                        <p><i class="ti ti-mail"></i> {{ footerSettings.content.email }}</p>
+                    {% else %}
+                        <p><i class="ti ti-mail"></i> hello@oralcare.com</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; {{ 'now'|date('Y') }} OralCare Dental Clinic. All rights reserved.</p>
+        </div>
+    </div>
+</footer>

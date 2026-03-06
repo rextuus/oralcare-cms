@@ -15,6 +15,15 @@
     </meta>
 
     <properties>
+        <property name="address" type="snippet_selection">
+            <meta>
+                <title lang="en">Footer Social Media</title>
+            </meta>
+            <params>
+                <param name="default" value="address"/>
+            </params>
+        </property>
+
         <property name="title" type="text_line" mandatory="true">
             <meta>
                 <title lang="en">Title</title>

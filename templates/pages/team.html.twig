@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <section class="section">
+        <div class="container">
+            <h1 style="text-align: center; margin-bottom: 1rem;">{{ content.title }}</h1>
+            {% if content.subtitle is not empty %}
+                <p style="text-align: center; font-size: 1.25rem; color: var(--secondary-color); margin-bottom: 3rem;">{{ content.subtitle }}</p>
+            {% endif %}
+
+            <div class="grid">
+                {% for member in content.team_members %}
+                    <div class="card team-card">
+                        {% if member.image is defined and member.image is not empty %}
+                            {# Sulu media_selection in blocks can sometimes return just an array of IDs or an object with an 'ids' key #}
+                            {% set mediaId = member.image.ids|default(member.image)|first %}
+                            {% set media = sulu_resolve_media(mediaId, app.request.locale) %}
+                            {% if media %}
+                                <div class="team-image">
+                                    <img src="{{ media.thumbnails['sulu-400x400']|default(media.url) }}" alt="{{ member.name }}">
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                        <h3>{{ member.name }}</h3>
+                        {% if member.position is not empty %}
+                            <p class="position">{{ member.position }}</p>
+                        {% endif %}
+                        {% if member.description is not empty %}
+                            <p>{{ member.description }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
