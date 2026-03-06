@@ -1,5 +1,7 @@
-{% set snippets = sulu_snippet_load_by_area('footer_settings') %}
-{% set footerSettings = snippets|first %}
+{% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
+{% set headerSettings = sulu_snippet_load_by_area('header_settings') %}
+{% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
+
 
 <header class="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -7,26 +9,39 @@
             <div class="flex items-center gap-2">
                 <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
                     <div class="bg-primary p-2 rounded-lg">
-                        <span class="material-symbols-outlined text-white">medical_services</span>
+                        {% set icon = 'medical_services' %}
+                        {% if headerSettings and headerSettings.content.logo_icon is defined and headerSettings.content.logo_icon is not empty %}
+                            {% set icon = headerSettings.content.logo_icon %}
+                        {% endif %}
+
+                        {% if 'ti-' in icon %}
+                            <i class="ti {{ icon }} text-white"></i>
+                        {% else %}
+                            <span class="material-symbols-outlined text-white">{{ icon|raw }}</span>
+                        {% endif %}
                     </div>
                     <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">Praxis Kaldauen<span class="text-primary">.</span></span>
                 </a>
             </div>
             <nav class="hidden md:flex items-center space-x-8">
-{#                <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary font-medium transition-colors {{ app.request.pathInfo == '/' ? 'text-primary' : '' }}" href="{{ sulu_content_root_path() }}">{{ 'Startseite'|trans }}</a>#}
                 {% for item in sulu_page_navigation_root_tree('main', 1) %}
                     <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary font-medium transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a>
                 {% endfor %}
             </nav>
             <div class="flex items-center gap-4">
-                {% if footerSettings and footerSettings.content.phone is defined and footerSettings.content.phone %}
-                    <a class="hidden lg:flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium" href="tel:{{ footerSettings.content.phone|replace({' ': ''}) }}">
+                {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}
+                    <a class="hidden lg:flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
                         <span class="material-symbols-outlined text-primary">call</span>
-                        {{ footerSettings.content.phone }}
+                        {{ addressSettings.content.phone }}
                     </a>
                 {% endif %}
-                <a href="{{ sulu_content_path('/contact') }}" class="bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-blue-500/25">
-                    {{ 'Termin buchen'|trans }}
+
+                {% set booking_url = sulu_content_path('/contact') %}
+                {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
+                    {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
+                {% endif %}
+                <a href="{{ booking_url }}" class="bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-blue-500/25">
+                    {{ headerSettings.content.booking_button_text|default('Termin buchen'|trans) }}
                 </a>
                 <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="theme-toggle">
                     <span class="material-symbols-outlined dark:hidden">dark_mode</span>

@@ -299,12 +299,6 @@
                         </property>
                     </properties>
                 </section>
-                <property name="map_link" type="text_line">
-                    <meta>
-                        <title lang="en">Google Maps Link (Embed URL)</title>
-                        <title lang="de">Google Maps Link (Embed URL)</title>
-                    </meta>
-                </property>
             </properties>
         </section>
     </properties>

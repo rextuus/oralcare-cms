@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>header_settings</key>
+
+    <meta>
+        <title lang="en">Header Settings</title>
+        <title lang="de">Header-Einstellungen</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <section name="logo_section">
+            <meta>
+                <title lang="en">Logo Settings</title>
+                <title lang="de">Logo-Einstellungen</title>
+            </meta>
+            <properties>
+                <property name="logo_icon" type="text_line">
+                    <meta>
+                        <title lang="en">Logo Icon Name (Material Symbol or Tabler 'ti-...')</title>
+                        <title lang="de">Logo Icon Name (Material Symbol oder Tabler 'ti-...')</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="booking_section">
+            <meta>
+                <title lang="en">Booking Button</title>
+                <title lang="de">Buchungs-Button</title>
+            </meta>
+            <properties>
+                <property name="booking_button_text" type="text_line">
+                    <meta>
+                        <title lang="en">Button Text</title>
+                        <title lang="de">Button Text</title>
+                    </meta>
+                </property>
+                <property name="booking_button_link" type="page_selection">
+                    <meta>
+                        <title lang="en">Button Link</title>
+                        <title lang="de">Button Link</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+    </properties>
+
+    <areas>
+        <area key="header_settings" cache-invalidation="true">
+            <meta>
+                <title lang="en">Header Settings</title>
+                <title lang="de">Header-Einstellungen</title>
+            </meta>
+        </area>
+    </areas>
+
+</template>

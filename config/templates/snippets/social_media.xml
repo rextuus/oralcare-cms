@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>social_media</key>
+
+    <meta>
+        <title lang="en">Social Media Settings</title>
+        <title lang="de">Social-Media-Einstellungen</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <property name="facebook_url" type="text_line">
+            <meta>
+                <title lang="en">Facebook URL</title>
+                <title lang="de">Facebook URL</title>
+            </meta>
+        </property>
+
+        <property name="instagram_url" type="text_line">
+            <meta>
+                <title lang="en">Instagram URL</title>
+                <title lang="de">Instagram URL</title>
+            </meta>
+        </property>
+
+        <property name="twitter_url" type="text_line">
+            <meta>
+                <title lang="en">Twitter URL</title>
+                <title lang="de">Twitter URL</title>
+            </meta>
+        </property>
+    </properties>
+
+    <areas>
+        <area key="social_media" cache-invalidation="true">
+            <meta>
+                <title lang="en">Social Media Settings</title>
+                <title lang="de">Social-Media-Einstellungen</title>
+            </meta>
+        </area>
+    </areas>
+
+</template>

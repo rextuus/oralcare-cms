@@ -34,32 +34,6 @@
             </properties>
         </section>
 
-        <section name="contact_info">
-            <meta>
-                <title lang="en">Contact Information</title>
-                <title lang="de">Kontaktinformationen</title>
-            </meta>
-            <properties>
-                <property name="address" type="text_area">
-                    <meta>
-                        <title lang="en">Address</title>
-                        <title lang="de">Adresse</title>
-                    </meta>
-                </property>
-                <property name="phone" type="text_line">
-                    <meta>
-                        <title lang="en">Phone</title>
-                        <title lang="de">Telefon</title>
-                    </meta>
-                </property>
-                <property name="email" type="text_line">
-                    <meta>
-                        <title lang="en">Email</title>
-                        <title lang="de">E-Mail</title>
-                    </meta>
-                </property>
-            </properties>
-        </section>
 
         <section name="services">
             <meta>

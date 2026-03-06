@@ -1,5 +1,6 @@
 {% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
 {% set socialMedia = sulu_snippet_load_by_area('social_media') %}
+{% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
 
 <footer class="bg-navy text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -81,22 +82,22 @@
             <div>
                 <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Kontakt'|trans }}</h4>
                 <ul class="space-y-4">
-                    {% if footerSettings and footerSettings.content.address is defined and footerSettings.content.address %}
+                    {% if addressSettings and addressSettings.content.address is defined and addressSettings.content.address %}
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-primary mt-1">location_on</span>
-                            <span class="text-slate-400 text-sm">{{ footerSettings.content.address|nl2br }}</span>
+                            <span class="text-slate-400 text-sm">{{ addressSettings.content.address|nl2br }}</span>
                         </li>
                     {% endif %}
-                    {% if footerSettings and footerSettings.content.phone is defined and footerSettings.content.phone %}
+                    {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}
                         <li class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary">call</span>
-                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="tel:{{ footerSettings.content.phone|replace({' ': ''}) }}">{{ footerSettings.content.phone }}</a>
+                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">{{ addressSettings.content.phone }}</a>
                         </li>
                     {% endif %}
-                    {% if footerSettings and footerSettings.content.email is defined and footerSettings.content.email %}
+                    {% if addressSettings and addressSettings.content.email is defined and addressSettings.content.email %}
                         <li class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-primary">mail</span>
-                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="mailto:{{ footerSettings.content.email }}">{{ footerSettings.content.email }}</a>
+                            <a class="text-slate-400 text-sm hover:text-white transition-colors" href="mailto:{{ addressSettings.content.email }}">{{ addressSettings.content.email }}</a>
                         </li>
                     {% endif %}
                 </ul>
