@@ -19,6 +19,21 @@
             <tag name="sulu.node.name"/>
         </property>
 
+        <section name="general_info">
+            <meta>
+                <title lang="en">General Information</title>
+                <title lang="de">Allgemeine Informationen</title>
+            </meta>
+            <properties>
+                <property name="footer_info_text" type="text_area">
+                    <meta>
+                        <title lang="en">Footer Info Text</title>
+                        <title lang="de">Footer Info Text</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
         <section name="contact_info">
             <meta>
                 <title lang="en">Contact Information</title>
@@ -82,6 +97,45 @@
                             </properties>
                         </type>
                     </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="quick_links_section">
+            <meta>
+                <title lang="en">Quick Links (Footer)</title>
+                <title lang="de">Schnellzugriff (Footer)</title>
+            </meta>
+            <properties>
+                <property name="quick_links_context" type="single_select">
+                    <meta>
+                        <title lang="en">Navigation Context</title>
+                        <title lang="de">Navigationskontext</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="main">
+                                <meta>
+                                    <title lang="en">Main Navigation</title>
+                                    <title lang="de">Hauptnavigation</title>
+                                </meta>
+                            </param>
+                            <param name="footer">
+                                <meta>
+                                    <title lang="en">Footer Navigation</title>
+                                    <title lang="de">Footer-Navigation</title>
+                                </meta>
+                            </param>
+                        </param>
+                        <param name="default" value="footer"/>
+                    </params>
+                </property>
+
+                <property name="quick_links_custom" type="page_selection">
+                    <meta>
+                        <title lang="en">Custom Selection (Overrides Context)</title>
+                        <title lang="de">Benutzerdefinierte Auswahl (Überschreibt Kontext)</title>
+                    </meta>
                 </property>
             </properties>
         </section>

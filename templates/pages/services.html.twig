@@ -38,10 +38,10 @@
                     <div class="p-8">
                         <div class="flex items-center gap-3 mb-4">
                             <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
-                                {% if service.icon is not empty  %}
-                                    <i class="ti {{ service.icon }} text-2xl"></i>
+                                {% if service.icon is not empty and 'ti-' in service.icon %}
+                                    <i class="ti {{ service.icon }} text-primary text-xl"></i>
                                 {% else %}
-                                    <span class="material-symbols-outlined">{{ service.icon|default('medical_services')|raw }}</span>
+                                    <span class="material-symbols-outlined text-primary">{{ service.icon|default('verified')|raw }}</span>
                                 {% endif %}
                             </div>
                             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>

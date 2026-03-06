@@ -170,35 +170,52 @@
             {% endif %}
         </div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-3 gap-8">
-            {% for service in content.services_list %}
-                <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                        {% if service.icon is not empty and 'ti-' in service.icon %}
-                            <i class="ti {{ service.icon }} text-3xl text-primary group-hover:text-white transition-colors"></i>
-                        {% else %}
-                            <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">{{ service.icon|default('medical_services')|raw }}</span>
-                        {% endif %}
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                        {{ service.description|nl2br }}
-                    </p>
-                    {% if service.features is not empty %}
-                        <ul class="space-y-3 mb-8 text-left">
-                            {% for feature in service.features %}
-                                <li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-                                    <span class="material-symbols-outlined text-primary text-base">check_circle</span> {{ feature.text }}
-                                </li>
-                            {% endfor %}
-                        </ul>
-                    {% endif %}
-                    {% if service.link is not empty %}
-                        <a class="inline-flex items-center font-bold text-primary hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+            {% if content.services_selection is not empty %}
+                {% for service_page in content.services_selection %}
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group">
+                        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">medical_services</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service_page.title }}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            {{ service_page.excerpt.description|default(service_page.title) }}
+                        </p>
+                        <a class="inline-flex items-center font-bold text-primary hover:gap-2 transition-all" href="{{ sulu_content_path(service_page.url) }}">
                             {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined ml-1">arrow_forward</span>
                         </a>
-                    {% endif %}
-                </div>
-            {% endfor %}
+                    </div>
+                {% endfor %}
+            {% else %}
+                {% for service in content.services_list %}
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group">
+                        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
+                            {% if service.icon is not empty and 'ti-' in service.icon %}
+                                <i class="ti {{ service.icon }} text-3xl text-primary group-hover:text-white transition-colors"></i>
+                            {% else %}
+                                <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">{{ service.icon|default('medical_services')|raw }}</span>
+                            {% endif %}
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                            {{ service.description|nl2br }}
+                        </p>
+                        {% if service.features is not empty %}
+                            <ul class="space-y-3 mb-8 text-left">
+                                {% for feature in service.features %}
+                                    <li class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
+                                        <span class="material-symbols-outlined text-primary text-base">check_circle</span> {{ feature.text }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        {% if service.link is not empty %}
+                            <a class="inline-flex items-center font-bold text-primary hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+                                {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined ml-1">arrow_forward</span>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </section>
 

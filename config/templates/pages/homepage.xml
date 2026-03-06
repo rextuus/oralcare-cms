@@ -205,6 +205,12 @@
                         <title lang="de">Leistungen Untertitel</title>
                     </meta>
                 </property>
+                <property name="services_selection" type="page_selection">
+                    <meta>
+                        <title lang="en">Linked Services (Optional selection from pages)</title>
+                        <title lang="de">Verlinkte Leistungen (Optionale Auswahl aus Seiten)</title>
+                    </meta>
+                </property>
                 <property name="services_list" type="block">
                     <meta>
                         <title lang="en">Services</title>
