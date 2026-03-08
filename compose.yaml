@@ -1,21 +1,29 @@
 version: '3'
 
 services:
-###> doctrine/doctrine-bundle ###
+  # --- NEU: Der Webserver für Sulu ---
+  php:
+    image: sulu/sulu-demo:php8.2
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www/html
+    environment:
+      # Verweist auf den Service-Namen "database" unten
+      DATABASE_URL: "mysql://root:ChangeMe@database:3306/su_myapp?serverVersion=8.4"
+    depends_on:
+      - database
+
+  ###> doctrine/doctrine-bundle ###
   database:
     image: mysql:${MYSQL_VERSION:-8.4}
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-su_myapp}
-      # You should definitely change the password in production
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ChangeMe}
       MYSQL_ROOT_HOST: '%'
     volumes:
       - database_data:/var/lib/mysql
-      # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
-      # - ./docker/db/data:/var/lib/mysql:rw
-###< doctrine/doctrine-bundle ###
+  ###< doctrine/doctrine-bundle ###
 
 volumes:
-###> doctrine/doctrine-bundle ###
   database_data:
-###< doctrine/doctrine-bundle ###
