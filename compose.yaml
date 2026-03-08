@@ -3,7 +3,7 @@ version: '3'
 services:
   # --- NEU: Der Webserver für Sulu ---
   php:
-    image: sulu/sulu-demo:php8.2
+    build: .
     ports:
       - "80:80"
     volumes:
