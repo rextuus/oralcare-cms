@@ -8,22 +8,30 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.
 # Apache Module aktivieren
 RUN a2enmod rewrite
 
-# --- NEU: Node.js & PHP-Module installieren ---
+# --- Node.js, PHP-Module & Bild-Libraries installieren ---
 RUN apt-get update && apt-get install -y \
-    git zip unzip libpng-dev libicu-dev libxml2-dev libzip-dev curl \
+    git zip unzip \
+    libpng-dev libjpeg62-turbo-dev libfreetype6-dev libwebp-dev \
+    libicu-dev libxml2-dev libzip-dev curl \
     && curl -sL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get install -y nodejs \
-    && docker-php-ext-install gd intl mysqli pdo pdo_mysql xml zip
+    # GD mit allen Treibern konfigurieren und installieren
+    && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+    && docker-php-ext-install -j$(nproc) gd intl mysqli pdo pdo_mysql xml zip
 
-# Composer manuell installieren
+# Composer installieren
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Memory Limit erhöhen
+# PHP Tuning
 RUN echo 'memory_limit = 512M' > /usr/local/etc/php/conf.d/docker-php-ram.ini
 
 WORKDIR /var/www/html
 
-# Rechte für Sulu vorbereiten
-RUN mkdir -p var/cache var/log var/sessions var/storage public/build public/uploads && \
+# Struktur anlegen und Berechtigungen setzen
+# Wir fügen public/uploads/media hinzu, damit Sulu sofort loslegen kann
+RUN mkdir -p var/cache var/log var/sessions var/storage public/build public/uploads/media && \
     chown -R www-data:www-data var public/uploads public/build && \
     chmod -R 775 var public/uploads public/build
+
+# Sicherstellen, dass der Webserver-User Schreibrechte auf den gesamten Workspace für Cache-Files hat
+RUN chown www-data:www-data /var/www/html

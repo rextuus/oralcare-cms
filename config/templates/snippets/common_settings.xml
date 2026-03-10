@@ -1,0 +1,46 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>common_settings</key>
+
+    <meta>
+        <title lang="en">Common Settings</title>
+        <title lang="de">Common-Einstellungen</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <tag name="sulu.node.name"/>
+        </property>
+
+        <property name="company_name" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Praxisname</title>
+                <title lang="de">Praxisname</title>
+            </meta>
+        </property>
+
+        <property name="logo" type="single_media_selection">
+            <meta>
+                <title lang="en">Logo</title>
+                <title lang="de">Logo</title>
+            </meta>
+        </property>
+    </properties>
+
+    <areas>
+        <area key="common_settings" cache-invalidation="true">
+            <meta>
+                <title lang="en">Common Settings</title>
+                <title lang="de">Common-Einstellungen</title>
+            </meta>
+        </area>
+    </areas>
+
+</template>

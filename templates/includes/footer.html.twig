@@ -1,6 +1,7 @@
 {% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
 {% set socialMedia = sulu_snippet_load_by_area('social_media') %}
 {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
+{% set common_settings = sulu_snippet_load_by_area('common_settings') %}
 
 <footer class="bg-navy text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -10,7 +11,7 @@
                     <div class="bg-primary p-2 rounded-lg">
                         <span class="material-symbols-outlined text-white">medical_services</span>
                     </div>
-                    <span class="font-display font-bold text-2xl tracking-tight">Praxis Kaldauen<span class="text-primary">.</span></span>
+                    <span class="font-display font-bold text-2xl tracking-tight">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
                 </div>
                 <p class="text-slate-400 leading-relaxed text-sm">
                     {{ footerSettings.content.footer_info_text|default('Wir bieten erstklassige zahnmedizinische Versorgung in einer komfortablen Umgebung. Unser Team nutzt modernste Technik für Ihr gesundes Lächeln.'|trans)|nl2br }}
@@ -107,7 +108,7 @@
     <div class="border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
-                <p>&copy; {{ 'now'|date('Y') }} Praxis Kaldauen. {{ 'Alle Rechte vorbehalten.'|trans }}</p>
+                <p>&copy; {{ 'now'|date('Y') }} {{ common_settings.content.company_name }}. {{ 'Alle Rechte vorbehalten.'|trans }}</p>
                 <div class="flex gap-8">
                     <a class="hover:text-white transition-colors" href="#">{{ 'Datenschutz'|trans }}</a>
                     <a class="hover:text-white transition-colors" href="#">{{ 'Impressum'|trans }}</a>
