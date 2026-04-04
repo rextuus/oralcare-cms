@@ -57,6 +57,67 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-sans transition-colors duration-300">
     {% include 'includes/header.html.twig' %}
 
+    <!-- Mobile Menu Backdrop -->
+    <div class="fixed inset-0 z-[99998] bg-slate-900/50 backdrop-blur-sm" id="mobile-menu-backdrop" style="display: none !important;"></div>
+
+    <!-- Mobile Menu Drawer -->
+    <div class="fixed inset-y-0 right-0 z-[99999] w-full md:max-w-md bg-white dark:bg-slate-900 shadow-2xl" id="mobile-menu" style="display: none !important;">
+        <div class="flex flex-col h-full relative">
+            {% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
+            {% set headerSettings = sulu_snippet_load_by_area('header_settings') %}
+            {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
+            {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+            {% set booking_url = sulu_content_path('/contact') %}
+            {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
+                {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
+            {% endif %}
+
+            <div class="p-6 h-full flex flex-col overflow-y-auto">
+                <div class="flex justify-between items-center mb-10 border-b pb-6">
+                    <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
+                        {% if common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
+                            {% set image = common_settings.content.logo %}
+                            <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ common_settings.content.company_name }}" class="h-10 w-auto">
+                        {% else %}
+                            <div class="bg-primary p-2 rounded-lg">
+                                {% set icon = 'medical_services' %}
+                                {% if headerSettings and headerSettings.content.logo_icon is defined and headerSettings.content.logo_icon is not empty %}
+                                    {% set icon = headerSettings.content.logo_icon %}
+                                {% endif %}
+                                <span class="material-symbols-outlined text-white">{{ icon }}</span>
+                            </div>
+                        {% endif %}
+                        <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
+                    </a>
+                    <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="mobile-menu-close">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <nav class="flex flex-col space-y-6 mb-10">
+                    {% set navItems = sulu_page_navigation_root_tree('main', 1) %}
+                    {% for item in navItems %}
+                        <a class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">
+                            {{ item.title }}
+                        </a>
+                    {% endfor %}
+                </nav>
+
+                <div class="mt-auto pt-8 border-t border-slate-200 dark:border-slate-800">
+                    {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}
+                        <a class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-medium mb-6 text-lg" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
+                            <span class="material-symbols-outlined text-primary text-2xl">call</span>
+                            {{ addressSettings.content.phone }}
+                        </a>
+                    {% endif %}
+                    <a href="{{ booking_url }}" class="block w-full text-center bg-primary hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-xl transition-all shadow-lg shadow-blue-500/25">
+                        {{ headerSettings.content.booking_button_text|default('Termin buchen'|trans) }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <main>
         {% block content %}{% endblock %}
     </main>
@@ -82,6 +143,39 @@
                     localStorage.theme = 'dark';
                 }
             });
+        }
+
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        const closeMenu = () => {
+            if (mobileMenu) mobileMenu.style.setProperty('display', 'none', 'important');
+            if (mobileMenuBackdrop) mobileMenuBackdrop.style.setProperty('display', 'none', 'important');
+            document.body.style.overflow = '';
+        };
+
+        if (mobileMenuToggle && mobileMenu) {
+            mobileMenuToggle.addEventListener('click', () => {
+                // Ensure no conflicting hidden class
+                mobileMenu.classList.remove('hidden');
+                if (mobileMenuBackdrop) mobileMenuBackdrop.classList.remove('hidden');
+
+                // Force visibility with inline style
+                mobileMenu.style.setProperty('display', 'block', 'important');
+                if (mobileMenuBackdrop) mobileMenuBackdrop.style.setProperty('display', 'block', 'important');
+
+                document.body.style.overflow = 'hidden';
+            });
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', closeMenu);
+        }
+
+        if (mobileMenuBackdrop) {
+            mobileMenuBackdrop.addEventListener('click', closeMenu);
         }
     </script>
 

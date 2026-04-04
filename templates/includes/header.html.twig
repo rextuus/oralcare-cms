@@ -34,7 +34,7 @@
                     <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
                 </a>
             </div>
-            <nav class="hidden md:flex items-center space-x-8">
+            <nav class="hidden items-center space-x-8">
                 {% for item in sulu_page_navigation_root_tree('main', 1) %}
                     <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary font-medium transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a>
                 {% endfor %}
@@ -51,12 +51,15 @@
                 {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
                     {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
                 {% endif %}
-                <a href="{{ booking_url }}" class="bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-blue-500/25">
+                <a href="{{ booking_url }}" class="hidden sm:inline-block bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-blue-500/25">
                     {{ headerSettings.content.booking_button_text|default('Termin buchen'|trans) }}
                 </a>
                 <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="theme-toggle">
                     <span class="material-symbols-outlined dark:hidden">dark_mode</span>
                     <span class="material-symbols-outlined hidden dark:inline text-yellow-400">light_mode</span>
+                </button>
+                <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="mobile-menu-toggle">
+                    <span class="material-symbols-outlined" id="mobile-menu-icon">menu</span>
                 </button>
             </div>
         </div>
