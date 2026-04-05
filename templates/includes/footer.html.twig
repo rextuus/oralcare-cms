@@ -37,47 +37,26 @@
             <div>
                 <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Schnellzugriff'|trans }}</h4>
                 <ul class="space-y-4 text-slate-400">
-
-                    {% set nav_context = 'footer' %}
-                    {% if footerSettings and footerSettings.content.quick_links_context is not empty %}
-                        {% set nav_context = footerSettings.content.quick_links_context %}
-                    {% endif %}
-
-                    {% if footerSettings and footerSettings.content.quick_links_custom is not empty %}
-                        {% for item in footerSettings.content.quick_links_custom %}
-                            <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
-                        {% endfor %}
+                    {% for item in sulu_page_navigation_root_tree('footer', 1) %}
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
                     {% else %}
-                        {% for item in sulu_page_navigation_root_tree(nav_context, 1) %}
+                        {% for item in sulu_page_navigation_root_tree('main', 1) %}
                             <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
                         {% endfor %}
-
-                        {# Fallback if the chosen context is empty and it wasn't 'main' already #}
-                        {% if nav_context != 'main' and sulu_page_navigation_root_tree(nav_context, 1)|length == 0 %}
-                            {% for item in sulu_page_navigation_root_tree('main', 1) %}
-                                <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
-                            {% endfor %}
-                        {% endif %}
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div>
                 <h4 class="text-lg font-bold mb-8 relative pb-2 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-12 after:h-1 after:bg-primary">{{ 'Unsere Leistungen'|trans }}</h4>
                 <ul class="space-y-4 text-slate-400">
-                    {% if footerSettings and footerSettings.content.top_services is defined and footerSettings.content.top_services is not empty %}
-                        {% for item in footerSettings.content.top_services %}
-                            {% set target = '#' %}
-                            {% if item.link is not empty %}
-                                {% set target = sulu_content_path(item.link|first.url) %}
-                            {% endif %}
-                            <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ target }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
-                        {% endfor %}
+                    {% for item in sulu_page_navigation_root_tree('services', 1) %}
+                        <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="{{ sulu_content_path(item.url) }}"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ item.title }}</a></li>
                     {% else %}
                         <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Prophylaxe'|trans }}</a></li>
                         <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Implantate'|trans }}</a></li>
                         <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Kieferorthopädie'|trans }}</a></li>
                         <li><a class="hover:text-primary transition-colors flex items-center gap-2 group" href="#"><span class="material-symbols-outlined text-sm transition-transform group-hover:translate-x-1">chevron_right</span> {{ 'Bleaching'|trans }}</a></li>
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
             <div>

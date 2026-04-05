@@ -1,0 +1,227 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>service_detail</key>
+
+    <view>pages/service_detail</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Service Detail</title>
+        <title lang="de">Leistungsdetails</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+            <tag name="sulu.node.navigation"/>
+        </property>
+
+        <section name="hero_section">
+            <meta>
+                <title lang="en">Hero Section</title>
+                <title lang="de">Hero Bereich</title>
+            </meta>
+            <properties>
+                <property name="hero_badge" type="text_line">
+                    <meta>
+                        <title lang="en">Hero Badge</title>
+                        <title lang="de">Hero Badge</title>
+                    </meta>
+                </property>
+                <property name="hero_subtitle" type="text_area">
+                    <meta>
+                        <title lang="en">Hero Subtitle</title>
+                        <title lang="de">Hero Untertitel</title>
+                    </meta>
+                </property>
+                <property name="hero_image" type="media_selection">
+                    <meta>
+                        <title lang="en">Hero Image</title>
+                        <title lang="de">Hero Bild</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+
+        <section name="content_section">
+            <meta>
+                <title lang="en">Content</title>
+                <title lang="de">Inhalt</title>
+            </meta>
+            <properties>
+                <property name="article" type="text_editor">
+                    <meta>
+                        <title lang="en">Article</title>
+                        <title lang="de">Artikel</title>
+                    </meta>
+                </property>
+
+                <property name="blocks" type="block">
+                    <meta>
+                        <title lang="en">Content Blocks</title>
+                        <title lang="de">Inhaltsblöcke</title>
+                    </meta>
+                    <types>
+                        <type name="text_image">
+                            <meta>
+                                <title lang="en">Text with Image</title>
+                                <title lang="de">Text mit Bild</title>
+                            </meta>
+                            <properties>
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="text" type="text_editor">
+                                    <meta>
+                                        <title lang="en">Text</title>
+                                        <title lang="de">Text</title>
+                                    </meta>
+                                </property>
+                                <property name="image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="image_position" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Position</title>
+                                        <title lang="de">Bildposition</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="left">
+                                                <meta>
+                                                    <title lang="en">Left</title>
+                                                    <title lang="de">Links</title>
+                                                </meta>
+                                            </param>
+                                            <param name="right">
+                                                <meta>
+                                                    <title lang="en">Right</title>
+                                                    <title lang="de">Rechts</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="right"/>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+
+                        <type name="features">
+                            <meta>
+                                <title lang="en">Features/Highlights</title>
+                                <title lang="de">Merkmale/Highlights</title>
+                            </meta>
+                            <properties>
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                                <property name="items" type="block">
+                                    <meta>
+                                        <title lang="en">Feature Items</title>
+                                        <title lang="de">Merkmale</title>
+                                    </meta>
+                                    <types>
+                                        <type name="item">
+                                            <meta>
+                                                <title lang="en">Item</title>
+                                                <title lang="de">Eintrag</title>
+                                            </meta>
+                                            <properties>
+                                                <property name="title" type="text_line">
+                                                    <meta>
+                                                        <title lang="en">Title</title>
+                                                        <title lang="de">Titel</title>
+                                                    </meta>
+                                                </property>
+                                                <property name="description" type="text_area">
+                                                    <meta>
+                                                        <title lang="en">Description</title>
+                                                        <title lang="de">Beschreibung</title>
+                                                    </meta>
+                                                </property>
+                                                <property name="icon" type="text_line">
+                                                    <meta>
+                                                        <title lang="en">Icon Name (Material Symbol or Tabler 'ti-...')</title>
+                                                        <title lang="de">Icon Name</title>
+                                                    </meta>
+                                                </property>
+                                            </properties>
+                                        </type>
+                                    </types>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
+        <section name="cta_section">
+            <meta>
+                <title lang="en">Call to Action</title>
+                <title lang="de">Call to Action</title>
+            </meta>
+            <properties>
+                <property name="cta_title" type="text_line">
+                    <meta>
+                        <title lang="en">CTA Title</title>
+                        <title lang="de">CTA Titel</title>
+                    </meta>
+                </property>
+                <property name="cta_button_text" type="text_line">
+                    <meta>
+                        <title lang="en">Button Text</title>
+                        <title lang="de">Button Text</title>
+                    </meta>
+                </property>
+                <property name="cta_button_link" type="page_selection">
+                    <meta>
+                        <title lang="en">Button Link</title>
+                        <title lang="de">Button Link</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

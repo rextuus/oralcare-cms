@@ -256,8 +256,8 @@
                                 </property>
                                 <property name="link" type="page_selection">
                                     <meta>
-                                        <title lang="en">Link</title>
-                                        <title lang="de">Link</title>
+                                        <title lang="en">Detail Page (Optional)</title>
+                                        <title lang="de">Detailseite (Optional)</title>
                                     </meta>
                                 </property>
                             </properties>

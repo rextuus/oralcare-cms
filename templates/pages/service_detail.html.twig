@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {# Hero Section #}
+    <section class="relative pt-16 pb-24 lg:pt-32 lg:pb-40 overflow-hidden bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
+                    <div>
+                        {% if content.hero_badge is not empty %}
+                            <span class="inline-block py-1 px-4 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary font-semibold text-sm mb-4">
+                                {{ content.hero_badge }}
+                            </span>
+                        {% endif %}
+                        <h1 class="text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1]">
+                            {{ content.title|raw }}
+                        </h1>
+                        {% if content.hero_subtitle is not empty %}
+                            <p class="mt-6 text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                                {{ content.hero_subtitle|nl2br }}
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="relative animate-in fade-in zoom-in duration-1000">
+                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl">
+                        {% if content.hero_image is not empty %}
+                            {% set image = content.hero_image|first %}
+                            <img src="{{ image.thumbnails['sulu-1200x']|default(image.url) }}" alt="{{ image.title }}" class="w-full h-[500px] object-cover">
+                        {% else %}
+                            <img alt="Service detail" class="w-full h-[500px] object-cover" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070&auto=format&fit=crop">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    {# Article Content #}
+    {% if content.article is not empty %}
+        <section class="py-20 bg-white dark:bg-slate-900">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="prose prose-lg prose-slate dark:prose-invert max-w-none">
+                    {{ content.article|raw }}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+    {# Content Blocks #}
+    {% if content.blocks is not empty %}
+        {% for block in content.blocks %}
+            {% if block.type == 'text_image' %}
+                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-background-light dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900' }}">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="grid lg:grid-cols-2 gap-16 items-center">
+                            <div class="{{ block.image_position == 'left' ? 'lg:order-2' : '' }} space-y-6">
+                                {% if block.title is not empty %}
+                                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white">{{ block.title }}</h2>
+                                {% endif %}
+                                <div class="prose prose-slate dark:prose-invert max-w-none">
+                                    {{ block.text|raw }}
+                                </div>
+                            </div>
+                            <div class="{{ block.image_position == 'left' ? 'lg:order-1' : '' }}">
+                                <div class="relative rounded-[2rem] overflow-hidden shadow-xl">
+                                    {% if block.image is not empty %}
+                                        {% set blockImage = block.image|first %}
+                                        <img src="{{ blockImage.thumbnails['sulu-800x']|default(blockImage.url) }}" alt="{{ blockImage.title }}" class="w-full h-[400px] object-cover">
+                                    {% else %}
+                                        <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?q=80&w=1974&auto=format&fit=crop" alt="Placeholder" class="w-full h-[400px] object-cover">
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            {% elseif block.type == 'features' %}
+                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-background-light dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900' }}">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        {% if block.title is not empty %}
+                            <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white text-center mb-16">{{ block.title }}</h2>
+                        {% endif %}
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {% for item in block.items %}
+                                <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow">
+                                    <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mb-6">
+                                        {% if item.icon is not empty and 'ti-' in item.icon %}
+                                            <i class="ti {{ item.icon }} text-primary text-2xl"></i>
+                                        {% else %}
+                                            <span class="material-symbols-outlined text-primary text-2xl">{{ item.icon|default('verified') }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{{ item.title }}</h4>
+                                    <p class="text-slate-600 dark:text-slate-400">{{ item.description|nl2br }}</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {# CTA Section #}
+    {% if content.cta_title is not empty %}
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-primary rounded-[3rem] p-12 lg:p-20 text-center text-white relative overflow-hidden shadow-2xl shadow-blue-500/20">
+                    <div class="relative z-10 space-y-8">
+                        <h2 class="text-4xl lg:text-5xl font-display font-bold leading-tight">{{ content.cta_title }}</h2>
+                        {% if content.cta_button_text is not empty %}
+                            {% set ctaUrl = '#' %}
+                            {% if content.cta_button_link is not empty %}
+                                {% set ctaUrl = sulu_content_path(content.cta_button_link|first.url) %}
+                            {% endif %}
+                            <a href="{{ ctaUrl }}" class="inline-flex bg-white text-primary px-10 py-5 rounded-2xl font-bold text-xl hover:bg-slate-100 transition-all shadow-xl">
+                                {{ content.cta_button_text }}
+                            </a>
+                        {% endif %}
+                    </div>
+                    <div class="absolute top-0 right-0 -mt-20 -mr-20 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 left-0 -mb-20 -ml-20 w-64 h-64 bg-black/10 rounded-full blur-3xl"></div>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
+{% endblock %}

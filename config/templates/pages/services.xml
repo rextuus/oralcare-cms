@@ -105,8 +105,8 @@
                                 </property>
                                 <property name="link" type="page_selection">
                                     <meta>
-                                        <title lang="en">Internal Link (Optional)</title>
-                                        <title lang="de">Interner Link (Optional)</title>
+                                        <title lang="en">Detail Page (Optional)</title>
+                                        <title lang="de">Detailseite (Optional)</title>
                                     </meta>
                                     <params>
                                         <param name="max" value="1"/>

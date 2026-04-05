@@ -43,6 +43,12 @@
                     <title lang="de">Footer Navigation</title>
                 </meta>
             </context>
+            <context key="services">
+                <meta>
+                    <title lang="en">Services Navigation</title>
+                    <title lang="de">Leistungs-Navigation</title>
+                </meta>
+            </context>
         </contexts>
     </navigation>
 
