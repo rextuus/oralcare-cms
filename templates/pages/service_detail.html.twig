@@ -17,7 +17,7 @@
                         </h1>
                         {% if content.hero_subtitle is not empty %}
                             <p class="mt-6 text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                                {{ content.hero_subtitle|nl2br }}
+                                {{ content.hero_subtitle|raw }}
                             </p>
                         {% endif %}
                     </div>
@@ -92,7 +92,7 @@
                                         {% endif %}
                                     </div>
                                     <h4 class="text-xl font-bold text-slate-900 dark:text-white mb-3">{{ item.title }}</h4>
-                                    <p class="text-slate-600 dark:text-slate-400">{{ item.description|nl2br }}</p>
+                                    <p class="text-slate-600 dark:text-slate-400">{{ item.description|raw }}</p>
                                 </div>
                             {% endfor %}
                         </div>

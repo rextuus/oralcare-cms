@@ -6,7 +6,7 @@
             <div class="max-w-lg w-full">
                 <h1 class="text-4xl font-extrabold mb-4 tracking-tight text-slate-900 dark:text-white">{{ content.title }}</h1>
                 {% if content.hero_subtitle is not empty %}
-                    <p class="text-gray-500 dark:text-gray-400 mb-6">{{ content.hero_subtitle|nl2br }}</p>
+                    <p class="text-gray-500 dark:text-gray-400 mb-6">{{ content.hero_subtitle|raw }}</p>
                 {% endif %}
                 <div class="relative">
                     <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">search</span>
@@ -63,7 +63,7 @@
                                             <span>{{ item.article_read_time }}</span>
                                         </div>
                                         <h3 class="text-3xl font-bold mb-4 group-hover:text-primary transition-colors text-slate-900 dark:text-white">{{ item.article_title }}</h3>
-                                        <p class="text-gray-600 dark:text-gray-400 line-clamp-2 text-lg">{{ item.article_description }}</p>
+                                        <p class="text-gray-600 dark:text-gray-400 line-clamp-2 text-lg">{{ item.article_description|raw }}</p>
                                         <div class="mt-8 flex items-center gap-3">
                                             {% if item.author_image is not empty %}
                                                 {% set author_img = item.author_image|first %}
@@ -153,7 +153,7 @@
                                     <span class="text-gray-400 text-xs">{{ update.article_read_time }}</span>
                                 </div>
                                 <h3 class="text-xl font-bold mb-3 leading-snug group-hover:text-primary transition-colors text-slate-900 dark:text-white">{{ update.article_title }}</h3>
-                                <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2">{{ update.article_description }}</p>
+                                <p class="text-gray-500 dark:text-gray-400 text-sm line-clamp-2">{{ update.article_description|raw }}</p>
                             </a>
                         </article>
                     {% endfor %}
@@ -173,7 +173,7 @@
             <div class="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/4 w-[500px] h-[500px] bg-blue-400/20 rounded-full blur-3xl pointer-events-none"></div>
             <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
                 <h2 class="text-4xl font-extrabold mb-6">{{ content.newsletter_title|default('Informiert bleiben über Ihre Zahngesundheit'|trans) }}</h2>
-                <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">{{ content.newsletter_description|default('Abonnieren Sie unseren Newsletter und erhalten Sie monatlich Tipps, Sonderangebote und die neuesten Nachrichten aus der Zahntechnik direkt in Ihren Posteingang.'|trans) }}</p>
+                <p class="text-blue-100 text-lg mb-10 max-w-2xl mx-auto">{{ content.newsletter_description|default('Abonnieren Sie unseren Newsletter und erhalten Sie monatlich Tipps, Sonderangebote und die neuesten Nachrichten aus der Zahntechnik direkt in Ihren Posteingang.'|trans)|raw }}</p>
                 <form class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
                     <input class="flex-grow px-6 py-4 rounded-full text-slate-900 focus:outline-none focus:ring-4 focus:ring-white/20" placeholder="{{ 'Ihre E-Mail-Adresse'|trans }}" type="email"/>
                     <button class="bg-slate-900 text-white px-8 py-4 rounded-full font-bold hover:bg-black transition-all shadow-xl" type="submit">{{ 'Jetzt abonnieren'|trans }}</button>

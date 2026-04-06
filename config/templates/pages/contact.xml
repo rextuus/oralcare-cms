@@ -105,7 +105,7 @@
                                         <title lang="de">Frage</title>
                                     </meta>
                                 </property>
-                                <property name="answer" type="text_area">
+                                <property name="answer" type="text_editor">
                                     <meta>
                                         <title lang="en">Answer</title>
                                         <title lang="de">Antwort</title>
@@ -124,13 +124,13 @@
                 <title lang="de">Zusätzliche Informationen</title>
             </meta>
             <properties>
-                <property name="emergency_info" type="text_area">
+                <property name="emergency_info" type="text_editor">
                     <meta>
                         <title lang="en">Emergency Care Info</title>
                         <title lang="de">Notfallversorgung Info</title>
                     </meta>
                 </property>
-                <property name="languages_info" type="text_area">
+                <property name="languages_info" type="text_editor">
                     <meta>
                         <title lang="en">Languages Spoken Info</title>
                         <title lang="de">Gesprochene Sprachen Info</title>

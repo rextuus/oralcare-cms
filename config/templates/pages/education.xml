@@ -42,7 +42,7 @@
                 <title lang="de">Hero Bereich</title>
             </meta>
             <properties>
-                <property name="hero_subtitle" type="text_area">
+                <property name="hero_subtitle" type="text_editor">
                     <meta>
                         <title lang="en">Hero Subtitle</title>
                         <title lang="de">Hero Untertitel</title>
@@ -75,7 +75,7 @@
                                         <title lang="de">Titel</title>
                                     </meta>
                                 </property>
-                                <property name="article_description" type="text_area">
+                                <property name="article_description" type="text_editor">
                                     <meta>
                                         <title lang="en">Description</title>
                                         <title lang="de">Beschreibung</title>
@@ -199,7 +199,7 @@
                                         <title lang="de">Titel</title>
                                     </meta>
                                 </property>
-                                <property name="article_description" type="text_area">
+                                <property name="article_description" type="text_editor">
                                     <meta>
                                         <title lang="en">Description</title>
                                         <title lang="de">Beschreibung</title>
@@ -283,7 +283,7 @@
                         <title lang="de">Newsletter Titel</title>
                     </meta>
                 </property>
-                <property name="newsletter_description" type="text_area">
+                <property name="newsletter_description" type="text_editor">
                     <meta>
                         <title lang="en">Newsletter Description</title>
                         <title lang="de">Newsletter Beschreibung</title>

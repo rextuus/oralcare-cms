@@ -21,7 +21,7 @@
                         </h1>
                         {% if content.hero_subtitle is not empty %}
                             <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                                {{ content.hero_subtitle|nl2br }}
+                                {{ content.hero_subtitle|raw }}
                             </p>
                         {% endif %}
                     </div>
@@ -126,12 +126,12 @@
                     <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
                     {% if content.about_description_1 is not empty %}
                         <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                            {{ content.about_description_1|nl2br }}
+                            {{ content.about_description_1|raw }}
                         </p>
                     {% endif %}
                     {% if content.about_description_2 is not empty %}
                         <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-                            {{ content.about_description_2|nl2br }}
+                            {{ content.about_description_2|raw }}
                         </p>
                     {% endif %}
 
@@ -165,7 +165,7 @@
             <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
             {% if content.services_subtitle is not empty %}
                 <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
-                    {{ content.services_subtitle|nl2br }}
+                    {{ content.services_subtitle|raw }}
                 </p>
             {% endif %}
         </div>
@@ -197,7 +197,7 @@
                         </div>
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
                         <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                            {{ service.description|nl2br }}
+                            {{ service.description|raw }}
                         </p>
                         {% if service.features is not empty %}
                             <ul class="space-y-3 mb-8 text-left">
@@ -234,7 +234,7 @@
                                     </div>
                                     <div>
                                         <h4 class="font-bold text-slate-900 dark:text-white text-lg">{{ 'Unser Standort'|trans }}</h4>
-                                        <p class="text-slate-600 dark:text-slate-400">{{ addressSettings.content.address|nl2br }}</p>
+                                        <p class="text-slate-600 dark:text-slate-400">{{ addressSettings.content.address|raw }}</p>
                                     </div>
                                 </div>
                             {% endif %}
@@ -273,7 +273,7 @@
                     {% if content.emergency_text is not empty %}
                         <div class="mt-10 p-6 bg-primary rounded-2xl text-white">
                             <h4 class="text-xl font-bold mb-2">{{ content.emergency_title|default('Notfalltermin?'|trans) }}</h4>
-                            <p class="opacity-90 mb-6">{{ content.emergency_text|nl2br }}</p>
+                            <p class="opacity-90 mb-6">{{ content.emergency_text|raw }}</p>
                             {% if addressSettings and addressSettings.content.phone %}
                                 <a class="bg-white text-primary px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 hover:bg-slate-100 transition-colors" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
                                     <span class="material-symbols-outlined">phone_in_talk</span>

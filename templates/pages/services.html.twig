@@ -15,7 +15,7 @@
                 </h1>
                 {% if content.hero_subtitle is not empty %}
                     <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
-                        {{ content.hero_subtitle|nl2br }}
+                        {{ content.hero_subtitle|raw }}
                     </p>
                 {% endif %}
             </div>
@@ -47,7 +47,7 @@
                             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>
                         </div>
                         <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
-                            {{ service.description|nl2br }}
+                            {{ service.description|raw }}
                         </p>
                         {% if service.link is not empty %}
                             <a class="inline-flex items-center font-semibold text-primary group-hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
@@ -66,7 +66,7 @@
                     <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ content.cta_title|default('Bereit zu buchen?'|trans) }}</h2>
                     {% if content.cta_subtitle is not empty %}
                         <p class="text-blue-100 text-lg mb-10">
-                            {{ content.cta_subtitle|nl2br }}
+                            {{ content.cta_subtitle|raw }}
                         </p>
                     {% endif %}
                     {% if content.cta_button_link is not empty %}

@@ -14,7 +14,7 @@
                     <span class="font-display font-bold text-2xl tracking-tight">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
                 </div>
                 <p class="text-slate-400 leading-relaxed text-sm">
-                    {{ footerSettings.content.footer_info_text|default('Wir bieten erstklassige zahnmedizinische Versorgung in einer komfortablen Umgebung. Unser Team nutzt modernste Technik für Ihr gesundes Lächeln.'|trans)|nl2br }}
+                    {{ footerSettings.content.footer_info_text|default('Wir bieten erstklassige zahnmedizinische Versorgung in einer komfortablen Umgebung. Unser Team nutzt modernste Technik für Ihr gesundes Lächeln.'|trans)|raw }}
                 </p>
                 <div class="flex gap-4">
                     {% if socialMedia and socialMedia.content.facebook_url is not empty %}
@@ -65,7 +65,7 @@
                     {% if addressSettings and addressSettings.content.address is defined and addressSettings.content.address %}
                         <li class="flex items-start gap-3">
                             <span class="material-symbols-outlined text-primary mt-1">location_on</span>
-                            <span class="text-slate-400 text-sm">{{ addressSettings.content.address|nl2br }}</span>
+                            <span class="text-slate-400 text-sm">{{ addressSettings.content.address|raw }}</span>
                         </li>
                     {% endif %}
                     {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}

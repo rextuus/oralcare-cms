@@ -49,7 +49,7 @@
                         <title lang="de">Hero Badge</title>
                     </meta>
                 </property>
-                <property name="hero_subtitle" type="text_area">
+                <property name="hero_subtitle" type="text_editor">
                     <meta>
                         <title lang="en">Hero Subtitle</title>
                         <title lang="de">Hero Untertitel</title>
@@ -171,7 +171,7 @@
                                                         <title lang="de">Titel</title>
                                                     </meta>
                                                 </property>
-                                                <property name="description" type="text_area">
+                                                <property name="description" type="text_editor">
                                                     <meta>
                                                         <title lang="en">Description</title>
                                                         <title lang="de">Beschreibung</title>

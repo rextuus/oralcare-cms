@@ -66,7 +66,7 @@
                                         <span class="material-symbols-outlined expand-icon transition-transform text-slate-400 group-open:rotate-180">expand_more</span>
                                     </summary>
                                     <div class="px-4 pb-4 text-slate-500 dark:text-slate-400 leading-relaxed text-sm">
-                                        {{ item.answer|nl2br }}
+                                        {{ item.answer|raw }}
                                     </div>
                                 </details>
                             {% endfor %}
@@ -110,7 +110,7 @@
                                     <div>
                                         <h3 class="font-bold text-lg dark:text-white">{{ 'Unser Standort'|trans }}</h3>
                                         {% set address = content.address|default(addressSettings.content.address|default('')) %}
-                                        <p class="text-slate-500 dark:text-slate-400">{{ address|nl2br }}</p>
+                                        <p class="text-slate-500 dark:text-slate-400">{{ address|raw }}</p>
                                     </div>
                                 </div>
                                 <div class="flex flex-col sm:flex-row gap-3">

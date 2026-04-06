@@ -25,7 +25,7 @@
                 <title lang="de">Kontaktinformationen</title>
             </meta>
             <properties>
-                <property name="address" type="text_area">
+                <property name="address" type="text_editor">
                     <meta>
                         <title lang="en">Address</title>
                         <title lang="de">Adresse</title>

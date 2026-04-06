@@ -25,7 +25,7 @@
                 <title lang="de">Allgemeine Informationen</title>
             </meta>
             <properties>
-                <property name="footer_info_text" type="text_area">
+                <property name="footer_info_text" type="text_editor">
                     <meta>
                         <title lang="en">Footer Info Text</title>
                         <title lang="de">Footer Info Text</title>
