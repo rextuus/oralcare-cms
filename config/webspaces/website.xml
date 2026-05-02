@@ -9,7 +9,8 @@
 
     <localizations>
         <!-- See: http://docs.sulu.io/en/latest/book/localization.html how to add new localizations -->
-        <localization language="en" default="true"/>
+        <localization language="de" default="true"/>
+        <localization language="en"/>
     </localizations>
 
     <default-templates>
