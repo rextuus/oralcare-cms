@@ -1,0 +1,136 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>team_member</key>
+
+    <view>pages/team_member</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>86400</cacheLifetime>
+
+    <meta>
+        <title lang="en">Team Member</title>
+        <title lang="de">Teammitglied</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Name</title>
+                <title lang="de">Name</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="role" type="text_line">
+            <meta>
+                <title lang="en">Role</title>
+                <title lang="de">Rolle</title>
+            </meta>
+        </property>
+
+        <property name="image" type="media_selection">
+            <meta>
+                <title lang="en">Profile Image</title>
+                <title lang="de">Profilbild</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+                <param name="max" value="1"/>
+            </params>
+        </property>
+
+        <property name="description" type="text_editor">
+            <meta>
+                <title lang="en">Short Description</title>
+                <title lang="de">Kurzbeschreibung</title>
+            </meta>
+        </property>
+
+        <section name="details">
+            <meta>
+                <title lang="en">Additional Details</title>
+                <title lang="de">Weitere Details</title>
+            </meta>
+            <properties>
+                <property name="article" type="text_editor">
+                    <meta>
+                        <title lang="en">Long Biography / Information</title>
+                        <title lang="de">Ausführliche Biografie / Informationen</title>
+                    </meta>
+                </property>
+
+                <property name="specialties" type="block">
+                    <meta>
+                        <title lang="en">Specialties / Focus</title>
+                        <title lang="de">Schwerpunkte / Fachgebiete</title>
+                    </meta>
+                    <types>
+                        <type name="specialty">
+                            <meta>
+                                <title lang="en">Specialty</title>
+                                <title lang="de">Schwerpunkt</title>
+                            </meta>
+                            <properties>
+                                <property name="title" type="text_line">
+                                    <meta>
+                                        <title lang="en">Title</title>
+                                        <title lang="de">Titel</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+
+                <property name="contact_info" type="block">
+                    <meta>
+                        <title lang="en">Contact Information</title>
+                        <title lang="de">Kontaktinformationen</title>
+                    </meta>
+                    <params>
+                        <param name="max" value="1"/>
+                    </params>
+                    <types>
+                        <type name="contact">
+                            <properties>
+                                <property name="email" type="text_line">
+                                    <meta>
+                                        <title lang="en">Email</title>
+                                        <title lang="de">E-Mail</title>
+                                    </meta>
+                                </property>
+                                <property name="phone" type="text_line">
+                                    <meta>
+                                        <title lang="en">Phone</title>
+                                        <title lang="de">Telefon</title>
+                                    </meta>
+                                </property>
+                                <property name="calendar_url" type="text_line">
+                                    <meta>
+                                        <title lang="en">Booking URL</title>
+                                        <title lang="de">Buchungs-URL</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+    </properties>
+</template>

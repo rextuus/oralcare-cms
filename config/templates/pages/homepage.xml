@@ -163,15 +163,63 @@
                         <title lang="de">Beschreibung 2</title>
                     </meta>
                 </property>
-                <property name="about_images" type="media_selection">
+                <property name="about_images" type="block">
                     <meta>
-                        <title lang="en">Images (4)</title>
-                        <title lang="de">Bilder (4)</title>
+                        <title lang="en">About Images (4)</title>
+                        <title lang="de">Bilder Über uns (4)</title>
                     </meta>
                     <params>
-                        <param name="types" value="image"/>
                         <param name="max" value="4"/>
                     </params>
+                    <types>
+                        <type name="about_image">
+                            <meta>
+                                <title lang="en">Image</title>
+                                <title lang="de">Bild</title>
+                            </meta>
+                            <properties>
+                                <property name="image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image</title>
+                                        <title lang="de">Bild</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Layout</title>
+                                        <title lang="de">Layout</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="square">
+                                                <meta>
+                                                    <title lang="en">Square</title>
+                                                    <title lang="de">Quadratisch</title>
+                                                </meta>
+                                            </param>
+                                            <param name="vertical">
+                                                <meta>
+                                                    <title lang="en">Vertical</title>
+                                                    <title lang="de">Vertikal</title>
+                                                </meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta>
+                                                    <title lang="en">Horizontal</title>
+                                                    <title lang="de">Horizontal</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="square"/>
+                                    </params>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
                 </property>
                 <property name="about_features" type="block">
                     <meta>

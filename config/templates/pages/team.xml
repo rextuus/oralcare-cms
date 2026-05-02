@@ -124,6 +124,15 @@
                                         <title lang="de">Kalender/Buchungs-URL</title>
                                     </meta>
                                 </property>
+                                <property name="link" type="page_selection">
+                                    <meta>
+                                        <title lang="en">Detail Page (Optional)</title>
+                                        <title lang="de">Detailseite (Optional)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
                                 <property name="badge_color" type="single_select">
                                     <meta>
                                         <title lang="en">Badge Color</title>
