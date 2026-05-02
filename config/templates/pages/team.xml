@@ -89,6 +89,29 @@
                                         <param name="max" value="1"/>
                                     </params>
                                 </property>
+                                <property name="image_layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Layout</title>
+                                        <title lang="de">Bild-Layout</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="square">
+                                                <meta>
+                                                    <title lang="en">Square</title>
+                                                    <title lang="de">Quadratisch</title>
+                                                </meta>
+                                            </param>
+                                            <param name="vertical">
+                                                <meta>
+                                                    <title lang="en">Vertical (4:5)</title>
+                                                    <title lang="de">Vertikal (4:5)</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="vertical"/>
+                                    </params>
+                                </property>
                                 <property name="email" type="text_line">
                                     <meta>
                                         <title lang="en">Email</title>
@@ -142,22 +165,22 @@
                                     </meta>
                                     <params>
                                         <param name="values" type="collection">
+                                            <param name="all">
+                                                <meta>
+                                                    <title lang="en">All</title>
+                                                    <title lang="de">Alle</title>
+                                                </meta>
+                                            </param>
                                             <param name="dentists">
                                                 <meta>
                                                     <title lang="en">Dentists</title>
                                                     <title lang="de">Zahnärzte</title>
                                                 </meta>
                                             </param>
-                                            <param name="prophylaxis">
+                                            <param name="reception">
                                                 <meta>
-                                                    <title lang="en">Prophylaxis</title>
-                                                    <title lang="de">Prophylaxe</title>
-                                                </meta>
-                                            </param>
-                                            <param name="specialists">
-                                                <meta>
-                                                    <title lang="en">Specialists</title>
-                                                    <title lang="de">Spezialisten</title>
+                                                    <title lang="en">Reception</title>
+                                                    <title lang="de">Empfang</title>
                                                 </meta>
                                             </param>
                                             <param name="assistants">

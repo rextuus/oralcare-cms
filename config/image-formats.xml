@@ -16,9 +16,44 @@
     </format>
     -->
 
-    <!--
-    Render an image from the media_selection in a specific format the following way:
+    <format key="high-quality">
+        <meta>
+            <title lang="en">High Quality</title>
+            <title lang="de">Hohe Qualität</title>
+        </meta>
+        <scale x="1920"/>
+    </format>
 
-    <img src="{{ image.thumbnails['300x'] }}" alt="{{ image.title }}" title="{{ image.description|default(image.title) }}">
-    -->
+    <format key="square-high">
+        <meta>
+            <title lang="en">Square High Quality</title>
+            <title lang="de">Quadrat Hohe Qualität</title>
+        </meta>
+        <scale x="1000" y="1000" mode="inset"/>
+    </format>
+
+    <format key="vertical-high">
+        <meta>
+            <title lang="en">Vertical High Quality</title>
+            <title lang="de">Vertikal Hohe Qualität</title>
+        </meta>
+        <scale x="800" y="1200" mode="inset"/>
+    </format>
+
+    <format key="horizontal-high">
+        <meta>
+            <title lang="en">Horizontal High Quality</title>
+            <title lang="de">Horizontal Hohe Qualität</title>
+        </meta>
+        <scale x="1200" y="800" mode="inset"/>
+    </format>
+
+    <!-- Standard Sulu formats for fallback compatibility -->
+    <format key="sulu-1200x">
+        <scale x="1200"/>
+    </format>
+
+    <format key="sulu-800x">
+        <scale x="800"/>
+    </format>
 </formats>

@@ -77,7 +77,7 @@
                     <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
                         {% if common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
                             {% set image = common_settings.content.logo %}
-                            <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ common_settings.content.company_name }}" class="h-10 w-auto">
+                            <img src="{{ image.thumbnails['sulu-400x400-inset']|default(image.url) }}" alt="{{ common_settings.content.company_name }}" class="h-10 w-auto">
                         {% else %}
                             <div class="bg-primary p-2 rounded-lg">
                                 {% set icon = 'medical_services' %}

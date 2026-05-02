@@ -30,7 +30,12 @@
                     <div class="h-64 overflow-hidden">
                         {% if service.image is not empty %}
                             {% set image = service.image|first %}
-                            <img src="{{ image.thumbnails['sulu-800x600']|default(image.url) }}" alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            {% set layout = service.image_layout|default('square') %}
+                            {% set format = layout == 'square' ? 'square-high' : 'horizontal-high' %}
+                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-800x'])|default(image.url) }}"
+                                 alt="{{ service.title }}"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% else %}
                             <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
                         {% endif %}

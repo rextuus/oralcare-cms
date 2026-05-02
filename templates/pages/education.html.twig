@@ -42,7 +42,12 @@
                                     <div class="relative overflow-hidden h-[400px]">
                                         {% if item.article_image is not empty %}
                                             {% set image = item.article_image|first %}
-                                            <img src="{{ image.thumbnails['sulu-1200x']|default(image.url) }}" alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                            {% set layout = item.article_image_layout|default('horizontal') %}
+                                            {% set format = layout == 'square' ? 'square-high' : 'horizontal-high' %}
+                                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                                 alt="{{ item.article_title }}"
+                                                 class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                         {% else %}
                                             <img alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1516062423079-7ca13cdc7f5a?q=80&w=1200&auto=format&fit=crop">
                                         {% endif %}
@@ -94,7 +99,12 @@
                                         <div class="aspect-video mb-4 overflow-hidden rounded-2xl border border-gray-100 dark:border-gray-700 shadow-sm">
                                             {% if item.article_image is not empty %}
                                                 {% set image = item.article_image|first %}
-                                                <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                                                {% set layout = item.article_image_layout|default('horizontal') %}
+                                                {% set format = layout == 'square' ? 'square-high' : 'horizontal-high' %}
+                                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                                     alt="{{ item.article_title }}"
+                                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                             {% else %}
                                                 <img alt="{{ item.article_title }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=400&auto=format&fit=crop">
                                             {% endif %}
@@ -134,7 +144,12 @@
                                 <div class="relative aspect-[16/10] mb-5 overflow-hidden rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                                     {% if update.article_image is not empty %}
                                         {% set image = update.article_image|first %}
-                                        <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ update.article_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500">
+                                        {% set layout = update.article_image_layout|default('horizontal') %}
+                                        {% set format = layout == 'square' ? 'square-high' : 'horizontal-high' %}
+                                        <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                             alt="{{ update.article_title }}"
+                                             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
+                                             style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                     {% else %}
                                         <img alt="{{ update.article_title }}" class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" src="https://images.unsplash.com/photo-1445510491599-c391e8046a68?q=80&w=400&auto=format&fit=crop">
                                     {% endif %}

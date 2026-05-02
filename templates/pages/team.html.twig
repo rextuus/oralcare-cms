@@ -11,23 +11,26 @@
             {% endif %}
         </div>
 
-        {# Categories / Filter #}
         <div class="flex flex-wrap justify-center gap-3 mb-12" id="team-filter">
             <button data-filter="all" class="filter-btn px-6 py-2 rounded-full bg-primary text-white font-medium shadow-lg shadow-blue-500/20 hover:opacity-90 transition-all active-filter">{{ 'Alle'|trans }}</button>
             <button data-filter="dentists" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:border-primary transition-all">{{ 'Zahnärzte'|trans }}</button>
-            <button data-filter="prophylaxis" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:border-primary transition-all">{{ 'Prophylaxe'|trans }}</button>
-            <button data-filter="specialists" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:border-primary transition-all">{{ 'Spezialisten'|trans }}</button>
+            <button data-filter="reception" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:border-primary transition-all">{{ 'Empfang'|trans }}</button>
             <button data-filter="assistants" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-700 hover:border-primary dark:hover:border-primary hover:text-primary dark:hover:border-primary transition-all">{{ 'Assistenz'|trans }}</button>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="team-grid">
             {% for member in content.team_members %}
+                {% set memberLayout = member.image_layout|default('vertical') %}
                 <div class="team-card group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-200 dark:hover:shadow-none hover:-translate-y-2"
                      data-category="{{ member.category|default('all') }}">
-                    <div class="aspect-[4/5] overflow-hidden bg-slate-100 dark:bg-slate-900">
+                    <div class="{{ memberLayout == 'square' ? 'aspect-square' : 'aspect-[4/5]' }} overflow-hidden bg-slate-100 dark:bg-slate-900">
                         {% if member.image is defined and member.image is not empty %}
                             {% set image = member.image|first %}
-                            <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ member.name }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                            {% set format = memberLayout == 'square' ? 'square-high' : 'vertical-high' %}
+                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                 alt="{{ member.name }}"
+                                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% else %}
                             <img alt="{{ member.name }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://i.pravatar.cc/400?u={{ member.name|url_encode }}">
                         {% endif %}

@@ -67,7 +67,12 @@
                     <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20">
                         {% if content.hero_image is not empty %}
                             {% set image = content.hero_image|first %}
-                            <img src="{{ image.thumbnails['sulu-1200x']|default(image.url) }}" alt="{{ image.title }}" class="w-full h-[600px] object-cover">
+                            {% set layout = content.hero_image_layout|default('vertical') %}
+                            {% set format = layout == 'horizontal' ? 'horizontal-high' : 'vertical-high' %}
+                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                 alt="{{ image.title }}"
+                                 class="w-full {{ layout == 'horizontal' ? 'h-[400px]' : 'h-[600px]' }} object-cover"
+                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% else %}
                             <img alt="Smiling male dentist in a modern office" class="w-full h-[600px] object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop">
                         {% endif %}
@@ -109,7 +114,10 @@
                 <div class="grid grid-cols-2 gap-4">
                     {% if content.about_images is not empty %}
                         {% for image in content.about_images %}
-                            <img src="{{ image.thumbnails['sulu-400x400']|default(image.url) }}" alt="{{ image.title }}" class="rounded-3xl h-64 w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }}">
+                            <img src="{{ image.thumbnails['square-high']|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                 alt="{{ image.title }}"
+                                 class="rounded-3xl h-64 w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }}"
+                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% endfor %}
                     {% else %}
                         <img alt="Dental examination chair" class="rounded-3xl h-64 w-full object-cover shadow-lg mt-8" src="https://images.unsplash.com/photo-1629909608135-ca29ed974bb9?q=80&w=2047&auto=format&fit=crop">

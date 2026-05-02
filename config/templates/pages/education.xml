@@ -91,6 +91,29 @@
                                         <param name="max" value="1"/>
                                     </params>
                                 </property>
+                                <property name="article_image_layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Layout</title>
+                                        <title lang="de">Bild-Layout</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="horizontal">
+                                                <meta>
+                                                    <title lang="en">Horizontal (Standard)</title>
+                                                    <title lang="de">Horizontal (Standard)</title>
+                                                </meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta>
+                                                    <title lang="en">Square</title>
+                                                    <title lang="de">Quadratisch</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="horizontal"/>
+                                    </params>
+                                </property>
                                 <property name="article_category_key" type="single_select">
                                     <meta>
                                         <title lang="en">Category (Filter)</title>
@@ -213,6 +236,29 @@
                                     <params>
                                         <param name="types" value="image"/>
                                         <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_image_layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Layout</title>
+                                        <title lang="de">Bild-Layout</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="horizontal">
+                                                <meta>
+                                                    <title lang="en">Horizontal</title>
+                                                    <title lang="de">Horizontal</title>
+                                                </meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta>
+                                                    <title lang="en">Square</title>
+                                                    <title lang="de">Quadratisch</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="horizontal"/>
                                     </params>
                                 </property>
                                 <property name="article_category_key" type="single_select">

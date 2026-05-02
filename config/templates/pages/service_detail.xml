@@ -65,6 +65,29 @@
                         <param name="max" value="1"/>
                     </params>
                 </property>
+                <property name="hero_image_layout" type="single_select">
+                    <meta>
+                        <title lang="en">Hero Image Layout</title>
+                        <title lang="de">Hero Bild-Layout</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="horizontal">
+                                <meta>
+                                    <title lang="en">Horizontal (Banner)</title>
+                                    <title lang="de">Horizontal (Banner)</title>
+                                </meta>
+                            </param>
+                            <param name="vertical">
+                                <meta>
+                                    <title lang="en">Vertical (Standard)</title>
+                                    <title lang="de">Vertikal (Standard)</title>
+                                </meta>
+                            </param>
+                        </param>
+                        <param name="default" value="vertical"/>
+                    </params>
+                </property>
             </properties>
         </section>
 
@@ -113,6 +136,35 @@
                                     <params>
                                         <param name="types" value="image"/>
                                         <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="image_layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Layout</title>
+                                        <title lang="de">Bild-Layout</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="square">
+                                                <meta>
+                                                    <title lang="en">Square</title>
+                                                    <title lang="de">Quadratisch</title>
+                                                </meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta>
+                                                    <title lang="en">Horizontal</title>
+                                                    <title lang="de">Horizontal</title>
+                                                </meta>
+                                            </param>
+                                            <param name="vertical">
+                                                <meta>
+                                                    <title lang="en">Vertical</title>
+                                                    <title lang="de">Vertikal</title>
+                                                </meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="square"/>
                                     </params>
                                 </property>
                                 <property name="image_position" type="single_select">
