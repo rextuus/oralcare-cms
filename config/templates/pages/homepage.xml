@@ -373,88 +373,80 @@
             </properties>
         </section>
 
-        <section name="aktuelles">
+        <property name="aktuelles_title" type="text_line">
             <meta>
-                <title lang="en">Aktuelles (News/Updates)</title>
-                <title lang="de">Aktuelles</title>
+                <title lang="en">Aktuelles Title</title>
+                <title lang="de">Aktuelles Titel</title>
             </meta>
-            <properties>
-                <property name="aktuelles_title" type="text_line">
+        </property>
+        <property name="aktuelles_blocks" type="block">
+            <meta>
+                <title lang="en">News Items</title>
+                <title lang="de">Aktuelle Meldungen</title>
+            </meta>
+            <types>
+                <type name="news">
                     <meta>
-                        <title lang="en">Section Title</title>
-                        <title lang="de">Sektionstitel</title>
+                        <title lang="en">News Item</title>
+                        <title lang="de">Meldung</title>
                     </meta>
-                </property>
-                <property name="aktuelles_blocks" type="block">
-                    <meta>
-                        <title lang="en">News Items</title>
-                        <title lang="de">Aktuelle Meldungen</title>
-                    </meta>
-                    <types>
-                        <type name="news">
+                    <properties>
+                        <property name="title" type="text_line">
                             <meta>
-                                <title lang="en">News Item</title>
-                                <title lang="de">Meldung</title>
+                                <title lang="en">Title</title>
+                                <title lang="de">Titel</title>
                             </meta>
-                            <properties>
-                                <property name="title" type="text_line">
-                                    <meta>
-                                        <title lang="en">Title</title>
-                                        <title lang="de">Titel</title>
-                                    </meta>
-                                </property>
-                                <property name="text" type="text_editor">
-                                    <meta>
-                                        <title lang="en">Text</title>
-                                        <title lang="de">Text</title>
-                                    </meta>
-                                </property>
-                                <property name="date" type="text_line">
-                                    <meta>
-                                        <title lang="en">Date (optional)</title>
-                                        <title lang="de">Datum (optional)</title>
-                                    </meta>
-                                </property>
-                                <property name="icon" type="text_line">
-                                    <meta>
-                                        <title lang="en">Icon Name (Material Symbol or Tabler 'ti-...')</title>
-                                        <title lang="de">Icon Name</title>
-                                    </meta>
-                                </property>
-                                <property name="news_type" type="single_select">
-                                    <meta>
-                                        <title lang="en">Type / Color</title>
-                                        <title lang="de">Typ / Farbe</title>
-                                    </meta>
-                                    <params>
-                                        <param name="values" type="collection">
-                                            <param name="info">
-                                                <meta>
-                                                    <title lang="en">Info (Blue)</title>
-                                                    <title lang="de">Info (Blau)</title>
-                                                </meta>
-                                            </param>
-                                            <param name="warning">
-                                                <meta>
-                                                    <title lang="en">Warning (Amber/Holiday)</title>
-                                                    <title lang="de">Warnung (Bernstein/Urlaub)</title>
-                                                </meta>
-                                            </param>
-                                            <param name="success">
-                                                <meta>
-                                                    <title lang="en">Success (Green)</title>
-                                                    <title lang="de">Erfolg (Grün)</title>
-                                                </meta>
-                                            </param>
-                                        </param>
-                                        <param name="default" value="info"/>
-                                    </params>
-                                </property>
-                            </properties>
-                        </type>
-                    </types>
-                </property>
-            </properties>
-        </section>
+                        </property>
+                        <property name="text" type="text_editor">
+                            <meta>
+                                <title lang="en">Text</title>
+                                <title lang="de">Text</title>
+                            </meta>
+                        </property>
+                        <property name="date" type="text_line">
+                            <meta>
+                                <title lang="en">Date (optional)</title>
+                                <title lang="de">Datum (optional)</title>
+                            </meta>
+                        </property>
+                        <property name="icon" type="text_line">
+                            <meta>
+                                <title lang="en">Icon Name (Material Symbol or Tabler 'ti-...')</title>
+                                <title lang="de">Icon Name</title>
+                            </meta>
+                        </property>
+                        <property name="news_type" type="single_select">
+                            <meta>
+                                <title lang="en">Type / Color</title>
+                                <title lang="de">Typ / Farbe</title>
+                            </meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="info">
+                                        <meta>
+                                            <title lang="en">Info (Blue)</title>
+                                            <title lang="de">Info (Blau)</title>
+                                        </meta>
+                                    </param>
+                                    <param name="warning">
+                                        <meta>
+                                            <title lang="en">Warning (Amber/Holiday)</title>
+                                            <title lang="de">Warnung (Bernstein/Urlaub)</title>
+                                        </meta>
+                                    </param>
+                                    <param name="success">
+                                        <meta>
+                                            <title lang="en">Success (Green)</title>
+                                            <title lang="de">Erfolg (Grün)</title>
+                                        </meta>
+                                    </param>
+                                </param>
+                                <param name="default" value="info"/>
+                            </params>
+                        </property>
+                    </properties>
+                </type>
+            </types>
+        </property>
     </properties>
 </template>
