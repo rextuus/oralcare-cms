@@ -46,4 +46,5 @@ return [
     Sulu\CustomUrl\Infrastructure\Symfony\HttpKernel\SuluCustomUrlBundle::class => ['all' => true],
     CmsIg\Seal\Integration\Symfony\SealBundle::class => ['all' => true],
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
+    Sentry\SentryBundle\SentryBundle::class => ['prod' => true],
 ];
