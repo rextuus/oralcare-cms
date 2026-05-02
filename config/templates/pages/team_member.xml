@@ -36,11 +36,40 @@
             <tag name="sulu.rlp"/>
         </property>
 
-        <property name="role" type="text_line">
+        <property name="role" type="single_select">
             <meta>
-                <title lang="en">Role</title>
-                <title lang="de">Rolle</title>
+                <title lang="en">Role / Category</title>
+                <title lang="de">Rolle / Kategorie</title>
             </meta>
+            <params>
+                <param name="values" type="collection">
+                    <param name="dentists">
+                        <meta>
+                            <title lang="en">Dentists</title>
+                            <title lang="de">Zahnärzte</title>
+                        </meta>
+                    </param>
+                    <param name="reception">
+                        <meta>
+                            <title lang="en">Reception</title>
+                            <title lang="de">Empfang</title>
+                        </meta>
+                    </param>
+                    <param name="assistants">
+                        <meta>
+                            <title lang="en">Assistants</title>
+                            <title lang="de">Assistenz</title>
+                        </meta>
+                    </param>
+                    <param name="all">
+                        <meta>
+                            <title lang="en">All</title>
+                            <title lang="de">Alle</title>
+                        </meta>
+                    </param>
+                </param>
+                <param name="default" value="dentists"/>
+            </params>
         </property>
 
         <property name="image" type="media_selection">
@@ -51,6 +80,30 @@
             <params>
                 <param name="types" value="image"/>
                 <param name="max" value="1"/>
+            </params>
+        </property>
+
+        <property name="image_layout" type="single_select">
+            <meta>
+                <title lang="en">Image Layout</title>
+                <title lang="de">Bild-Layout</title>
+            </meta>
+            <params>
+                <param name="values" type="collection">
+                    <param name="square">
+                        <meta>
+                            <title lang="en">Square</title>
+                            <title lang="de">Quadratisch</title>
+                        </meta>
+                    </param>
+                    <param name="vertical">
+                        <meta>
+                            <title lang="en">Vertical (4:5)</title>
+                            <title lang="de">Vertikal (4:5)</title>
+                        </meta>
+                    </param>
+                </param>
+                <param name="default" value="vertical"/>
             </params>
         </property>
 

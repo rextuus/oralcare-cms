@@ -232,6 +232,51 @@
         </div>
     </section>
 
+    {# News / Aktuelles Section #}
+    {% if content.aktuelles_blocks is not empty %}
+        <section class="py-24 bg-white dark:bg-slate-900 transition-colors" id="aktuelles">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.aktuelles_title|default('Aktuelles'|trans) }}</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for item in content.aktuelles_blocks %}
+                        {% set bgColor = 'bg-blue-50 dark:bg-blue-900/20 border-blue-100 dark:border-blue-800' %}
+                        {% set iconColor = 'text-primary' %}
+                        {% if item.news_type == 'warning' %}
+                            {% set bgColor = 'bg-amber-50 dark:bg-amber-900/20 border-amber-100 dark:border-amber-800' %}
+                            {% set iconColor = 'text-amber-600 dark:text-amber-400' %}
+                        {% elseif item.news_type == 'success' %}
+                            {% set bgColor = 'bg-green-50 dark:bg-green-900/20 border-green-100 dark:border-green-800' %}
+                            {% set iconColor = 'text-green-600 dark:text-green-400' %}
+                        {% endif %}
+
+                        <div class="{{ bgColor }} p-8 rounded-[2rem] border transition-all hover:shadow-lg">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm">
+                                    {% if item.icon is not empty and 'ti-' in item.icon %}
+                                        <i class="ti {{ item.icon }} text-2xl"></i>
+                                    {% else %}
+                                        <span class="material-symbols-outlined text-2xl">{{ item.icon|default('notifications') }}</span>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">{{ item.title }}</h3>
+                                    {% if item.date is not empty %}
+                                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ item.date }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400">
+                                {{ item.text|raw }}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% endif %}
+
     {# Contact Section #}
     <section class="py-24 bg-white dark:bg-slate-900" id="contact">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
