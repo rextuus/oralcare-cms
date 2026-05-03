@@ -48,6 +48,14 @@
         <scale x="1200" y="800" mode="inset"/>
     </format>
 
+    <format key="icon">
+        <meta>
+            <title lang="en">Icon</title>
+            <title lang="de">Icon</title>
+        </meta>
+        <scale x="100" y="100" mode="inset"/>
+    </format>
+
     <!-- Standard Sulu formats for fallback compatibility -->
     <format key="sulu-1200x">
         <scale x="1200"/>

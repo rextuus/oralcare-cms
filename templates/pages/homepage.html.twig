@@ -152,11 +152,12 @@
                         <div class="grid grid-cols-2 gap-6 pt-4">
                             {% for feature in content.about_features %}
                                 <div class="flex items-start gap-3">
-                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0">
-                                        {% if feature.icon is not empty and 'ti-' in feature.icon %}
-                                            <i class="ti {{ feature.icon }} text-primary text-xl"></i>
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 p-2">
+                                        {% if feature.icon is not empty %}
+                                            {% set icon = feature.icon|first %}
+                                            <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:invert">
                                         {% else %}
-                                            <span class="material-symbols-outlined text-primary">{{ feature.icon|default('verified')|raw }}</span>
+                                            <span class="material-symbols-outlined text-primary text-xl">verified</span>
                                         {% endif %}
                                     </div>
                                     <div>
@@ -201,11 +202,12 @@
             {% else %}
                 {% for service in content.services_list %}
                     <div class="bg-white dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group">
-                        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors">
-                            {% if service.icon is not empty and 'ti-' in service.icon %}
-                                <i class="ti {{ service.icon }} text-3xl text-primary group-hover:text-white transition-colors"></i>
+                        <div class="w-16 h-16 bg-blue-50 dark:bg-blue-900/20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-primary transition-colors p-3">
+                            {% if service.icon is not empty %}
+                                {% set icon = service.icon|first %}
+                                <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:invert group-hover:invert-0">
                             {% else %}
-                                <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">{{ service.icon|default('medical_services')|raw }}</span>
+                                <span class="material-symbols-outlined text-primary group-hover:text-white text-3xl">medical_services</span>
                             {% endif %}
                         </div>
                         <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ service.title }}</h3>
@@ -253,11 +255,12 @@
 
                         <div class="{{ bgColor }} p-8 rounded-[2rem] border transition-all hover:shadow-lg">
                             <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm">
-                                    {% if item.icon is not empty and 'ti-' in item.icon %}
-                                        <i class="ti {{ item.icon }} text-2xl"></i>
+                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm p-2">
+                                    {% if item.icon is not empty %}
+                                        {% set icon = item.icon|first %}
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain">
                                     {% else %}
-                                        <span class="material-symbols-outlined text-2xl">{{ item.icon|default('notifications') }}</span>
+                                        <span class="material-symbols-outlined text-2xl">notifications</span>
                                     {% endif %}
                                 </div>
                                 <div>
@@ -302,10 +305,16 @@
                                 </div>
                                 <div>
                                     <h4 class="font-bold text-slate-900 dark:text-white text-lg">{{ 'Öffnungszeiten'|trans }}</h4>
-                                    <p class="text-slate-600 dark:text-slate-400">
-                                        {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
-                                        {{ 'Sa: 09:00 - 14:00'|trans }}
-                                    </p>
+                                    <div class="text-slate-600 dark:text-slate-400">
+                                        {% if addressSettings.content.hours is defined and addressSettings.content.hours is not empty %}
+                                            {% for entry in addressSettings.content.hours %}
+                                                {{ entry.days }}: {{ entry.time }}{% if not loop.last %}<br/>{% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
+                                            {{ 'Sa: 09:00 - 14:00'|trans }}
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                             {% if (addressSettings.content.email is defined and addressSettings.content.email) or (addressSettings.content.phone is defined and addressSettings.content.phone) %}

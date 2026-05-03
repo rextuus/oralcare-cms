@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {# Hero Section #}
+    <header class="relative pt-16 pb-20 overflow-hidden bg-slate-50 dark:bg-slate-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="animate-in fade-in slide-in-from-left-8 duration-700">
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">
+                        {{ content.title|raw }}
+                    </h1>
+                    {% if content.hero_subtitle is not empty %}
+                        <div class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl prose prose-slate dark:prose-invert">
+                            {{ content.hero_subtitle|raw }}
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="relative animate-in fade-in zoom-in duration-1000">
+                    {% if content.hero_image is not empty %}
+                        {% set hero_img = content.hero_image|first %}
+                        <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20 aspect-[4/3] lg:aspect-square">
+                            <img src="{{ hero_img.thumbnails['sulu-1200x']|default(hero_img.url) }}"
+                                 alt="{{ hero_img.title }}"
+                                 class="w-full h-full object-cover"
+                                 style="object-position: {{ hero_img.focusX|default(50) }}% {{ hero_img.focusY|default(50) }}%">
+                        </div>
+                    {% else %}
+                        <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20 aspect-[4/3] lg:aspect-square bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-6xl text-slate-400">image</span>
+                        </div>
+                    {% endif %}
+                    <div class="absolute -top-6 -left-6 w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-2xl -z-10"></div>
+                    <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="py-24">
+        {# Introduction #}
+        {% if content.intro_text is not empty %}
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
+                <div class="max-w-3xl prose prose-lg dark:prose-invert mx-auto text-center">
+                    {{ content.intro_text|raw }}
+                </div>
+            </section>
+        {% endif %}
+
+        {# Room Tour / Gallery #}
+        {% if content.gallery_images is not empty %}
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">{{ 'Einblicke in unsere Praxis'|trans }}</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for item in content.gallery_images %}
+                        {% set isWide = item.layout == 'wide' %}
+                        <div class="group {{ isWide ? 'md:col-span-2' : '' }} flex flex-col">
+                            <div class="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 {{ isWide ? 'aspect-[21/9]' : 'aspect-square' }}">
+                                {% if item.image is not empty %}
+                                    {% set img = item.image|first %}
+                                    <img src="{{ img.thumbnails['sulu-1200x']|default(img.url) }}"
+                                         alt="{{ item.caption|default(img.title) }}"
+                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                         style="object-position: {{ img.focusX|default(50) }}% {{ img.focusY|default(50) }}%">
+                                {% else %}
+                                    <div class="w-full h-full flex items-center justify-center">
+                                        <span class="material-symbols-outlined text-4xl text-slate-300">image</span>
+                                    </div>
+                                {% endif %}
+
+                                {% if item.caption is not empty %}
+                                    <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                                        <p class="text-white font-medium">{{ item.caption }}</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            {% if item.caption is not empty %}
+                                <p class="mt-4 text-slate-500 dark:text-slate-400 text-sm md:hidden">{{ item.caption }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        {% endif %}
+
+        {# CTA Section #}
+        {% if content.cta_title is not empty or content.cta_subtitle is not empty %}
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-32">
+                <div class="relative rounded-[3rem] overflow-hidden bg-primary px-8 py-16 text-center text-white shadow-2xl shadow-blue-500/20">
+                    <div class="relative z-10 max-w-2xl mx-auto">
+                        <h2 class="text-3xl md:text-5xl font-bold mb-6 tracking-tight">{{ content.cta_title|default('Besuchen Sie uns persönlich'|trans) }}</h2>
+                        {% if content.cta_subtitle is not empty %}
+                            <div class="text-blue-100 text-lg mb-10 prose prose-invert mx-auto">
+                                {{ content.cta_subtitle|raw }}
+                            </div>
+                        {% endif %}
+                        {% if content.cta_button_link is not empty %}
+                            <a href="{{ sulu_content_path(content.cta_button_link|first.url) }}" class="bg-white text-primary px-10 py-4 rounded-2xl font-bold text-lg hover:bg-blue-50 transition-all shadow-xl hover:shadow-2xl inline-flex items-center gap-2">
+                                {{ content.cta_button_text|default('Termin vereinbaren'|trans) }}
+                                <span class="material-symbols-outlined">calendar_today</span>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {# Background Decorations #}
+                    <div class="absolute top-0 right-0 p-12 opacity-10 rotate-12">
+                        <span class="material-symbols-outlined text-[15rem]">dentistry</span>
+                    </div>
+                    <div class="absolute bottom-0 left-0 p-12 opacity-10 -rotate-12">
+                        <span class="material-symbols-outlined text-[10rem]">clinical_notes</span>
+                    </div>
+                </div>
+            </section>
+        {% endif %}
+    </main>
+{% endblock %}

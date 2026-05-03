@@ -42,11 +42,12 @@
                     </div>
                     <div class="p-8">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary">
-                                {% if service.icon is not empty and 'ti-' in service.icon %}
-                                    <i class="ti {{ service.icon }} text-primary text-xl"></i>
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary p-2">
+                                {% if service.icon is not empty %}
+                                    {% set icon = service.icon|first %}
+                                    <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:invert">
                                 {% else %}
-                                    <span class="material-symbols-outlined text-primary">{{ service.icon|default('verified')|raw }}</span>
+                                    <span class="material-symbols-outlined text-primary">verified</span>
                                 {% endif %}
                             </div>
                             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>

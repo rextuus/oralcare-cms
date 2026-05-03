@@ -3,15 +3,15 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
 
-    <key>services</key>
+    <key>praxis</key>
 
-    <view>pages/services</view>
+    <view>pages/praxis</view>
     <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
     <cacheLifetime>86400</cacheLifetime>
 
     <meta>
-        <title lang="en">Services</title>
-        <title lang="de">Leistungen</title>
+        <title lang="en">Praxis / Room Tour</title>
+        <title lang="de">Praxis / Rundgang</title>
     </meta>
 
     <properties>
@@ -43,11 +43,15 @@
                 <title lang="de">Hero Bereich</title>
             </meta>
             <properties>
-                <property name="hero_badge" type="text_line">
+                <property name="hero_image" type="media_selection">
                     <meta>
-                        <title lang="en">Hero Badge</title>
-                        <title lang="de">Hero Badge</title>
+                        <title lang="en">Hero Image</title>
+                        <title lang="de">Hero Bild</title>
                     </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="max" value="1"/>
+                    </params>
                 </property>
                 <property name="hero_subtitle" type="text_editor">
                     <meta>
@@ -58,46 +62,39 @@
             </properties>
         </section>
 
-        <section name="services_section">
+        <section name="introduction">
             <meta>
-                <title lang="en">Clinical Services</title>
-                <title lang="de">Klinische Leistungen</title>
+                <title lang="en">Introduction</title>
+                <title lang="de">Einleitung</title>
             </meta>
             <properties>
-                <property name="services_list" type="block">
+                <property name="intro_text" type="text_editor">
                     <meta>
-                        <title lang="en">Services</title>
-                        <title lang="de">Leistungen</title>
+                        <title lang="en">Intro Text</title>
+                        <title lang="de">Einleitungstext</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
+        <section name="room_tour">
+            <meta>
+                <title lang="en">Room Tour / Gallery</title>
+                <title lang="de">Praxisrundgang / Galerie</title>
+            </meta>
+            <properties>
+                <property name="gallery_images" type="block">
+                    <meta>
+                        <title lang="en">Gallery Items</title>
+                        <title lang="de">Galerie Elemente</title>
                     </meta>
                     <types>
-                        <type name="service">
+                        <type name="image_item">
                             <meta>
-                                <title lang="en">Service</title>
-                                <title lang="de">Leistung</title>
+                                <title lang="en">Image with Caption</title>
+                                <title lang="de">Bild mit Beschriftung</title>
                             </meta>
                             <properties>
-                                <property name="title" type="text_line">
-                                    <meta>
-                                        <title lang="en">Title</title>
-                                        <title lang="de">Titel</title>
-                                    </meta>
-                                </property>
-                                <property name="description" type="text_editor">
-                                    <meta>
-                                        <title lang="en">Description</title>
-                                        <title lang="de">Beschreibung</title>
-                                    </meta>
-                                </property>
-                                <property name="icon" type="media_selection">
-                                    <meta>
-                                        <title lang="en">Icon</title>
-                                        <title lang="de">Icon</title>
-                                    </meta>
-                                    <params>
-                                        <param name="types" value="image"/>
-                                        <param name="max" value="1"/>
-                                    </params>
-                                </property>
                                 <property name="image" type="media_selection">
                                     <meta>
                                         <title lang="en">Image</title>
@@ -108,36 +105,33 @@
                                         <param name="max" value="1"/>
                                     </params>
                                 </property>
-                                <property name="image_layout" type="single_select">
+                                <property name="caption" type="text_line">
                                     <meta>
-                                        <title lang="en">Image Layout</title>
-                                        <title lang="de">Bild-Layout</title>
+                                        <title lang="en">Caption</title>
+                                        <title lang="de">Bildunterschrift</title>
+                                    </meta>
+                                </property>
+                                <property name="layout" type="single_select">
+                                    <meta>
+                                        <title lang="en">Layout Size</title>
+                                        <title lang="de">Layout Größe</title>
                                     </meta>
                                     <params>
                                         <param name="values" type="collection">
-                                            <param name="square">
+                                            <param name="normal">
                                                 <meta>
-                                                    <title lang="en">Square</title>
-                                                    <title lang="de">Quadratisch</title>
+                                                    <title lang="en">Normal</title>
+                                                    <title lang="de">Normal</title>
                                                 </meta>
                                             </param>
-                                            <param name="horizontal">
+                                            <param name="wide">
                                                 <meta>
-                                                    <title lang="en">Horizontal</title>
-                                                    <title lang="de">Horizontal</title>
+                                                    <title lang="en">Wide (2 columns)</title>
+                                                    <title lang="de">Breit (2 Spalten)</title>
                                                 </meta>
                                             </param>
                                         </param>
-                                        <param name="default" value="square"/>
-                                    </params>
-                                </property>
-                                <property name="link" type="page_selection">
-                                    <meta>
-                                        <title lang="en">Detail Page (Optional)</title>
-                                        <title lang="de">Detailseite (Optional)</title>
-                                    </meta>
-                                    <params>
-                                        <param name="max" value="1"/>
+                                        <param name="default" value="normal"/>
                                     </params>
                                 </property>
                             </properties>
@@ -149,8 +143,8 @@
 
         <section name="cta_section">
             <meta>
-                <title lang="en">Call to Action (Ready to book?)</title>
-                <title lang="de">Call to Action (Bereit zu buchen?)</title>
+                <title lang="en">Call to Action</title>
+                <title lang="de">Call to Action</title>
             </meta>
             <properties>
                 <property name="cta_title" type="text_line">

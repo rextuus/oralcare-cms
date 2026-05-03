@@ -46,6 +46,43 @@
             </properties>
         </section>
 
+        <section name="opening_hours">
+            <meta>
+                <title lang="en">Opening Hours</title>
+                <title lang="de">Öffnungszeiten</title>
+            </meta>
+            <properties>
+                <property name="hours" type="block">
+                    <meta>
+                        <title lang="en">Hours</title>
+                        <title lang="de">Zeiten</title>
+                    </meta>
+                    <types>
+                        <type name="entry">
+                            <meta>
+                                <title lang="en">Entry</title>
+                                <title lang="de">Eintrag</title>
+                            </meta>
+                            <properties>
+                                <property name="days" type="text_line">
+                                    <meta>
+                                        <title lang="en">Days (e.g. Mon - Fri)</title>
+                                        <title lang="de">Tage (z.B. Mo - Fr)</title>
+                                    </meta>
+                                </property>
+                                <property name="time" type="text_line">
+                                    <meta>
+                                        <title lang="en">Time (e.g. 08:00 - 18:00)</title>
+                                        <title lang="de">Zeit (z.B. 08:00 - 18:00)</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
+                </property>
+            </properties>
+        </section>
+
         <property name="map_link" type="text_line">
             <meta>
                 <title lang="en">Google Maps Link (Embed URL)</title>

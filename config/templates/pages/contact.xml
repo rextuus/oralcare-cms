@@ -41,19 +41,19 @@
             </meta>
 
             <tag name="sulu.rlp"/>
+            <tag name="sulu.node.navigation"/>
         </property>
 
-
-        <section name="opening_hours">
+        <section name="opening_hours_override">
             <meta>
-                <title lang="en">Opening Hours</title>
-                <title lang="de">Öffnungszeiten</title>
+                <title lang="en">Opening Hours Override</title>
+                <title lang="de">Öffnungszeiten Überschreiben</title>
             </meta>
             <properties>
                 <property name="hours" type="block">
                     <meta>
-                        <title lang="en">Hours</title>
-                        <title lang="de">Zeiten</title>
+                        <title lang="en">Hours (leave empty to use global settings)</title>
+                        <title lang="de">Zeiten (leer lassen, um globale Einstellungen zu verwenden)</title>
                     </meta>
                     <types>
                         <type name="entry">

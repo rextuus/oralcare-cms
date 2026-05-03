@@ -32,7 +32,8 @@
                             </a>
                         {% endif %}
 
-                        {% if content.hours is not empty %}
+                        {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
+                        {% if hours is not empty %}
                             <div class="flex items-start p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl">
                                 <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 shrink-0">
                                     <span class="material-symbols-outlined">schedule</span>
@@ -40,7 +41,7 @@
                                 <div>
                                     <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'Öffnungszeiten'|trans }}</p>
                                     <div class="space-y-1">
-                                        {% for entry in content.hours %}
+                                        {% for entry in hours %}
                                             <p class="font-medium text-sm">
                                                 <span class="text-slate-500 dark:text-slate-400">{{ entry.days }}:</span> {{ entry.time }}
                                             </p>

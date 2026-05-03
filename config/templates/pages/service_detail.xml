@@ -229,11 +229,15 @@
                                                         <title lang="de">Beschreibung</title>
                                                     </meta>
                                                 </property>
-                                                <property name="icon" type="text_line">
+                                                <property name="icon" type="media_selection">
                                                     <meta>
-                                                        <title lang="en">Icon Name (Material Symbol or Tabler 'ti-...')</title>
-                                                        <title lang="de">Icon Name</title>
+                                                        <title lang="en">Icon</title>
+                                                        <title lang="de">Icon</title>
                                                     </meta>
+                                                    <params>
+                                                        <param name="types" value="image"/>
+                                                        <param name="max" value="1"/>
+                                                    </params>
                                                 </property>
                                             </properties>
                                         </type>
