@@ -65,7 +65,8 @@
             <environments>
                 <environment type="prod">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
                     </urls>
                 </environment>
                 <environment type="stage">
@@ -80,7 +81,8 @@
                 </environment>
                 <environment type="dev">
                     <urls>
-                        <url language="en">{host}</url>
+                        <url language="de">{host}</url>
+                        <url language="en">{host}/en</url>
                     </urls>
                 </environment>
             </environments>
