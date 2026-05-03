@@ -4,17 +4,21 @@
     {# Hero Section #}
     <section class="relative pt-16 pb-24 lg:pt-32 lg:pb-40 overflow-hidden bg-slate-50 dark:bg-slate-900/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700">
+            {# lg:items-start verhindert, dass der Text bei Überlänge vertikal ins Bild rutscht #}
+            <div class="grid lg:grid-cols-2 gap-12 items-start">
+                <div class="space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 relative z-20">
                     <div>
                         {% if content.hero_badge is not empty %}
                             <span class="inline-block py-1 px-4 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary font-semibold text-sm mb-4">
                                 {{ content.hero_badge }}
                             </span>
                         {% endif %}
-                        <h1 class="text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1]">
+
+                        {# break-words und abgestufte Textgrößen für lange Überschriften #}
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1] break-words">
                             {{ content.title|raw }}
                         </h1>
+
                         {% if content.hero_subtitle is not empty %}
                             <p class="mt-6 text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
                                 {{ content.hero_subtitle|raw }}
@@ -22,15 +26,17 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="relative animate-in fade-in zoom-in duration-1000">
+
+                <div class="relative z-10 animate-in fade-in zoom-in duration-1000">
                     <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl">
                         {% if content.hero_image is not empty %}
                             {% set image = content.hero_image|first %}
                             {% set layout = content.hero_image_layout|default('vertical') %}
                             {% set format = layout == 'horizontal' ? 'horizontal-high' : 'vertical-high' %}
+                            {# h-auto und min-h sorgen für Flexibilität bei viel Text auf der linken Seite #}
                             <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
                                  alt="{{ image.title }}"
-                                 class="w-full {{ layout == 'horizontal' ? 'h-[350px]' : 'h-[500px]' }} object-cover"
+                                 class="w-full h-auto min-h-[350px] lg:h-[500px] object-cover"
                                  style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% else %}
                             <img alt="Service detail" class="w-full h-[500px] object-cover" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=2070&auto=format&fit=crop">
