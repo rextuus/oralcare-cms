@@ -34,11 +34,6 @@
                     <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
                 </a>
             </div>
-            <nav class="hidden md:flex items-center space-x-8">
-                {% for item in sulu_page_navigation_root_tree('main', 1) %}
-                    <a class="text-slate-600 dark:text-slate-300 hover:text-primary dark:hover:text-primary font-medium transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">{{ item.title }}</a>
-                {% endfor %}
-            </nav>
             <div class="flex items-center gap-4">
                 {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}
                     <a class="hidden lg:flex items-center gap-2 text-slate-600 dark:text-slate-300 font-medium" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
