@@ -6,7 +6,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-2 gap-12 items-center">
                 <div class="animate-in fade-in slide-in-from-left-8 duration-700">
-                    <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">
+                    <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">
                         {{ content.title|raw }}
                     </h1>
                     {% if content.hero_subtitle is not empty %}
@@ -44,7 +44,7 @@
         {# Introduction #}
         {% if content.intro_text is not empty %}
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-                <div class="max-w-3xl prose prose-lg dark:prose-invert mx-auto text-center">
+                <div class="max-w-3xl prose prose-lg dark:prose-invert mx-auto text-center break-words">
                     {{ content.intro_text|raw }}
                 </div>
             </section>

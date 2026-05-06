@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="icon" href="{{ asset('favicon.ico') }}" sizes="32x32">
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+
     <link href="https://fonts.googleapis.com" rel="preconnect"/>
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Lexend:wght@400;500;600;700&amp;family=Material+Icons+Outlined&amp;display=swap" rel="stylesheet"/>
@@ -37,6 +41,22 @@
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
             line-height: 1;
+        }
+        @layer base {
+            html {
+                -webkit-tap-highlight-color: transparent;
+                scroll-behavior: smooth;
+            }
+            body {
+                @apply break-words;
+                hyphens: auto;
+            }
+        }
+
+        #contact{
+            a{
+                color: #000000;
+            }
         }
     </style>
 
@@ -87,7 +107,7 @@
                                 <span class="material-symbols-outlined text-white">{{ icon }}</span>
                             </div>
                         {% endif %}
-                        <span class="font-display font-bold text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
+                        <span class="font-display font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
                     </a>
                     <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="mobile-menu-close">
                         <span class="material-symbols-outlined">close</span>
@@ -95,6 +115,9 @@
                 </div>
 
                 <nav class="flex flex-col space-y-6 mb-10">
+                    <a class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary transition-colors {{ app.request.pathInfo == sulu_content_root_path() ? 'text-primary' : '' }}" href="{{ sulu_content_root_path() }}">
+                        {{ headerSettings.content.home_link_title|default('Home'|trans) }}
+                    </a>
                     {% set navItems = sulu_page_navigation_root_tree('main', 1) %}
                     {% for item in navItems %}
                         <a class="text-2xl font-bold text-slate-900 dark:text-white hover:text-primary transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">

@@ -19,6 +19,21 @@
             <tag name="sulu.node.name"/>
         </property>
 
+        <section name="navigation_section">
+            <meta>
+                <title lang="en">Navigation Settings</title>
+                <title lang="de">Navigations-Einstellungen</title>
+            </meta>
+            <properties>
+                <property name="home_link_title" type="text_line">
+                    <meta>
+                        <title lang="en">Home Link Title</title>
+                        <title lang="de">Home-Link Titel</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
         <section name="logo_section">
             <meta>
                 <title lang="en">Logo Settings</title>

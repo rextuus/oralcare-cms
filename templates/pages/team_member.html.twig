@@ -30,7 +30,7 @@
                                         <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                                             <span class="material-symbols-outlined text-sm">mail</span>
                                         </div>
-                                        <span class="font-medium">{{ contact.email }}</span>
+                                        <span class="font-medium truncate">{{ contact.email }}</span>
                                     </a>
                                 {% endif %}
                                 {% if contact.phone is not empty %}
@@ -64,7 +64,7 @@
                         {% elseif content.role == 'all' %}{% set role_label = 'Alle'|trans %}
                         {% endif %}
                         <span class="inline-block px-4 py-1 bg-blue-50 dark:bg-blue-900/30 text-primary text-sm font-bold rounded-lg uppercase tracking-wider mb-4">{{ role_label }}</span>
-                        <h1 class="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">{{ content.title }}</h1>
+                        <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6">{{ content.title }}</h1>
                         {% if content.description is not empty %}
                             <div class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium">
                                 {{ content.description|raw }}

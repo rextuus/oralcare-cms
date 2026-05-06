@@ -16,7 +16,7 @@
                                 {{ content.hero_badge }}
                             </span>
                         {% endif %}
-                        <h1 class="text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1]">
+                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1]">
                             {{ content.title|raw }}
                         </h1>
                         {% if content.hero_subtitle is not empty %}
@@ -71,34 +71,34 @@
                             {% set format = layout == 'horizontal' ? 'horizontal-high' : 'vertical-high' %}
                             <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
                                  alt="{{ image.title }}"
-                                 class="w-full {{ layout == 'horizontal' ? 'h-[400px]' : 'h-[600px]' }} object-cover"
+                                 class="w-full h-[300px] sm:h-[400px] lg:h-[600px] {{ layout == 'horizontal' ? 'lg:h-[400px]' : '' }} object-cover"
                                  style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                         {% else %}
-                            <img alt="Smiling male dentist in a modern office" class="w-full h-[600px] object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop">
+                            <img alt="Smiling male dentist in a modern office" class="w-full h-[300px] sm:h-[400px] lg:h-[600px] object-cover" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop">
                         {% endif %}
                     </div>
                     {% if content.hero_avail_title is not empty or content.hero_avail_text is not empty %}
-                        <div class="absolute bottom-8 left-8 right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
-                            <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
+                        <div class="absolute -bottom-6 left-4 right-4 sm:left-8 sm:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-4 sm:p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
+                            <div class="bg-green-100 dark:bg-green-900/30 p-2 sm:p-3 rounded-full flex-shrink-0">
                                 <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified</span>
                             </div>
                             <div>
-                                <p class="text-sm font-semibold text-slate-900 dark:text-white">
+                                <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">
                                     {{ content.hero_avail_title|default('Nächster freier Termin'|trans) }}
                                 </p>
-                                <p class="text-primary font-bold">
+                                <p class="text-sm sm:text-base text-primary font-bold">
                                     {{ content.hero_avail_text|default('Heute, 14:30 Uhr'|trans) }}
                                 </p>
                             </div>
                         </div>
                     {% else %}
-                        <div class="absolute bottom-8 left-8 right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
-                            <div class="bg-green-100 dark:bg-green-900/30 p-3 rounded-full">
+                        <div class="absolute -bottom-6 left-4 right-4 sm:left-8 sm:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-4 sm:p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20">
+                            <div class="bg-green-100 dark:bg-green-900/30 p-2 sm:p-3 rounded-full flex-shrink-0">
                                 <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified</span>
                             </div>
                             <div>
-                                <p class="text-sm font-semibold text-slate-900 dark:text-white">{{ 'Nächster freier Termin'|trans }}</p>
-                                <p class="text-primary font-bold">{{ 'Heute, 14:30 Uhr'|trans }}</p>
+                                <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">{{ 'Nächster freier Termin'|trans }}</p>
+                                <p class="text-sm sm:text-base text-primary font-bold">{{ 'Heute, 14:30 Uhr'|trans }}</p>
                             </div>
                         </div>
                     {% endif %}
@@ -136,7 +136,7 @@
                         <span class="w-8 h-px bg-primary"></span>
                         {{ content.about_badge|default('Über die Praxis'|trans) }}
                     </div>
-                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
                     {% if content.about_description_1 is not empty %}
                         <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                             {{ content.about_description_1|raw }}
@@ -175,8 +175,8 @@
 
     {# Services Section #}
     <section class="py-24 bg-background-light dark:bg-slate-900/50" id="services">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-16">
-            <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16">
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
             {% if content.services_subtitle is not empty %}
                 <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg">
                     {{ content.services_subtitle|raw }}
@@ -238,8 +238,8 @@
     {% if content.aktuelles_blocks is not empty %}
         <section class="py-24 bg-white dark:bg-slate-900 transition-colors" id="aktuelles">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center mb-16">
-                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.aktuelles_title|default('Aktuelles'|trans) }}</h2>
+                <div class="text-center mb-12 sm:mb-16">
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white mb-4">{{ content.aktuelles_title|default('Aktuelles'|trans) }}</h2>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for item in content.aktuelles_blocks %}
@@ -285,7 +285,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-4xl font-display font-bold text-slate-900 dark:text-white mb-8">{{ content.visit_title|default('Besuchen Sie uns'|trans) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white mb-8">{{ content.visit_title|default('Besuchen Sie uns'|trans) }}</h2>
                     <div class="space-y-6">
                         {% if addressSettings %}
                             {% if addressSettings.content.address is defined and addressSettings.content.address %}
