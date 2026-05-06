@@ -34,6 +34,16 @@
                     },
                 },
             },
+            plugins: [
+                function({ addUtilities }) {
+                    addUtilities({
+                        '.overflow-wrap-anywhere': {
+                            'overflow-wrap': 'anywhere',
+                            'word-break': 'break-word',
+                        },
+                    })
+                },
+            ],
         };
     </script>
     <style type="text/tailwindcss">
@@ -48,8 +58,20 @@
                 scroll-behavior: smooth;
             }
             body {
-                @apply break-words;
+                @apply break-words overflow-x-hidden;
                 hyphens: auto;
+                -webkit-hyphens: auto;
+                -moz-hyphens: auto;
+                width: 100%;
+                min-width: 0;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply overflow-wrap-anywhere;
+                hyphens: auto;
+                -webkit-hyphens: auto;
+                -moz-hyphens: auto;
+                word-break: break-word;
+                overflow-wrap: anywhere;
             }
         }
 
@@ -141,7 +163,7 @@
         </div>
     </div>
 
-    <main>
+    <main class="w-full max-w-full overflow-hidden">
         {% block content %}{% endblock %}
     </main>
 

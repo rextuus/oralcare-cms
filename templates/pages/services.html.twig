@@ -2,19 +2,19 @@
 
 {% block content %}
     {# Hero Section #}
-    <header class="relative pt-16 pb-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="max-w-3xl">
+    <header class="relative pt-16 pb-20 overflow-hidden w-full max-w-full overflow-x-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="max-w-3xl min-w-0 flex flex-col overflow-hidden">
                 {% if content.hero_badge is not empty %}
-                    <span class="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary text-sm font-semibold mb-4">
+                    <span class="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary text-sm font-semibold mb-4 w-fit">
                         {{ content.hero_badge }}
                     </span>
                 {% endif %}
-                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white">
+                <h1 class="text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-tight text-slate-900 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden">
                     {{ content.title|raw }}
                 </h1>
                 {% if content.hero_subtitle is not empty %}
-                    <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl">
+                    <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl break-words">
                         {{ content.hero_subtitle|raw }}
                     </p>
                 {% endif %}
