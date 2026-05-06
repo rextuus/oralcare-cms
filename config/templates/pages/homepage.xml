@@ -87,29 +87,6 @@
                         <param name="default" value="vertical"/>
                     </params>
                 </property>
-                <section name="hero_reviews">
-                    <meta>
-                        <title lang="en">Reviews / Social Proof</title>
-                        <title lang="de">Bewertungen / Social Proof</title>
-                    </meta>
-                    <properties>
-                        <property name="hero_review_images" type="media_selection">
-                            <meta>
-                                <title lang="en">Review Avatars</title>
-                                <title lang="de">Bewertungs-Avatare</title>
-                            </meta>
-                            <params>
-                                <param name="types" value="image"/>
-                            </params>
-                        </property>
-                        <property name="hero_review_text" type="text_line">
-                            <meta>
-                                <title lang="en">Review Text</title>
-                                <title lang="de">Bewertungstext</title>
-                            </meta>
-                        </property>
-                    </properties>
-                </section>
                 <section name="hero_availability">
                     <meta>
                         <title lang="en">Availability Card</title>
