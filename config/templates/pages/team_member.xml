@@ -61,6 +61,12 @@
                             <title lang="de">Assistenz</title>
                         </meta>
                     </param>
+                    <param name="prophylaxis">
+                        <meta>
+                            <title lang="en">Prophylaxis</title>
+                            <title lang="de">Prophylaxe</title>
+                        </meta>
+                    </param>
                     <param name="all">
                         <meta>
                             <title lang="en">All</title>

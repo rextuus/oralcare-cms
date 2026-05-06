@@ -61,6 +61,7 @@
                         {% if content.role == 'dentists' %}{% set role_label = 'Zahnärzte'|trans %}
                         {% elseif content.role == 'reception' %}{% set role_label = 'Empfang'|trans %}
                         {% elseif content.role == 'assistants' %}{% set role_label = 'Assistenz'|trans %}
+                        {% elseif content.role == 'prophylaxis' %}{% set role_label = 'Prophylaxe'|trans %}
                         {% elseif content.role == 'all' %}{% set role_label = 'Alle'|trans %}
                         {% endif %}
                         <span class="inline-block px-4 py-1 bg-blue-50 dark:bg-blue-900/30 text-primary text-sm font-bold rounded-lg uppercase tracking-wider mb-4">{{ role_label }}</span>
