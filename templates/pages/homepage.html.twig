@@ -43,13 +43,17 @@
                             {% if content.hero_image is not empty or content.hero_image_mobile is not empty %}
                                 {% set image = content.hero_image|first %}
                                 {% set image_mobile = content.hero_image_mobile|first|default(image) %}
-                                {% set layout = content.hero_image_layout|default('vertical') %}
-                                {% set format = layout == 'horizontal' ? 'horizontal-lg' : 'vertical-lg' %}
+                                {% set variant = content.hero_image_variant|default('vertical') %}
+                                {% set mobile_variant = content.hero_image_mobile_variant|default('vertical') %}
+
+                                {% set desktop_format = variant ~ '-lg' %}
+                                {% set mobile_format = mobile_variant ~ '-md' %}
+
                                 <picture>
-                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                    <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                    <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['vertical-lg'])|default(image.url) }}"
                                          alt="{{ image.title }}"
-                                         class="w-full h-[300px] sm:h-[400px] lg:h-[600px] {{ layout == 'horizontal' ? 'lg:h-[400px]' : '' }} object-cover max-w-full block"
+                                         class="w-full h-[300px] sm:h-[400px] lg:h-[600px] {{ variant == 'horizontal' ? 'lg:h-[400px]' : '' }} object-cover max-w-full block"
                                          style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                 </picture>
                             {% else %}
@@ -97,13 +101,17 @@
                             {% if block.image is not empty or block.image_mobile is not empty %}
                                 {% set image = block.image|first %}
                                 {% set image_mobile = block.image_mobile|first|default(image) %}
-                                {% set layout = block.layout|default('square') %}
-                                {% set format = layout == 'square' ? 'square-md' : (layout == 'horizontal' ? 'horizontal-md' : 'vertical-md') %}
+                                {% set variant = block.variant|default('square') %}
+                                {% set mobile_variant = block.mobile_variant|default('square') %}
+
+                                {% set desktop_format = variant ~ '-md' %}
+                                {% set mobile_format = mobile_variant ~ '-sm' %}
+
                                 <picture>
-                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                    <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                    <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['square-md'])|default(image.url) }}"
                                          alt="{{ image.title }}"
-                                         class="rounded-3xl {{ layout == 'horizontal' ? 'h-48' : (layout == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }} block max-w-full"
+                                         class="rounded-3xl {{ variant == 'horizontal' ? 'h-48' : (variant == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }} block max-w-full"
                                          style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                 </picture>
                             {% endif %}

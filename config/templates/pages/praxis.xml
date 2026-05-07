@@ -63,6 +63,46 @@
                         <param name="max" value="1"/>
                     </params>
                 </property>
+                <property name="hero_image_variant" type="single_select">
+                    <meta>
+                        <title lang="en">Hero Image Variant (Desktop)</title>
+                        <title lang="de">Hero Bild-Variante (Desktop)</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="horizontal">
+                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                            </param>
+                            <param name="vertical">
+                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                            </param>
+                            <param name="square">
+                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                            </param>
+                        </param>
+                        <param name="default" value="horizontal"/>
+                    </params>
+                </property>
+                <property name="hero_image_mobile_variant" type="single_select">
+                    <meta>
+                        <title lang="en">Hero Image Variant (Mobile)</title>
+                        <title lang="de">Hero Bild-Variante (Mobil)</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="horizontal">
+                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                            </param>
+                            <param name="vertical">
+                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                            </param>
+                            <param name="square">
+                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                            </param>
+                        </param>
+                        <param name="default" value="horizontal"/>
+                    </params>
+                </property>
                 <property name="hero_subtitle" type="text_editor">
                     <meta>
                         <title lang="en">Hero Subtitle</title>
@@ -123,6 +163,46 @@
                                     <params>
                                         <param name="types" value="image"/>
                                         <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="variant" type="single_select">
+                                    <meta>
+                                        <title lang="en">Variant (Desktop)</title>
+                                        <title lang="de">Variante (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="vertical">
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="horizontal"/>
+                                    </params>
+                                </property>
+                                <property name="mobile_variant" type="single_select">
+                                    <meta>
+                                        <title lang="en">Variant (Mobile)</title>
+                                        <title lang="de">Variante (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="vertical">
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="horizontal"/>
                                     </params>
                                 </property>
                                 <property name="caption" type="text_line">

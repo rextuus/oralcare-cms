@@ -6,15 +6,19 @@
             <div class="grid lg:grid-cols-12 gap-12 items-start w-full min-w-0">
                 {# Sidebar / Image #}
                 <div class="lg:col-span-5 space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 overflow-hidden flex flex-col">
-                    {% set memberLayout = content.image_layout|default('vertical') %}
-                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl {{ memberLayout == 'square' ? 'aspect-square' : 'aspect-[4/5]' }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
+                    {% set variant = content.variant|default('vertical') %}
+                    {% set mobile_variant = content.mobile_variant|default('vertical') %}
+
+                    {% set desktop_format = variant ~ '-lg' %}
+                    {% set mobile_format = mobile_variant ~ '-md' %}
+
+                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl {{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
                         {% if content.image is defined and (content.image is not empty or content.image_mobile is not empty) %}
                             {% set image = content.image|first %}
                             {% set image_mobile = content.image_mobile|first|default(image) %}
-                            {% set format = memberLayout == 'square' ? 'square-high' : 'vertical-high' %}
                             <picture>
-                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['vertical-lg'])|default(image.url) }}"
                                      alt="{{ content.title }}"
                                      class="w-full h-full object-cover max-w-full block"
                                      style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">

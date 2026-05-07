@@ -31,12 +31,15 @@
                         {% if content.hero_image is not empty or content.hero_image_mobile is not empty %}
                             {% set image = content.hero_image|first %}
                             {% set image_mobile = content.hero_image_mobile|first|default(image) %}
-                            {% set layout = content.hero_image_layout|default('vertical') %}
-                            {% set format = layout == 'horizontal' ? 'horizontal-lg' : 'vertical-lg' %}
-                            {# h-auto und min-h sorgen für Flexibilität bei viel Text auf der linken Seite #}
+                            {% set variant = content.hero_image_variant|default('vertical') %}
+                            {% set mobile_variant = content.hero_image_mobile_variant|default('vertical') %}
+
+                            {% set desktop_format = variant ~ '-lg' %}
+                            {% set mobile_format = mobile_variant ~ '-md' %}
+
                             <picture>
-                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['vertical-lg'])|default(image.url) }}"
                                      alt="{{ image.title }}"
                                      class="w-full h-auto min-h-[350px] lg:h-[500px] object-cover max-w-full block"
                                      style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
@@ -81,13 +84,17 @@
                                     {% if block.image is not empty or block.image_mobile is not empty %}
                                         {% set blockImage = block.image|first %}
                                         {% set blockImageMobile = block.image_mobile|first|default(blockImage) %}
-                                        {% set blockLayout = block.image_layout|default('square') %}
-                                        {% set blockFormat = blockLayout == 'square' ? 'square-md' : (blockLayout == 'horizontal' ? 'horizontal-md' : 'vertical-md') %}
+                                        {% set blockVariant = block.image_variant|default('square') %}
+                                        {% set blockMobileVariant = block.image_mobile_variant|default('square') %}
+
+                                        {% set blockDesktopFormat = blockVariant ~ '-md' %}
+                                        {% set blockMobileFormat = blockMobileVariant ~ '-sm' %}
+
                                         <picture>
-                                            <source media="(max-width: 639px)" srcset="{{ blockImageMobile.thumbnails['hero-mobile']|default(blockImageMobile.url) }}">
-                                            <img src="{{ blockImage.thumbnails[blockFormat]|default(blockImage.thumbnails['sulu-800x'])|default(blockImage.url) }}"
+                                            <source media="(max-width: 639px)" srcset="{{ blockImageMobile.thumbnails[blockMobileFormat]|default(blockImageMobile.url) }}">
+                                            <img src="{{ blockImage.thumbnails[blockDesktopFormat]|default(blockImage.thumbnails['square-md'])|default(blockImage.url) }}"
                                                  alt="{{ blockImage.title }}"
-                                                 class="w-full {{ blockLayout == 'horizontal' ? 'h-[300px]' : (blockLayout == 'vertical' ? 'h-[500px]' : 'h-[400px]') }} object-cover"
+                                                 class="w-full {{ blockVariant == 'horizontal' ? 'h-[300px]' : (blockVariant == 'vertical' ? 'h-[500px]' : 'h-[400px]') }} object-cover"
                                                  style="object-position: {{ blockImage.focusX|default(50) }}% {{ blockImage.focusY|default(50) }}%">
                                         </picture>
                                     {% else %}

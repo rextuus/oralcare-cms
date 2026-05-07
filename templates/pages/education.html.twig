@@ -43,11 +43,15 @@
                                         {% if item.article_image is not empty or item.article_image_mobile is not empty %}
                                             {% set image = item.article_image|first %}
                                             {% set image_mobile = item.article_image_mobile|first|default(image) %}
-                                            {% set layout = item.article_image_layout|default('horizontal') %}
-                                            {% set format = layout == 'square' ? 'square-md' : 'horizontal-md' %}
+                                            {% set variant = item.variant|default('horizontal') %}
+                                            {% set mobile_variant = item.mobile_variant|default('horizontal') %}
+
+                                            {% set desktop_format = variant ~ '-lg' %}
+                                            {% set mobile_format = mobile_variant ~ '-md' %}
+
                                             <picture>
-                                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                                <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['horizontal-lg'])|default(image.url) }}"
                                                      alt="{{ item.article_title }}"
                                                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                                      style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
@@ -108,11 +112,15 @@
                                             {% if item.article_image is not empty or item.article_image_mobile is not empty %}
                                                 {% set image = item.article_image|first %}
                                                 {% set image_mobile = item.article_image_mobile|first|default(image) %}
-                                                {% set layout = item.article_image_layout|default('horizontal') %}
-                                                {% set format = layout == 'square' ? 'square-md' : 'horizontal-md' %}
+                                                {% set variant = item.variant|default('horizontal') %}
+                                                {% set mobile_variant = item.mobile_variant|default('horizontal') %}
+
+                                                {% set desktop_format = variant ~ '-md' %}
+                                                {% set mobile_format = mobile_variant ~ '-sm' %}
+
                                                 <picture>
-                                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
-                                                    <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                                    <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['horizontal-md'])|default(image.url) }}"
                                                          alt="{{ item.article_title }}"
                                                          class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                                                          style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">

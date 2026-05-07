@@ -99,24 +99,41 @@
                                         <param name="max" value="1"/>
                                     </params>
                                 </property>
-                                <property name="image_layout" type="single_select">
+                                <property name="variant" type="single_select">
                                     <meta>
-                                        <title lang="en">Image Layout</title>
-                                        <title lang="de">Bild-Layout</title>
+                                        <title lang="en">Image Variant (Desktop)</title>
+                                        <title lang="de">Bild-Variante (Desktop)</title>
                                     </meta>
                                     <params>
                                         <param name="values" type="collection">
-                                            <param name="square">
-                                                <meta>
-                                                    <title lang="en">Square</title>
-                                                    <title lang="de">Quadratisch</title>
-                                                </meta>
-                                            </param>
                                             <param name="vertical">
-                                                <meta>
-                                                    <title lang="en">Vertical (4:5)</title>
-                                                    <title lang="de">Vertikal (4:5)</title>
-                                                </meta>
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="vertical"/>
+                                    </params>
+                                </property>
+                                <property name="mobile_variant" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Variant (Mobile)</title>
+                                        <title lang="de">Bild-Variante (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="vertical">
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
                                             </param>
                                         </param>
                                         <param name="default" value="vertical"/>
