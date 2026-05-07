@@ -124,6 +124,12 @@
                 <title lang="de">Zusätzliche Informationen</title>
             </meta>
             <properties>
+                <property name="booking_link" type="single_page_selection">
+                    <meta>
+                        <title lang="en">Booking Page (Termin buchen)</title>
+                        <title lang="de">Buchungsseite (Termin buchen)</title>
+                    </meta>
+                </property>
                 <property name="emergency_info" type="text_editor">
                     <meta>
                         <title lang="en">Emergency Care Info</title>

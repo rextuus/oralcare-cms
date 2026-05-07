@@ -32,6 +32,33 @@
                             </a>
                         {% endif %}
 
+                        {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
+                        {% if phone is not empty %}
+                            <a href="tel:{{ phone|replace({' ': ''}) }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined">call</span>
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'Telefon'|trans }}</p>
+                                    <p class="font-medium truncate">{{ phone }}</p>
+                                </div>
+                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+                            </a>
+                        {% endif %}
+
+                        {% if content.booking_link is not empty %}
+                            <a href="{{ sulu_content_path(content.booking_link.url) }}" class="flex items-center p-4 bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
+                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors">
+                                    <span class="material-symbols-outlined">calendar_month</span>
+                                </div>
+                                <div class="flex-grow min-w-0">
+                                    <p class="text-xs uppercase tracking-wider text-primary/70 font-bold mb-0.5">{{ 'Online-Termin'|trans }}</p>
+                                    <p class="font-bold text-primary truncate">{{ 'Termin buchen'|trans }}</p>
+                                </div>
+                                <span class="material-symbols-outlined text-primary/40 group-hover:text-primary transition-colors">chevron_right</span>
+                            </a>
+                        {% endif %}
+
                         {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
                         {% if hours is not empty %}
                             <div class="flex items-start p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl">
@@ -136,14 +163,14 @@
                             <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
                                 <span class="material-symbols-outlined text-primary mb-2">emergency</span>
                                 <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Notfallversorgung'|trans }}</h4>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info }}</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info|raw }}</p>
                             </div>
                         {% endif %}
                         {% if content.languages_info is not empty %}
                             <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
                                 <span class="material-symbols-outlined text-slate-500 mb-2">language</span>
                                 <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Gesprochene Sprachen'|trans }}</h4>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info }}</p>
+                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info|raw }}</p>
                             </div>
                         {% endif %}
                     </div>
