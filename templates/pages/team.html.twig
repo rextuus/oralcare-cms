@@ -26,13 +26,17 @@
                 <div class="team-card group bg-white dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-700 transition-all duration-300 hover:shadow-2xl hover:shadow-slate-200 dark:hover:shadow-none hover:-translate-y-2"
                      data-category="{{ member.category|default('all') }}">
                     <div class="{{ memberLayout == 'square' ? 'aspect-square' : 'aspect-[4/5]' }} overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
-                        {% if member.image is defined and member.image is not empty %}
+                        {% if member.image is defined and (member.image is not empty or member.image_mobile is not empty) %}
                             {% set image = member.image|first %}
-                            {% set format = memberLayout == 'square' ? 'square-high' : 'vertical-high' %}
-                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
-                                 alt="{{ member.name }}"
-                                 class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                            {% set image_mobile = member.image_mobile|first|default(image) %}
+                            {% set format = memberLayout == 'square' ? 'square-md' : 'vertical-md' %}
+                            <picture>
+                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
+                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                     alt="{{ member.name }}"
+                                     class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                            </picture>
                         {% else %}
                             <img alt="{{ member.name }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" src="https://i.pravatar.cc/400?u={{ member.name|url_encode }}">
                         {% endif %}

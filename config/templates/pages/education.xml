@@ -83,8 +83,18 @@
                                 </property>
                                 <property name="article_image" type="media_selection">
                                     <meta>
-                                        <title lang="en">Image</title>
-                                        <title lang="de">Bild</title>
+                                        <title lang="en">Image (Desktop)</title>
+                                        <title lang="de">Bild (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_image_mobile" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image (Mobile)</title>
+                                        <title lang="de">Bild (Mobil)</title>
                                     </meta>
                                     <params>
                                         <param name="types" value="image"/>
@@ -174,8 +184,18 @@
                                 </property>
                                 <property name="author_image" type="media_selection">
                                     <meta>
-                                        <title lang="en">Author Image</title>
-                                        <title lang="de">Bild des Autors</title>
+                                        <title lang="en">Author Image (Desktop)</title>
+                                        <title lang="de">Autorenbild (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="author_image_mobile" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Author Image (Mobile)</title>
+                                        <title lang="de">Autorenbild (Mobil)</title>
                                     </meta>
                                     <params>
                                         <param name="types" value="image"/>
@@ -230,8 +250,18 @@
                                 </property>
                                 <property name="article_image" type="media_selection">
                                     <meta>
-                                        <title lang="en">Image</title>
-                                        <title lang="de">Bild</title>
+                                        <title lang="en">Image (Desktop)</title>
+                                        <title lang="de">Bild (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="article_image_mobile" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image (Mobile)</title>
+                                        <title lang="de">Bild (Mobil)</title>
                                     </meta>
                                     <params>
                                         <param name="types" value="image"/>

@@ -56,8 +56,18 @@
                 </property>
                 <property name="hero_image" type="media_selection">
                     <meta>
-                        <title lang="en">Image</title>
-                        <title lang="de">Bild</title>
+                        <title lang="en">Hero Image (Desktop)</title>
+                        <title lang="de">Hero Bild (Desktop)</title>
+                    </meta>
+                    <params>
+                        <param name="types" value="image"/>
+                        <param name="max" value="1"/>
+                    </params>
+                </property>
+                <property name="hero_image_mobile" type="media_selection">
+                    <meta>
+                        <title lang="en">Hero Image (Mobile)</title>
+                        <title lang="de">Hero Bild (Mobil)</title>
                     </meta>
                     <params>
                         <param name="types" value="image"/>
@@ -157,8 +167,18 @@
                             <properties>
                                 <property name="image" type="media_selection">
                                     <meta>
-                                        <title lang="en">Image</title>
-                                        <title lang="de">Bild</title>
+                                        <title lang="en">Image (Desktop)</title>
+                                        <title lang="de">Bild (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="image_mobile" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image (Mobile)</title>
+                                        <title lang="de">Bild (Mobil)</title>
                                     </meta>
                                     <params>
                                         <param name="types" value="image"/>

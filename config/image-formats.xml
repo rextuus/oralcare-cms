@@ -3,51 +3,116 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://schemas.sulu.io/media/formats http://schemas.sulu.io/media/formats-1.1.xsd">
 
-    <!-- See: http://docs.sulu.io/en/latest/book/image-formats.html how to define image-formats -->
-
-    <!--
-    <format key="300x">
+    <!-- Hero formats -->
+    <format key="hero-xl">
         <meta>
-            <title lang="en">Example Image</title>
-            <title lang="de">Beispielbild</title>
+            <title lang="en">Hero Extra Large</title>
+            <title lang="de">Hero Extra Groß</title>
         </meta>
-
-        <scale x="300"/>
-    </format>
-    -->
-
-    <format key="high-quality">
-        <meta>
-            <title lang="en">High Quality</title>
-            <title lang="de">Hohe Qualität</title>
-        </meta>
-        <scale x="1920"/>
+        <scale x="1920" y="1080" mode="outbound"/>
     </format>
 
-    <format key="square-high">
+    <format key="hero-lg">
         <meta>
-            <title lang="en">Square High Quality</title>
-            <title lang="de">Quadrat Hohe Qualität</title>
+            <title lang="en">Hero Large</title>
+            <title lang="de">Hero Groß</title>
         </meta>
-        <scale x="1000" y="1000" mode="inset"/>
+        <scale x="1280" y="720" mode="outbound"/>
     </format>
 
-    <format key="vertical-high">
+    <format key="hero-mobile">
         <meta>
-            <title lang="en">Vertical High Quality</title>
-            <title lang="de">Vertikal Hohe Qualität</title>
+            <title lang="en">Hero Mobile</title>
+            <title lang="de">Hero Mobil</title>
         </meta>
-        <scale x="800" y="1200" mode="inset"/>
+        <scale x="640" y="800" mode="outbound"/>
     </format>
 
-    <format key="horizontal-high">
+    <!-- Standard content formats -->
+    <format key="content-lg">
         <meta>
-            <title lang="en">Horizontal High Quality</title>
-            <title lang="de">Horizontal Hohe Qualität</title>
+            <title lang="en">Content Large</title>
+            <title lang="de">Inhalt Groß</title>
         </meta>
-        <scale x="1200" y="800" mode="inset"/>
+        <scale x="1200"/>
     </format>
 
+    <format key="content-md">
+        <meta>
+            <title lang="en">Content Medium</title>
+            <title lang="de">Inhalt Mittel</title>
+        </meta>
+        <scale x="800"/>
+    </format>
+
+    <format key="content-sm">
+        <meta>
+            <title lang="en">Content Small</title>
+            <title lang="de">Inhalt Klein</title>
+        </meta>
+        <scale x="400"/>
+    </format>
+
+    <!-- Square formats -->
+    <format key="square-lg">
+        <meta>
+            <title lang="en">Square Large</title>
+            <title lang="de">Quadrat Groß</title>
+        </meta>
+        <scale x="1000" y="1000" mode="outbound"/>
+    </format>
+
+    <format key="square-md">
+        <meta>
+            <title lang="en">Square Medium</title>
+            <title lang="de">Quadrat Mittel</title>
+        </meta>
+        <scale x="600" y="600" mode="outbound"/>
+    </format>
+
+    <format key="square-sm">
+        <meta>
+            <title lang="en">Square Small</title>
+            <title lang="de">Quadrat Klein</title>
+        </meta>
+        <scale x="300" y="300" mode="outbound"/>
+    </format>
+
+    <!-- Vertical formats -->
+    <format key="vertical-lg">
+        <meta>
+            <title lang="en">Vertical Large</title>
+            <title lang="de">Vertikal Groß</title>
+        </meta>
+        <scale x="800" y="1200" mode="outbound"/>
+    </format>
+
+    <format key="vertical-md">
+        <meta>
+            <title lang="en">Vertical Medium</title>
+            <title lang="de">Vertikal Mittel</title>
+        </meta>
+        <scale x="400" y="600" mode="outbound"/>
+    </format>
+
+    <!-- Horizontal formats -->
+    <format key="horizontal-lg">
+        <meta>
+            <title lang="en">Horizontal Large</title>
+            <title lang="de">Horizontal Groß</title>
+        </meta>
+        <scale x="1200" y="800" mode="outbound"/>
+    </format>
+
+    <format key="horizontal-md">
+        <meta>
+            <title lang="en">Horizontal Medium</title>
+            <title lang="de">Horizontal Mittel</title>
+        </meta>
+        <scale x="600" y="400" mode="outbound"/>
+    </format>
+
+    <!-- Utility formats -->
     <format key="icon">
         <meta>
             <title lang="en">Icon</title>
@@ -56,7 +121,23 @@
         <scale x="100" y="100" mode="inset"/>
     </format>
 
-    <!-- Standard Sulu formats for fallback compatibility -->
+    <!-- Legacy / Compatibility formats -->
+    <format key="high-quality">
+        <scale x="1920"/>
+    </format>
+
+    <format key="square-high">
+        <scale x="1000" y="1000" mode="outbound"/>
+    </format>
+
+    <format key="vertical-high">
+        <scale x="800" y="1200" mode="outbound"/>
+    </format>
+
+    <format key="horizontal-high">
+        <scale x="1200" y="800" mode="outbound"/>
+    </format>
+
     <format key="sulu-1200x">
         <scale x="1200"/>
     </format>

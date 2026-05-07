@@ -40,14 +40,18 @@
                     <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl -z-10"></div>
                     <div class="relative rounded-[2.5rem] shadow-2xl shadow-blue-900/20 w-full max-w-full">
                         <div class="rounded-[2.5rem] overflow-hidden">
-                            {% if content.hero_image is not empty %}
+                            {% if content.hero_image is not empty or content.hero_image_mobile is not empty %}
                                 {% set image = content.hero_image|first %}
+                                {% set image_mobile = content.hero_image_mobile|first|default(image) %}
                                 {% set layout = content.hero_image_layout|default('vertical') %}
-                                {% set format = layout == 'horizontal' ? 'horizontal-high' : 'vertical-high' %}
-                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
-                                     alt="{{ image.title }}"
-                                     class="w-full h-[300px] sm:h-[400px] lg:h-[600px] {{ layout == 'horizontal' ? 'lg:h-[400px]' : '' }} object-cover max-w-full block"
-                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                                {% set format = layout == 'horizontal' ? 'horizontal-lg' : 'vertical-lg' %}
+                                <picture>
+                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
+                                    <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-1200x'])|default(image.url) }}"
+                                         alt="{{ image.title }}"
+                                         class="w-full h-[300px] sm:h-[400px] lg:h-[600px] {{ layout == 'horizontal' ? 'lg:h-[400px]' : '' }} object-cover max-w-full block"
+                                         style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                                </picture>
                             {% else %}
                                 <img alt="Smiling male dentist in a modern office" class="w-full h-[300px] sm:h-[400px] lg:h-[600px] object-cover max-w-full block" src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?q=80&w=1964&auto=format&fit=crop">
                             {% endif %}
@@ -90,14 +94,18 @@
                 <div class="grid grid-cols-2 gap-4 overflow-hidden">
                     {% if content.about_images is not empty %}
                         {% for block in content.about_images %}
-                            {% if block.image is not empty %}
+                            {% if block.image is not empty or block.image_mobile is not empty %}
                                 {% set image = block.image|first %}
+                                {% set image_mobile = block.image_mobile|first|default(image) %}
                                 {% set layout = block.layout|default('square') %}
-                                {% set format = layout == 'square' ? 'square-high' : (layout == 'horizontal' ? 'horizontal-high' : 'vertical-high') %}
-                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
-                                     alt="{{ image.title }}"
-                                     class="rounded-3xl {{ layout == 'horizontal' ? 'h-48' : (layout == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }} block max-w-full"
-                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                                {% set format = layout == 'square' ? 'square-md' : (layout == 'horizontal' ? 'horizontal-md' : 'vertical-md') %}
+                                <picture>
+                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
+                                    <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-400x400-inset'])|default(image.url) }}"
+                                         alt="{{ image.title }}"
+                                         class="rounded-3xl {{ layout == 'horizontal' ? 'h-48' : (layout == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover shadow-lg {{ loop.index0 % 2 == 0 ? (loop.index0 == 0 ? 'mt-8' : '') : (loop.index0 == 3 ? '-mt-8' : '') }} block max-w-full"
+                                         style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                                </picture>
                             {% endif %}
                         {% endfor %}
                     {% else %}

@@ -28,14 +28,18 @@
             {% for service in content.services_list %}
                 <article class="group flex flex-col bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
                     <div class="h-64 overflow-hidden">
-                        {% if service.image is not empty %}
+                        {% if service.image is not empty or service.image_mobile is not empty %}
                             {% set image = service.image|first %}
+                            {% set image_mobile = service.image_mobile|first|default(image) %}
                             {% set layout = service.image_layout|default('square') %}
-                            {% set format = layout == 'square' ? 'square-high' : 'horizontal-high' %}
-                            <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-800x'])|default(image.url) }}"
-                                 alt="{{ service.title }}"
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                 style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                            {% set format = layout == 'square' ? 'square-md' : 'horizontal-md' %}
+                            <picture>
+                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails['hero-mobile']|default(image_mobile.url) }}">
+                                <img src="{{ image.thumbnails[format]|default(image.thumbnails['sulu-800x'])|default(image.url) }}"
+                                     alt="{{ service.title }}"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                            </picture>
                         {% else %}
                             <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
                         {% endif %}

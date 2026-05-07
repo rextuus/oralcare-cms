@@ -80,8 +80,19 @@
 
         <property name="image" type="media_selection">
             <meta>
-                <title lang="en">Profile Image</title>
-                <title lang="de">Profilbild</title>
+                <title lang="en">Profile Image (Desktop)</title>
+                <title lang="de">Profilbild (Desktop)</title>
+            </meta>
+            <params>
+                <param name="types" value="image"/>
+                <param name="max" value="1"/>
+            </params>
+        </property>
+
+        <property name="image_mobile" type="media_selection">
+            <meta>
+                <title lang="en">Profile Image (Mobile)</title>
+                <title lang="de">Profilbild (Mobil)</title>
             </meta>
             <params>
                 <param name="types" value="image"/>
