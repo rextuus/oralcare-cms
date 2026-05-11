@@ -32,6 +32,16 @@
                 <title lang="de">Logo</title>
             </meta>
         </property>
+
+        <property name="force_best_quality" type="checkbox">
+            <meta>
+                <title lang="en">Force Best Image Quality (Global)</title>
+                <title lang="de">Beste Bildqualität erzwingen (Global)</title>
+            </meta>
+            <params>
+                <param name="type" value="toggler"/>
+            </params>
+        </property>
     </properties>
 
     <areas>

@@ -6,55 +6,55 @@
     <!-- Vertical formats (2:3 or similar) -->
     <format key="vertical-xl">
         <meta><title lang="en">Vertical XL</title><title lang="de">Vertikal XL</title></meta>
-        <scale x="1200" y="1800" mode="outbound"/>
+        <scale x="1600" y="2400" mode="outbound"/>
     </format>
     <format key="vertical-lg">
         <meta><title lang="en">Vertical Large</title><title lang="de">Vertikal Groß</title></meta>
-        <scale x="800" y="1200" mode="outbound"/>
+        <scale x="1200" y="1800" mode="outbound"/>
     </format>
     <format key="vertical-md">
         <meta><title lang="en">Vertical Medium</title><title lang="de">Vertikal Mittel</title></meta>
-        <scale x="400" y="600" mode="outbound"/>
+        <scale x="800" y="1200" mode="outbound"/>
     </format>
     <format key="vertical-sm">
         <meta><title lang="en">Vertical Small</title><title lang="de">Vertikal Klein</title></meta>
-        <scale x="200" y="300" mode="outbound"/>
+        <scale x="400" y="600" mode="outbound"/>
     </format>
 
     <!-- Horizontal formats (3:2 or 16:9) -->
     <format key="horizontal-xl">
         <meta><title lang="en">Horizontal XL</title><title lang="de">Horizontal XL</title></meta>
-        <scale x="1920" y="1080" mode="outbound"/>
+        <scale x="2560" y="1440" mode="outbound"/>
     </format>
     <format key="horizontal-lg">
         <meta><title lang="en">Horizontal Large</title><title lang="de">Horizontal Groß</title></meta>
-        <scale x="1200" y="800" mode="outbound"/>
+        <scale x="1920" y="1080" mode="outbound"/>
     </format>
     <format key="horizontal-md">
         <meta><title lang="en">Horizontal Medium</title><title lang="de">Horizontal Mittel</title></meta>
-        <scale x="800" y="533" mode="outbound"/>
+        <scale x="1200" y="800" mode="outbound"/>
     </format>
     <format key="horizontal-sm">
         <meta><title lang="en">Horizontal Small</title><title lang="de">Horizontal Klein</title></meta>
-        <scale x="400" y="267" mode="outbound"/>
+        <scale x="800" y="533" mode="outbound"/>
     </format>
 
     <!-- Square formats (1:1) -->
     <format key="square-xl">
         <meta><title lang="en">Square XL</title><title lang="de">Quadrat XL</title></meta>
-        <scale x="1200" y="1200" mode="outbound"/>
+        <scale x="1600" y="1600" mode="outbound"/>
     </format>
     <format key="square-lg">
         <meta><title lang="en">Square Large</title><title lang="de">Quadrat Groß</title></meta>
-        <scale x="800" y="800" mode="outbound"/>
+        <scale x="1200" y="1200" mode="outbound"/>
     </format>
     <format key="square-md">
         <meta><title lang="en">Square Medium</title><title lang="de">Quadrat Mittel</title></meta>
-        <scale x="500" y="500" mode="outbound"/>
+        <scale x="800" y="800" mode="outbound"/>
     </format>
     <format key="square-sm">
         <meta><title lang="en">Square Small</title><title lang="de">Quadrat Klein</title></meta>
-        <scale x="250" y="250" mode="outbound"/>
+        <scale x="400" y="400" mode="outbound"/>
     </format>
 
     <!-- Utility & Legacy -->

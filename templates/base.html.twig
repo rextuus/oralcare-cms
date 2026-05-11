@@ -1,3 +1,5 @@
+{% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+{% set global_best_quality = (common_settings and common_settings.content.force_best_quality is defined) ? common_settings.content.force_best_quality : false %}
 <!DOCTYPE html>
 <html lang="{{ app.request.locale|split('_')[0] }}">
 <head>
@@ -108,7 +110,6 @@
             {% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
             {% set headerSettings = sulu_snippet_load_by_area('header_settings') %}
             {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
-            {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
             {% set booking_url = sulu_content_path('/contact') %}
             {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
                 {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
@@ -117,9 +118,9 @@
             <div class="p-6 h-full flex flex-col overflow-y-auto">
                 <div class="flex justify-between items-center mb-10 border-b pb-6">
                     <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
-                        {% if common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
+                        {% if common_settings and common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
                             {% set image = common_settings.content.logo %}
-                            <img src="{{ image.thumbnails['sulu-400x400-inset']|default(image.url) }}" alt="{{ common_settings.content.company_name }}" class="h-10 w-auto">
+                            <img src="{{ image.thumbnails['sulu-400x400-inset']|default(image.url) }}" alt="{{ common_settings.content.company_name|default('') }}" class="h-10 w-auto">
                         {% else %}
                             <div class="bg-primary p-2 rounded-lg">
                                 {% set icon = 'medical_services' %}
@@ -129,7 +130,7 @@
                                 <span class="material-symbols-outlined text-white">{{ icon }}</span>
                             </div>
                         {% endif %}
-                        <span class="font-display font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
+                        <span class="font-display font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name|default('OralCare') }}<span class="text-primary">.</span></span>
                     </a>
                     <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" id="mobile-menu-close">
                         <span class="material-symbols-outlined">close</span>

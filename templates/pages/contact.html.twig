@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full max-w-full overflow-x-hidden">
         <div class="mb-10 min-w-0 w-full overflow-hidden">

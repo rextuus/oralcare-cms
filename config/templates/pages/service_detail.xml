@@ -95,6 +95,23 @@
                         <param name="default" value="vertical"/>
                     </params>
                 </property>
+                <property name="hero_image_quality" type="single_select">
+                    <meta>
+                        <title lang="en">Hero Image Quality (Desktop)</title>
+                        <title lang="de">Hero Bild-Qualität (Desktop)</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="standard">
+                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="best">
+                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                            </param>
+                        </param>
+                        <param name="default" value="standard"/>
+                    </params>
+                </property>
                 <property name="hero_image_mobile_variant" type="single_select">
                     <meta>
                         <title lang="en">Hero Image Variant (Mobile)</title>
@@ -113,6 +130,23 @@
                             </param>
                         </param>
                         <param name="default" value="vertical"/>
+                    </params>
+                </property>
+                <property name="hero_image_mobile_quality" type="single_select">
+                    <meta>
+                        <title lang="en">Hero Image Quality (Mobile)</title>
+                        <title lang="de">Hero Bild-Qualität (Mobil)</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="standard">
+                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                            </param>
+                            <param name="best">
+                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                            </param>
+                        </param>
+                        <param name="default" value="standard"/>
                     </params>
                 </property>
             </properties>
@@ -195,6 +229,23 @@
                                         <param name="default" value="square"/>
                                     </params>
                                 </property>
+                                <property name="image_quality" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Quality</title>
+                                        <title lang="de">Bild-Qualität</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="standard">
+                                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                                            </param>
+                                            <param name="best">
+                                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="standard"/>
+                                    </params>
+                                </property>
                                 <property name="image_mobile_variant" type="single_select">
                                     <meta>
                                         <title lang="en">Image Variant (Mobile)</title>
@@ -213,6 +264,23 @@
                                             </param>
                                         </param>
                                         <param name="default" value="square"/>
+                                    </params>
+                                </property>
+                                <property name="image_mobile_quality" type="single_select">
+                                    <meta>
+                                        <title lang="en">Quality (Mobile)</title>
+                                        <title lang="de">Qualität (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="standard">
+                                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                                            </param>
+                                            <param name="best">
+                                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="standard"/>
                                     </params>
                                 </property>
                                 <property name="image_position" type="single_select">

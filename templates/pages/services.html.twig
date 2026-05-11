@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     {# Hero Section #}
     <header class="relative pt-16 pb-20 overflow-hidden w-full max-w-full overflow-x-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -34,8 +37,18 @@
                             {% set variant = service.variant|default('square') %}
                             {% set mobile_variant = service.mobile_variant|default('square') %}
 
-                            {% set desktop_format = variant ~ '-md' %}
-                            {% set mobile_format = mobile_variant ~ '-sm' %}
+                            {% set quality = service.quality|default(global_best_quality ? 'best' : 'standard') %}
+                            {% set mobile_quality = service.mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
+                            {% if quality == 'best' %}
+                                {% set desktop_format = variant ~ '-xl' %}
+                            {% else %}
+                                {% set desktop_format = variant ~ '-lg' %}
+                            {% endif %}
+                            {% if mobile_quality == 'best' %}
+                                {% set mobile_format = mobile_variant ~ '-xl' %}
+                            {% else %}
+                                {% set mobile_format = mobile_variant ~ '-md' %}
+                            {% endif %}
 
                             <picture>
                                 <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">

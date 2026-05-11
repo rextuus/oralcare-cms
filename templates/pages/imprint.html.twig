@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     <div class="pt-24 sm:pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full max-w-full overflow-x-hidden">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-12 text-slate-900 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden">{{ content.title }}</h1>
 

@@ -1,57 +1,97 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
+
     {# Hero Section #}
     <header class="relative pt-16 pb-20 bg-slate-50 dark:bg-slate-900/50 flex flex-col items-center w-full max-w-full overflow-x-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center w-full min-w-0 max-w-full">
+
                 <div class="animate-in fade-in slide-in-from-left-8 duration-700 min-w-0 w-full flex flex-col max-w-full lg:flex-1 overflow-hidden">
                     <h1 class="text-3xl sm:text-5xl md:text-6xl font-bold mb-6 tracking-tight leading-snug text-slate-900 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full">
                         {{ content.title|raw }}
                     </h1>
+
                     {% if content.hero_subtitle is not empty %}
                         <div class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl prose prose-slate dark:prose-invert break-words min-w-0 w-full max-w-full overflow-hidden">
                             {{ content.hero_subtitle|raw }}
                         </div>
                     {% endif %}
                 </div>
+
                 <div class="relative animate-in fade-in zoom-in duration-1000 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 flex flex-col items-center max-w-full lg:flex-1 overflow-hidden">
+
                     {% if content.hero_image is not empty or content.hero_image_mobile is not empty %}
+
                         {% set hero_img = content.hero_image|first %}
                         {% set hero_img_mobile = content.hero_image_mobile|first|default(hero_img) %}
+
                         {% set variant = content.hero_image_variant|default('horizontal') %}
                         {% set mobile_variant = content.hero_image_mobile_variant|default('horizontal') %}
 
-                        {% set desktop_format = variant ~ '-lg' %}
-                        {% set mobile_format = mobile_variant ~ '-md' %}
+                        {% set quality = content.hero_image_quality|default(global_best_quality ? 'best' : 'standard') %}
+                        {% set mobile_quality = content.hero_image_mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
 
-                        <a href="{{ hero_img.url }}" class="glightbox relative block rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20 aspect-square group w-full max-w-full">
-                            <picture>
-                                <source media="(max-width: 639px)" srcset="{{ hero_img_mobile.thumbnails[mobile_format]|default(hero_img_mobile.url) }}">
-                                <img src="{{ hero_img.thumbnails[desktop_format]|default(hero_img.thumbnails['horizontal-lg'])|default(hero_img.url) }}"
-                                     alt="{{ hero_img.title }}"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 max-w-full block"
-                                     style="object-position: {{ hero_img.focusX|default(50) }}% {{ hero_img.focusY|default(50) }}%">
+                        {% if quality == 'best' %}
+                            {% set desktop_format = variant ~ '-xl' %}
+                        {% else %}
+                            {% set desktop_format = variant ~ '-lg' %}
+                        {% endif %}
+
+                        {% if mobile_quality == 'best' %}
+                            {% set mobile_format = mobile_variant ~ '-xl' %}
+                        {% else %}
+                            {% set mobile_format = mobile_variant ~ '-md' %}
+                        {% endif %}
+
+                        <a href="{{ hero_img.url }}"
+                           class="glightbox relative block overflow-hidden rounded-[2.5rem] shadow-2xl shadow-blue-900/20 aspect-square group w-full max-w-full bg-transparent">
+
+                            <picture class="block w-full h-full">
+
+                                <source media="(max-width: 639px)"
+                                        srcset="{{ hero_img_mobile.thumbnails[mobile_format]|default(hero_img_mobile.url) }}">
+
+                                <img
+                                    src="{{ hero_img.thumbnails[desktop_format]|default(hero_img.thumbnails['horizontal-lg'])|default(hero_img.url) }}"
+                                    alt="{{ hero_img.title }}"
+                                    class="block w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                    style="object-position: {{ hero_img.focusX|default(50) }}% {{ hero_img.focusY|default(50) }}%"
+                                >
                             </picture>
+
                             <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="material-symbols-outlined text-white text-5xl">zoom_in</span>
+                                <span class="material-symbols-outlined text-white text-5xl">
+                                    zoom_in
+                                </span>
                             </div>
                         </a>
+
                     {% else %}
+
                         <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl shadow-blue-900/20 aspect-square bg-slate-200 dark:bg-slate-800 flex items-center justify-center w-full max-w-full">
-                            <span class="material-symbols-outlined text-6xl text-slate-400">image</span>
+                            <span class="material-symbols-outlined text-6xl text-slate-400">
+                                image
+                            </span>
                         </div>
+
                     {% endif %}
+
                     <div class="absolute -top-6 -left-6 w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-2xl -z-10"></div>
                     <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl -z-10"></div>
+
                 </div>
             </div>
         </div>
     </header>
 
     <main class="py-24">
+
         {# Introduction #}
-                    {% if content.intro_text is not empty %}
+        {% if content.intro_text is not empty %}
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24 overflow-hidden">
                 <div class="max-w-3xl prose prose-lg dark:prose-invert mx-auto text-center break-words overflow-hidden">
                     {{ content.intro_text|raw }}
@@ -59,73 +99,114 @@
             </section>
         {% endif %}
 
-        {# Room Tour / Gallery mit Lightbox #}
+        {# Gallery #}
         {% if content.gallery_images is not empty %}
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">{{ 'Einblicke in unsere Praxis'|trans }}</h2>
+
+                <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">
+                    {{ 'Einblicke in unsere Praxis'|trans }}
+                </h2>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
                     {% for item in content.gallery_images %}
+
                         {% set variant = item.variant|default('horizontal') %}
                         {% set mobile_variant = item.mobile_variant|default('horizontal') %}
 
-                        {% set desktop_format = variant ~ '-lg' %}
-                        {% set mobile_format = mobile_variant ~ '-md' %}
+                        {% set quality = item.quality|default(global_best_quality ? 'best' : 'standard') %}
+                        {% set mobile_quality = item.mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
+
+                        {% if quality == 'best' %}
+                            {% set desktop_format = variant ~ '-xl' %}
+                        {% else %}
+                            {% set desktop_format = variant ~ '-lg' %}
+                        {% endif %}
+
+                        {% if mobile_quality == 'best' %}
+                            {% set mobile_format = mobile_variant ~ '-xl' %}
+                        {% else %}
+                            {% set mobile_format = mobile_variant ~ '-md' %}
+                        {% endif %}
 
                         <div class="group {{ variant == 'horizontal' ? 'md:col-span-2' : '' }} flex flex-col">
+
                             {% if item.image is not empty or item.image_mobile is not empty %}
+
                                 {% set img = item.image|first %}
                                 {% set img_mobile = item.image_mobile|first|default(img) %}
-                                {# Lightbox Link: href muss zum Originalbild führen #}
+
                                 <a href="{{ img.url }}"
-                                   class="glightbox relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 {{ variant == 'horizontal' ? 'aspect-[21/9]' : (variant == 'vertical' ? 'aspect-[2/3]' : 'aspect-square') }}"
+                                   class="glightbox relative block overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 shadow-sm hover:shadow-xl transition-all duration-500 {{ variant == 'horizontal' ? 'aspect-[21/9]' : (variant == 'vertical' ? 'aspect-[2/3]' : 'aspect-square') }}"
                                    data-glightbox="title: {{ item.caption|default(img.title) }}; description: {{ item.caption }}">
 
-                                    <picture>
-                                        <source media="(max-width: 639px)" srcset="{{ img_mobile.thumbnails[mobile_format]|default(img_mobile.url) }}">
-                                        <img src="{{ img.thumbnails[desktop_format]|default(img.thumbnails['horizontal-lg'])|default(img.url) }}"
-                                             alt="{{ item.caption|default(img.title) }}"
-                                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                             style="object-position: {{ img.focusX|default(50) }}% {{ img.focusY|default(50) }}%">
+                                    <picture class="block w-full h-full">
+
+                                        <source media="(max-width: 639px)"
+                                                srcset="{{ img_mobile.thumbnails[mobile_format]|default(img_mobile.url) }}">
+
+                                        <img
+                                            src="{{ img.thumbnails[desktop_format]|default(img.thumbnails['horizontal-lg'])|default(img.url) }}"
+                                            alt="{{ item.caption|default(img.title) }}"
+                                            class="block w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                            style="object-position: {{ img.focusX|default(50) }}% {{ img.focusY|default(50) }}%"
+                                        >
                                     </picture>
 
-                                    {# Lupe-Icon Overlay #}
                                     <div class="absolute inset-0 bg-slate-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                                         <div class="bg-white/20 backdrop-blur-md p-4 rounded-full">
-                                            <span class="material-symbols-outlined text-white text-3xl">zoom_in</span>
+                                            <span class="material-symbols-outlined text-white text-3xl">
+                                                zoom_in
+                                            </span>
                                         </div>
                                     </div>
 
                                     {% if item.caption is not empty %}
                                         <div class="absolute inset-x-0 bottom-0 p-6 bg-gradient-to-t from-black/60 to-transparent translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                            <p class="text-white font-medium">{{ item.caption }}</p>
+                                            <p class="text-white font-medium">
+                                                {{ item.caption }}
+                                            </p>
                                         </div>
                                     {% endif %}
+
                                 </a>
+
                             {% else %}
+
                                 <div class="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 {{ variant == 'horizontal' ? 'aspect-[21/9]' : (variant == 'vertical' ? 'aspect-[2/3]' : 'aspect-square') }} flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-4xl text-slate-300">image</span>
+                                    <span class="material-symbols-outlined text-4xl text-slate-300">
+                                        image
+                                    </span>
                                 </div>
+
                             {% endif %}
 
                             {% if item.caption is not empty %}
-                                <p class="mt-4 text-slate-500 dark:text-slate-400 text-sm md:hidden">{{ item.caption }}</p>
+                                <p class="mt-4 text-slate-500 dark:text-slate-400 text-sm md:hidden">
+                                    {{ item.caption }}
+                                </p>
                             {% endif %}
+
                         </div>
+
                     {% endfor %}
+
                 </div>
+
             </section>
         {% endif %}
 
-        {# CTA Section #}
-        {# ... (dein CTA-Code bleibt gleich) ... #}
     </main>
 
-    {# GLightbox Assets & Init #}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+    {# GLightbox #}
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css"/>
+
     <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const lightbox = GLightbox({
+        document.addEventListener('DOMContentLoaded', function () {
+            GLightbox({
                 selector: '.glightbox',
                 touchNavigation: true,
                 loop: true,
@@ -133,4 +214,5 @@
             });
         });
     </script>
+
 {% endblock %}

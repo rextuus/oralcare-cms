@@ -9,12 +9,12 @@
             <div class="flex items-center gap-2">
                 <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
 
-                    {% if common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
+                    {% if common_settings and common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
                         {% set image = common_settings.content.logo %}
 
                         <img
                             src="{{ image.thumbnails['sulu-400x400-inset']|default(image.url) }}"
-                            alt="{{ common_settings.content.company_name }}"
+                            alt="{{ common_settings.content.company_name|default('') }}"
                             class="h-10 w-auto"
                         >
                     {% else %}
@@ -31,7 +31,7 @@
                             {% endif %}
                         </div>
                     {% endif %}
-                    <span class="font-display font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
+                    <span class="font-display font-bold text-lg sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name|default('OralCare') }}<span class="text-primary">.</span></span>
                 </a>
             </div>
             <div class="flex items-center gap-4">

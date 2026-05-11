@@ -8,11 +8,11 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 lg:gap-8">
             <div class="space-y-6">
                 <div class="flex items-center gap-2">
-                    {% if common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
+                    {% if common_settings and common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
                         {% set image = common_settings.content.logo %}
                         <img
                             src="{{ image.thumbnails['sulu-400x400-inset']|default(image.url) }}"
-                            alt="{{ common_settings.content.company_name }}"
+                            alt="{{ common_settings.content.company_name|default('') }}"
                             class="h-10 w-auto"
                         >
                     {% else %}
@@ -29,7 +29,7 @@
                             {% endif %}
                         </div>
                     {% endif %}
-                    <span class="font-display font-bold text-2xl tracking-tight text-white">{{ common_settings.content.company_name }}<span class="text-primary">.</span></span>
+                    <span class="font-display font-bold text-2xl tracking-tight text-white">{{ common_settings.content.company_name|default('OralCare') }}<span class="text-primary">.</span></span>
                 </div>
                 <div class="flex gap-4">
                     {% if socialMedia and socialMedia.content.facebook_url is not empty %}
@@ -85,7 +85,7 @@
     <div class="border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-medium">
-                <p>&copy; {{ 'now'|date('Y') }} {{ common_settings.content.company_name }}. {{ 'Alle Rechte vorbehalten.'|trans }}</p>
+                <p>&copy; {{ 'now'|date('Y') }} {{ common_settings.content.company_name|default('OralCare') }}. {{ 'Alle Rechte vorbehalten.'|trans }}</p>
                 <div class="flex gap-8">
                     <a class="hover:text-white transition-colors" href="{{ sulu_content_path('/datenschutz') }}">{{ 'Datenschutz'|trans }}</a>
                     <a class="hover:text-white transition-colors" href="{{ sulu_content_path('/impressum') }}">{{ 'Impressum'|trans }}</a>

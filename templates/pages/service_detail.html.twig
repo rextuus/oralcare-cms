@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     {# Hero Section #}
     <section class="relative pt-16 pb-24 lg:pt-32 lg:pb-40 overflow-hidden bg-slate-50 dark:bg-slate-900/50 w-full max-w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -34,8 +37,18 @@
                             {% set variant = content.hero_image_variant|default('vertical') %}
                             {% set mobile_variant = content.hero_image_mobile_variant|default('vertical') %}
 
-                            {% set desktop_format = variant ~ '-lg' %}
-                            {% set mobile_format = mobile_variant ~ '-md' %}
+                            {% set quality = content.hero_image_quality|default(global_best_quality ? 'best' : 'standard') %}
+                            {% set mobile_quality = content.hero_image_mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
+                            {% if quality == 'best' %}
+                                {% set desktop_format = variant ~ '-xl' %}
+                            {% else %}
+                                {% set desktop_format = variant ~ '-lg' %}
+                            {% endif %}
+                            {% if mobile_quality == 'best' %}
+                                {% set mobile_format = mobile_variant ~ '-xl' %}
+                            {% else %}
+                                {% set mobile_format = mobile_variant ~ '-md' %}
+                            {% endif %}
 
                             <picture>
                                 <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
@@ -87,8 +100,18 @@
                                         {% set blockVariant = block.image_variant|default('square') %}
                                         {% set blockMobileVariant = block.image_mobile_variant|default('square') %}
 
-                                        {% set blockDesktopFormat = blockVariant ~ '-md' %}
-                                        {% set blockMobileFormat = blockMobileVariant ~ '-sm' %}
+                                        {% set blockQuality = block.image_quality|default(global_best_quality ? 'best' : 'standard') %}
+                                        {% set blockMobileQuality = block.image_mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
+                                        {% if blockQuality == 'best' %}
+                                            {% set blockDesktopFormat = blockVariant ~ '-xl' %}
+                                        {% else %}
+                                            {% set blockDesktopFormat = blockVariant ~ '-lg' %}
+                                        {% endif %}
+                                        {% if blockMobileQuality == 'best' %}
+                                            {% set blockMobileFormat = blockMobileVariant ~ '-xl' %}
+                                        {% else %}
+                                            {% set blockMobileFormat = blockMobileVariant ~ '-md' %}
+                                        {% endif %}
 
                                         <picture>
                                             <source media="(max-width: 639px)" srcset="{{ blockImageMobile.thumbnails[blockMobileFormat]|default(blockImageMobile.url) }}">

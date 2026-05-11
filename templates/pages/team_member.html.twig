@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     <article class="pt-32 pb-24 bg-white dark:bg-slate-900 transition-colors duration-300 w-full max-w-full overflow-x-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="grid lg:grid-cols-12 gap-12 items-start w-full min-w-0">
@@ -9,8 +12,18 @@
                     {% set variant = content.variant|default('vertical') %}
                     {% set mobile_variant = content.mobile_variant|default('vertical') %}
 
-                    {% set desktop_format = variant ~ '-lg' %}
-                    {% set mobile_format = mobile_variant ~ '-md' %}
+                    {% set quality = content.quality|default(global_best_quality ? 'best' : 'standard') %}
+                    {% set mobile_quality = content.mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
+                    {% if quality == 'best' %}
+                        {% set desktop_format = variant ~ '-xl' %}
+                    {% else %}
+                        {% set desktop_format = variant ~ '-lg' %}
+                    {% endif %}
+                    {% if mobile_quality == 'best' %}
+                        {% set mobile_format = mobile_variant ~ '-xl' %}
+                    {% else %}
+                        {% set mobile_format = mobile_variant ~ '-md' %}
+                    {% endif %}
 
                     <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl {{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
                         {% if content.image is defined and (content.image is not empty or content.image_mobile is not empty) %}
