@@ -143,6 +143,29 @@
                         <title lang="de">Hero Untertitel</title>
                     </meta>
                 </property>
+                <property name="hero_image_display_style" type="single_select">
+                    <meta>
+                        <title lang="en">Image Display Style</title>
+                        <title lang="de">Bild-Anzeigestil</title>
+                    </meta>
+                    <params>
+                        <param name="values" type="collection">
+                            <param name="fancy">
+                                <meta>
+                                    <title lang="en">Fancy (Rounded + Shadow)</title>
+                                    <title lang="de">Schick (Abgerundet + Schatten)</title>
+                                </meta>
+                            </param>
+                            <param name="simple">
+                                <meta>
+                                    <title lang="en">Simple (Embedded, No Shadow)</title>
+                                    <title lang="de">Einfach (Eingebettet, kein Schatten)</title>
+                                </meta>
+                            </param>
+                        </param>
+                        <param name="default" value="fancy"/>
+                    </params>
+                </property>
             </properties>
         </section>
 
