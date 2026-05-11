@@ -8,7 +8,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div class="grid lg:grid-cols-12 gap-12 items-start w-full min-w-0">
                 {# Sidebar / Image #}
-                <div class="lg:col-span-5 space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 overflow-hidden flex flex-col">
+                <div class="lg:col-span-5 space-y-8 animate-in fade-in slide-in-from-left-8 duration-700 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 flex flex-col items-center">
                     {% set variant = content.variant|default('vertical') %}
                     {% set mobile_variant = content.mobile_variant|default('vertical') %}
 
@@ -25,20 +25,22 @@
                         {% set mobile_format = mobile_variant ~ '-md' %}
                     {% endif %}
 
-                    <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl {{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
-                        {% if content.image is defined and (content.image is not empty or content.image_mobile is not empty) %}
-                            {% set image = content.image|first %}
-                            {% set image_mobile = content.image_mobile|first|default(image) %}
-                            <picture>
-                                <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
-                                <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['vertical-lg'])|default(image.url) }}"
-                                     alt="{{ content.title }}"
-                                     class="w-full h-full object-cover max-w-full block"
-                                     style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
-                            </picture>
-                        {% else %}
-                            <img alt="{{ content.title }}" class="w-full h-full object-cover max-w-full block" src="https://i.pravatar.cc/800?u={{ content.title|url_encode }}">
-                        {% endif %}
+                    <div class="relative rounded-[2.5rem] shadow-2xl w-full max-w-full">
+                        <div class="rounded-[2.5rem] overflow-hidden {{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
+                            {% if content.image is defined and (content.image is not empty or content.image_mobile is not empty) %}
+                                {% set image = content.image|first %}
+                                {% set image_mobile = content.image_mobile|first|default(image) %}
+                                <picture>
+                                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                                    <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['vertical-lg'])|default(image.url) }}"
+                                         alt="{{ content.title }}"
+                                         class="w-full h-full object-cover max-w-full block"
+                                         style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                                </picture>
+                            {% else %}
+                                <img alt="{{ content.title }}" class="w-full h-full object-cover max-w-full block" src="https://i.pravatar.cc/800?u={{ content.title|url_encode }}">
+                            {% endif %}
+                        </div>
                     </div>
 
                     {% if content.contact_info is not empty %}

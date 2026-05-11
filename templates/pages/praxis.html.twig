@@ -22,7 +22,7 @@
                     {% endif %}
                 </div>
 
-                <div class="relative animate-in fade-in zoom-in duration-1000 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 flex flex-col items-center max-w-full lg:flex-1 overflow-hidden">
+                <div class="relative animate-in fade-in zoom-in duration-1000 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 flex flex-col items-center max-w-full lg:flex-1">
 
                     {% if content.hero_image is not empty or content.hero_image_mobile is not empty %}
 
@@ -47,28 +47,30 @@
                             {% set mobile_format = mobile_variant ~ '-md' %}
                         {% endif %}
 
-                        <a href="{{ hero_img.url }}"
-                           class="glightbox relative block overflow-hidden rounded-[2.5rem] shadow-2xl shadow-blue-900/20 aspect-square group w-full max-w-full bg-transparent">
+                        <div class="relative rounded-[2.5rem] shadow-2xl shadow-blue-900/20 w-full max-w-full">
+                            <a href="{{ hero_img.url }}"
+                               class="glightbox relative block overflow-hidden rounded-[2.5rem] aspect-square group w-full max-w-full bg-transparent">
 
-                            <picture class="block w-full h-full">
+                                <picture class="block w-full h-full">
 
-                                <source media="(max-width: 639px)"
-                                        srcset="{{ hero_img_mobile.thumbnails[mobile_format]|default(hero_img_mobile.url) }}">
+                                    <source media="(max-width: 639px)"
+                                            srcset="{{ hero_img_mobile.thumbnails[mobile_format]|default(hero_img_mobile.url) }}">
 
-                                <img
-                                    src="{{ hero_img.thumbnails[desktop_format]|default(hero_img.thumbnails['horizontal-lg'])|default(hero_img.url) }}"
-                                    alt="{{ hero_img.title }}"
-                                    class="block w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                                    style="object-position: {{ hero_img.focusX|default(50) }}% {{ hero_img.focusY|default(50) }}%"
-                                >
-                            </picture>
+                                    <img
+                                        src="{{ hero_img.thumbnails[desktop_format]|default(hero_img.thumbnails['horizontal-lg'])|default(hero_img.url) }}"
+                                        alt="{{ hero_img.title }}"
+                                        class="block w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                                        style="object-position: {{ hero_img.focusX|default(50) }}% {{ hero_img.focusY|default(50) }}%"
+                                    >
+                                </picture>
 
-                            <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                <span class="material-symbols-outlined text-white text-5xl">
-                                    zoom_in
-                                </span>
-                            </div>
-                        </a>
+                                <div class="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-white text-5xl">
+                                        zoom_in
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
 
                     {% else %}
 
