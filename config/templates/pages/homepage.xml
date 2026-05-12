@@ -373,17 +373,42 @@
                         <title lang="de">Leistungen Untertitel</title>
                     </meta>
                 </property>
-                <property name="services_selection" type="page_selection">
+                <property name="services_selection" type="block">
                     <meta>
                         <title lang="en">Linked Services (Optional selection from pages)</title>
                         <title lang="de">Verlinkte Leistungen (Optionale Auswahl aus Seiten)</title>
                     </meta>
+                    <types>
+                        <type name="linked_service">
+                            <meta>
+                                <title lang="en">Linked Service</title>
+                                <title lang="de">Verlinkte Leistung</title>
+                            </meta>
+                            <properties>
+                                <property name="enabled" type="checkbox">
+                                    <meta>
+                                        <title lang="en">Enabled</title>
+                                        <title lang="de">Aktiviert</title>
+                                    </meta>
+                                    <params>
+                                        <param name="default" value="true"/>
+                                    </params>
+                                </property>
+                                <property name="page" type="single_page_selection">
+                                    <meta>
+                                        <title lang="en">Page</title>
+                                        <title lang="de">Seite</title>
+                                    </meta>
+                                </property>
+                            </properties>
+                        </type>
+                    </types>
                 </property>
 
                 <section name="services_carousel_settings">
                     <meta>
-                        <title lang="en">Services Carousel</title>
-                        <title lang="de">Leistungen Karussell</title>
+                        <title lang="en">Services Section</title>
+                        <title lang="de">Leistungen Bereich</title>
                     </meta>
                     <properties>
                         <property name="services_carousel_enable" type="checkbox">
@@ -391,6 +416,15 @@
                                 <title lang="en">Enable Carousel</title>
                                 <title lang="de">Karussell aktivieren</title>
                             </meta>
+                        </property>
+                        <property name="services_carousel_autoplay" type="checkbox">
+                            <meta>
+                                <title lang="en">Enable Autoplay</title>
+                                <title lang="de">Autoplay aktivieren</title>
+                            </meta>
+                            <params>
+                                <param name="default" value="true"/>
+                            </params>
                         </property>
                         <property name="services_carousel_autoplay_seconds" type="number">
                             <meta>
@@ -439,6 +473,15 @@
                                 <title lang="de">Leistung</title>
                             </meta>
                             <properties>
+                                <property name="enabled" type="checkbox">
+                                    <meta>
+                                        <title lang="en">Show in Carousel/Grid</title>
+                                        <title lang="de">Im Karussell/Raster anzeigen</title>
+                                    </meta>
+                                    <params>
+                                        <param name="default" value="true"/>
+                                    </params>
+                                </property>
                                 <property name="title" type="text_line">
                                     <meta>
                                         <title lang="en">Title</title>

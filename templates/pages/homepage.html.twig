@@ -191,6 +191,9 @@
     </section>
 
     {# Services Section #}
+    {% set services_list = content.services_list|default([]) %}
+    {% set services_selection = content.services_selection|default([]) %}
+    {% if services_list is not empty or services_selection is not empty %}
     <section class="py-24 bg-background-light dark:bg-slate-900/50 overflow-hidden" id="services">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 min-w-0">
             <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white mb-4 break-words">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
@@ -214,54 +217,71 @@
         {% endif %}
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {% if use_carousel %}
-                {% set services = content.services_selection is not empty ? content.services_selection : content.services_list %}
-                {% set seconds = content.services_carousel_autoplay_seconds|default(0) %}
-                {% set interval = seconds > 0 ? seconds * 1000 : 'false' %}
+            {% set services = [] %}
+            {% if services_selection is not empty %}
+                {% for item in services_selection %}
 
-                <div id="servicesBootstrapCarousel" class="carousel slide" data-bs-ride="{{ seconds > 0 ? 'carousel' : 'false' }}" data-bs-interval="{{ interval }}">
-                    <!-- Indicators -->
-                    <div class="carousel-indicators relative mt-8">
-                        {% for i in 0..(services|length - 1) %}
-                            <button type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide-to="{{ i }}" class="{{ loop.first ? 'active' : '' }} bg-primary" aria-current="{{ loop.first ? 'true' : 'false' }}" aria-label="Slide {{ i + 1 }}"></button>
-                        {% endfor %}
-                    </div>
+                    {% if item.enabled|default(true) and item.page is not empty %}
+                        {% set services = services|merge([item.page]) %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                {% for item in services_list %}
+                    {% if item.enabled|default(false) %}
+                        {% set services = services|merge([item]) %}
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
 
-                    <div class="carousel-inner">
-                        {% for service in services %}
-                            <div class="carousel-item {{ loop.first ? 'active' : '' }}">
-                                <div class="px-md-5">
-                                    <div class="{{ height_class }} {{ width_class }} mx-auto">
-                                        {{ _self.render_service_card(service, content.services_selection is not empty) }}
+            {% if services is not empty %}
+                {% if use_carousel %}
+                    {% set show_autoplay = content.services_carousel_autoplay|default(true) %}
+                    {% set seconds = content.services_carousel_autoplay_seconds|default(5) %}
+                    {% set interval = show_autoplay and seconds > 0 ? seconds * 1000 : 'false' %}
+
+                    <div id="servicesBootstrapCarousel" class="carousel slide" data-bs-ride="{{ show_autoplay ? 'carousel' : 'false' }}" data-bs-interval="{{ interval }}">
+                        <!-- Indicators -->
+                        <div class="carousel-indicators relative mt-8">
+                            {% for i in 0..(services|length - 1) %}
+                                <button type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide-to="{{ i }}" class="{{ loop.first ? 'active' : '' }} bg-primary" aria-current="{{ loop.first ? 'true' : 'false' }}" aria-label="Slide {{ i + 1 }}"></button>
+                            {% endfor %}
+                        </div>
+
+                        <div class="carousel-inner">
+                            {% for service in services %}
+                                <div class="carousel-item {{ loop.first ? 'active' : '' }}">
+                                    <div class="px-md-5">
+                                        <div class="{{ height_class }} {{ width_class }} mx-auto">
+                                            {{ _self.render_service_card(service, services_selection is not empty) }}
+                                        </div>
                                     </div>
                                 </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if content.services_carousel_show_nav|default(false) %}
+                            <!-- Controls -->
+                            <button class="carousel-control-prev !left-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="prev">
+                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
+                                    <span class="material-symbols-outlined">chevron_left</span>
+                                </span>
+                            </button>
+                            <button class="carousel-control-next !right-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="next">
+                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </span>
+                            </button>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="grid md:grid-cols-2 {{ carousel_height == 'small' ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} gap-8 min-w-0">
+                        {% for service in services %}
+                            <div class="{{ height_class }}">
+                                {{ _self.render_service_card(service, services_selection is not empty) }}
                             </div>
                         {% endfor %}
                     </div>
-
-                    {% if content.services_carousel_show_nav|default(false) %}
-                        <!-- Controls -->
-                        <button class="carousel-control-prev !left-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="prev">
-                            <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
-                                <span class="material-symbols-outlined">chevron_left</span>
-                            </span>
-                        </button>
-                        <button class="carousel-control-next !right-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="next">
-                            <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
-                                <span class="material-symbols-outlined">chevron_right</span>
-                            </span>
-                        </button>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="grid md:grid-cols-2 {{ carousel_height == 'small' ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} gap-8 min-w-0">
-                    {% set services = content.services_selection is not empty ? content.services_selection : content.services_list %}
-                    {% for service in services %}
-                        <div class="{{ height_class }}">
-                            {{ _self.render_service_card(service, content.services_selection is not empty) }}
-                        </div>
-                    {% endfor %}
-                </div>
+                {% endif %}
             {% endif %}
         </div>
 
@@ -277,6 +297,7 @@
             }
         </style>
     </section>
+    {% endif %}
 
     {# Card partial to avoid repetition #}
     {% macro render_service_card(service, is_page) %}
@@ -301,7 +322,7 @@
 
         {% set has_image = image is not empty %}
 
-        <div class="relative rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group min-w-0 overflow-hidden h-full flex flex-col text-left {{ not has_image ? 'bg-white dark:bg-slate-800 p-8' : 'bg-slate-900' }}">
+        <div class="relative rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group min-w-0 overflow-hidden h-full flex flex-col text-left {{ not has_image ? 'bg-white dark:bg-slate-800 p-6 sm:p-8' : 'bg-slate-900' }}">
             {% if has_image %}
                 {# Full Background Image #}
                 <div class="absolute inset-0 z-0">
@@ -316,19 +337,19 @@
                 </div>
             {% endif %}
 
-            <div class="relative z-10 flex flex-col h-full {{ has_image ? 'p-8 pt-24' : '' }}">
-                <div class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md group-hover:bg-primary' : 'bg-blue-50 dark:bg-blue-900/20 group-hover:bg-primary' }}">
+            <div class="relative z-10 flex flex-col h-full {{ has_image ? 'p-6 sm:p-8 pt-20 sm:pt-24' : '' }}">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md group-hover:bg-primary' : 'bg-blue-50 dark:bg-blue-900/20 group-hover:bg-primary' }}">
                     {% if not is_page and service.icon is defined and service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-8 h-8 object-contain {{ has_image ? '' : 'dark:invert group-hover:invert-0' }}">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-8 sm:h-8 object-contain {{ has_image ? '' : 'dark:invert group-hover:invert-0' }}">
                     {% else %}
-                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary' }} group-hover:text-white text-3xl">medical_services</span>
+                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary' }} group-hover:text-white text-2xl sm:text-3xl">medical_services</span>
                     {% endif %}
                 </div>
 
-                <h3 class="text-2xl font-bold mb-4 break-words {{ has_image ? 'text-white' : 'text-slate-900 dark:text-white' }}">{{ service.title }}</h3>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 break-words {{ has_image ? 'text-white' : 'text-slate-900 dark:text-white' }}">{{ service.title }}</h3>
 
-                <div class="mb-6 leading-relaxed break-words flex-grow {{ has_image ? 'text-white/90' : 'text-slate-600 dark:text-slate-400' }}">
+                <div class="mb-4 sm:mb-6 leading-relaxed break-words flex-grow overflow-y-auto no-scrollbar {{ has_image ? 'text-white/90' : 'text-slate-600 dark:text-slate-400' }}">
                     {% if is_page %}
                         {{ service.excerpt.description|default(service.title) }}
                     {% else %}
@@ -337,9 +358,9 @@
                 </div>
 
                 {% if not is_page and service.features is defined and service.features is not empty %}
-                    <ul class="space-y-3 mb-8 text-left">
+                    <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 text-left">
                         {% for feature in service.features %}
-                            <li class="flex items-center gap-2 text-sm min-w-0 {{ has_image ? 'text-white/80' : 'text-slate-500 dark:text-slate-400' }}">
+                            <li class="flex items-center gap-2 text-xs sm:text-sm min-w-0 {{ has_image ? 'text-white/80' : 'text-slate-500 dark:text-slate-400' }}">
                                 <span class="material-symbols-outlined text-primary text-base flex-shrink-0">check_circle</span>
                                 <span class="truncate">{{ feature.text }}</span>
                             </li>
