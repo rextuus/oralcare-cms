@@ -379,6 +379,34 @@
                         <title lang="de">Verlinkte Leistungen (Optionale Auswahl aus Seiten)</title>
                     </meta>
                 </property>
+
+                <section name="services_carousel_settings">
+                    <meta>
+                        <title lang="en">Services Carousel</title>
+                        <title lang="de">Leistungen Karussell</title>
+                    </meta>
+                    <properties>
+                        <property name="services_carousel_enable" type="checkbox">
+                            <meta>
+                                <title lang="en">Enable Carousel</title>
+                                <title lang="de">Karussell aktivieren</title>
+                            </meta>
+                        </property>
+                        <property name="services_carousel_autoplay_seconds" type="number">
+                            <meta>
+                                <title lang="en">Autoplay Delay (seconds)</title>
+                                <title lang="de">Autoplay Verzögerung (Sekunden)</title>
+                            </meta>
+                        </property>
+                        <property name="services_carousel_show_nav" type="checkbox">
+                            <meta>
+                                <title lang="en">Show Prev/Next Buttons</title>
+                                <title lang="de">Zurück/Weiter-Schaltflächen anzeigen</title>
+                            </meta>
+                        </property>
+                    </properties>
+                </section>
+
                 <property name="services_list" type="block">
                     <meta>
                         <title lang="en">Services</title>
@@ -413,6 +441,100 @@
                                         <param name="max" value="1"/>
                                     </params>
                                 </property>
+                                <property name="image" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image (Desktop)</title>
+                                        <title lang="de">Bild (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="image_mobile" type="media_selection">
+                                    <meta>
+                                        <title lang="en">Image (Mobile)</title>
+                                        <title lang="de">Bild (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="types" value="image"/>
+                                        <param name="max" value="1"/>
+                                    </params>
+                                </property>
+                                <property name="variant" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Variant (Desktop)</title>
+                                        <title lang="de">Bild-Variante (Desktop)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="vertical">
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="square"/>
+                                    </params>
+                                </property>
+                                <property name="quality" type="single_select">
+                                    <meta>
+                                        <title lang="en">Quality</title>
+                                        <title lang="de">Qualität</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="standard">
+                                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                                            </param>
+                                            <param name="best">
+                                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="standard"/>
+                                    </params>
+                                </property>
+                                <property name="mobile_variant" type="single_select">
+                                    <meta>
+                                        <title lang="en">Image Variant (Mobile)</title>
+                                        <title lang="de">Bild-Variante (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="vertical">
+                                                <meta><title lang="en">Vertical</title><title lang="de">Vertikal</title></meta>
+                                            </param>
+                                            <param name="horizontal">
+                                                <meta><title lang="en">Horizontal</title><title lang="de">Horizontal</title></meta>
+                                            </param>
+                                            <param name="square">
+                                                <meta><title lang="en">Square</title><title lang="de">Quadratisch</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="square"/>
+                                    </params>
+                                </property>
+                                <property name="mobile_quality" type="single_select">
+                                    <meta>
+                                        <title lang="en">Quality (Mobile)</title>
+                                        <title lang="de">Qualität (Mobil)</title>
+                                    </meta>
+                                    <params>
+                                        <param name="values" type="collection">
+                                            <param name="standard">
+                                                <meta><title lang="en">Standard</title><title lang="de">Standard</title></meta>
+                                            </param>
+                                            <param name="best">
+                                                <meta><title lang="en">Best (High Res)</title><title lang="de">Beste (Hohe Auflösung)</title></meta>
+                                            </param>
+                                        </param>
+                                        <param name="default" value="standard"/>
+                                    </params>
+                                </property>
                                 <property name="features" type="block">
                                     <meta>
                                         <title lang="en">Bullet points</title>
@@ -431,6 +553,9 @@
                                         <title lang="en">Detail Page (Optional)</title>
                                         <title lang="de">Detailseite (Optional)</title>
                                     </meta>
+                                    <params>
+                                        <param name="max" value="1"/>
+                                    </params>
                                 </property>
                             </properties>
                         </type>
