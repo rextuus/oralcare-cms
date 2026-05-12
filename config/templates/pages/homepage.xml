@@ -404,6 +404,26 @@
                                 <title lang="de">Zurück/Weiter-Schaltflächen anzeigen</title>
                             </meta>
                         </property>
+                        <property name="services_carousel_height" type="single_select">
+                            <meta>
+                                <title lang="en">Image Height</title>
+                                <title lang="de">Bildhöhe</title>
+                            </meta>
+                            <params>
+                                <param name="values" type="collection">
+                                    <param name="small">
+                                        <meta><title lang="en">Small</title><title lang="de">Klein</title></meta>
+                                    </param>
+                                    <param name="medium">
+                                        <meta><title lang="en">Medium</title><title lang="de">Mittel</title></meta>
+                                    </param>
+                                    <param name="large">
+                                        <meta><title lang="en">Large</title><title lang="de">Groß</title></meta>
+                                    </param>
+                                </param>
+                                <param name="default" value="large"/>
+                            </params>
+                        </property>
                     </properties>
                 </section>
 

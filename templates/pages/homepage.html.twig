@@ -202,6 +202,17 @@
         </div>
 
         {% set use_carousel = content.services_carousel_enable|default(false) %}
+        {% set carousel_height = content.services_carousel_height|default('large') %}
+        {% set height_class = 'h-[500px] sm:h-[600px]' %}
+        {% set width_class = 'max-w-7xl' %}
+        {% if carousel_height == 'small' %}
+            {% set height_class = 'h-[300px] sm:h-[400px]' %}
+            {% set width_class = 'max-w-4xl' %}
+        {% elseif carousel_height == 'medium' %}
+            {% set height_class = 'h-[400px] sm:h-[500px]' %}
+            {% set width_class = 'max-w-5xl' %}
+        {% endif %}
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {% if use_carousel %}
                 {% set services = content.services_selection is not empty ? content.services_selection : content.services_list %}
@@ -211,23 +222,18 @@
                 <div id="servicesBootstrapCarousel" class="carousel slide" data-bs-ride="{{ seconds > 0 ? 'carousel' : 'false' }}" data-bs-interval="{{ interval }}">
                     <!-- Indicators -->
                     <div class="carousel-indicators relative mt-8">
-                        {% set total_slides = (services|length / 3)|round(0, 'ceil') %}
-                        {% for i in 0..(total_slides - 1) %}
+                        {% for i in 0..(services|length - 1) %}
                             <button type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide-to="{{ i }}" class="{{ loop.first ? 'active' : '' }} bg-primary" aria-current="{{ loop.first ? 'true' : 'false' }}" aria-label="Slide {{ i + 1 }}"></button>
                         {% endfor %}
                     </div>
 
                     <div class="carousel-inner">
-                        {% for chunk in services|batch(3) %}
+                        {% for service in services %}
                             <div class="carousel-item {{ loop.first ? 'active' : '' }}">
-                                <div class="row g-4 pb-4 px-md-5">
-                                    {% for service in chunk %}
-                                        <div class="col-12 col-md-4 {{ loop.index0 > 0 ? 'd-none d-md-block' : '' }}">
-                                            <div class="h-[500px]">
-                                                {{ _self.render_service_card(service, content.services_selection is not empty) }}
-                                            </div>
-                                        </div>
-                                    {% endfor %}
+                                <div class="px-md-5">
+                                    <div class="{{ height_class }} {{ width_class }} mx-auto">
+                                        {{ _self.render_service_card(service, content.services_selection is not empty) }}
+                                    </div>
                                 </div>
                             </div>
                         {% endfor %}
@@ -248,10 +254,10 @@
                     {% endif %}
                 </div>
             {% else %}
-                <div class="grid md:grid-cols-3 gap-8 min-w-0">
+                <div class="grid md:grid-cols-2 {{ carousel_height == 'small' ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} gap-8 min-w-0">
                     {% set services = content.services_selection is not empty ? content.services_selection : content.services_list %}
                     {% for service in services %}
-                        <div class="h-[500px]">
+                        <div class="{{ height_class }}">
                             {{ _self.render_service_card(service, content.services_selection is not empty) }}
                         </div>
                     {% endfor %}
@@ -266,6 +272,9 @@
                 border-radius: 50%;
                 margin: 0 5px;
             }
+            #servicesBootstrapCarousel .carousel-item {
+                transition: transform 0.6s ease-in-out;
+            }
         </style>
     </section>
 
@@ -273,8 +282,8 @@
     {% macro render_service_card(service, is_page) %}
         {% set image = null %}
         {% set image_mobile = null %}
-        {% set variant = 'square' %}
-        {% set mobile_variant = 'square' %}
+        {% set variant = 'landscape' %}
+        {% set mobile_variant = 'landscape' %}
 
         {% if is_page %}
             {% if service.excerpt.images is defined and service.excerpt.images is not empty %}
@@ -285,8 +294,8 @@
             {% if service.image is defined and service.image is not empty %}
                 {% set image = service.image|first %}
                 {% set image_mobile = service.image_mobile|first|default(image) %}
-                {% set variant = service.variant|default('square') %}
-                {% set mobile_variant = service.mobile_variant|default('square') %}
+                {% set variant = service.variant|default('landscape') %}
+                {% set mobile_variant = service.mobile_variant|default('landscape') %}
             {% endif %}
         {% endif %}
 
