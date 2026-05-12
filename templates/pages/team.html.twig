@@ -7,11 +7,43 @@
     <div class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full max-w-full overflow-x-hidden">
         <div class="text-center mb-16 min-w-0 w-full overflow-hidden">
             <h1 class="text-4xl md:text-5xl font-bold mb-6 text-slate-900 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden">{{ content.title }}</h1>
-            {% if content.subtitle is not empty %}
-                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
-                    {{ content.subtitle|raw }}
-                </p>
-            {% endif %}
+            <div id="role-description-container">
+                <div id="default-subtitle" class="role-desc">
+                    {% if content.subtitle is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
+                            {{ content.subtitle|raw }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div id="desc-dentists" class="role-desc hidden">
+                    {% if content.text_dentists is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
+                            {{ content.text_dentists|raw }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div id="desc-reception" class="role-desc hidden">
+                    {% if content.text_reception is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
+                            {{ content.text_reception|raw }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div id="desc-assistants" class="role-desc hidden">
+                    {% if content.text_assistants is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
+                            {{ content.text_assistants|raw }}
+                        </p>
+                    {% endif %}
+                </div>
+                <div id="desc-prophylaxis" class="role-desc hidden">
+                    {% if content.text_prophylaxis is not empty %}
+                        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed break-words">
+                            {{ content.text_prophylaxis|raw }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
 
         <div class="flex flex-wrap justify-center gap-3 mb-12" id="team-filter">
@@ -147,6 +179,15 @@
                             }, 300);
                         }
                     });
+
+                    // Update role description
+                    const roleDescriptions = document.querySelectorAll('.role-desc');
+                    roleDescriptions.forEach(desc => desc.classList.add('hidden'));
+
+                    const activeDesc = document.getElementById(filter === 'all' ? 'default-subtitle' : 'desc-' + filter);
+                    if (activeDesc) {
+                        activeDesc.classList.remove('hidden');
+                    }
                 });
             });
         });

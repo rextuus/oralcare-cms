@@ -43,6 +43,39 @@
             <tag name="sulu.rlp"/>
         </property>
 
+        <section name="role_texts_section">
+            <meta>
+                <title lang="en">Role Descriptions</title>
+                <title lang="de">Rollenbeschreibungen</title>
+            </meta>
+            <properties>
+                <property name="text_dentists" type="text_editor">
+                    <meta>
+                        <title lang="en">Text for Dentists</title>
+                        <title lang="de">Text für Zahnärzte</title>
+                    </meta>
+                </property>
+                <property name="text_reception" type="text_editor">
+                    <meta>
+                        <title lang="en">Text for Reception</title>
+                        <title lang="de">Text für Empfang</title>
+                    </meta>
+                </property>
+                <property name="text_assistants" type="text_editor">
+                    <meta>
+                        <title lang="en">Text for Assistants</title>
+                        <title lang="de">Text für Assistenz</title>
+                    </meta>
+                </property>
+                <property name="text_prophylaxis" type="text_editor">
+                    <meta>
+                        <title lang="en">Text for Prophylaxis</title>
+                        <title lang="de">Text für Prophylaxe</title>
+                    </meta>
+                </property>
+            </properties>
+        </section>
+
         <section name="team_members_section">
             <meta>
                 <title lang="en">Team Members</title>
