@@ -172,13 +172,13 @@
                             {% for feature in content.about_features %}
                                 <div class="flex items-start gap-3 min-w-0">
                                     <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 p-2">
-                                        {% if feature.icon is not empty %}
-                                            {% set icon = feature.icon|first %}
-                                            <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:invert">
-                                        {% else %}
-                                            <span class="material-symbols-outlined text-primary text-xl">verified</span>
-                                        {% endif %}
-                                    </div>
+                                    {% if feature.icon is not empty %}
+                                        {% set icon = feature.icon|first %}
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:invert">
+                                    {% else %}
+                                        <span class="material-symbols-outlined text-primary text-2xl">verified</span>
+                                    {% endif %}
+                                </div>
                                     <div class="min-w-0">
                                         <h4 class="font-bold text-slate-900 dark:text-white truncate">{{ feature.title }}</h4>
                                         <p class="text-sm text-slate-500 truncate">{{ feature.subtitle }}</p>
@@ -347,9 +347,9 @@
                 <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md' : 'bg-blue-50 dark:bg-blue-900/20 group-hover:bg-primary' }}">
                     {% if not is_page and service.icon is defined and service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-8 sm:h-8 object-contain {{ has_image ? '' : 'dark:invert group-hover:invert-0' }}">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:invert group-hover:invert-0' }}">
                     {% else %}
-                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary' }} group-hover:text-white text-2xl sm:text-3xl">medical_services</span>
+                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary' }} group-hover:text-white text-2xl sm:text-4xl">medical_services</span>
                     {% endif %}
                 </div>
 
@@ -408,9 +408,9 @@
                                 <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm p-2 flex-shrink-0">
                                     {% if item.icon is not empty %}
                                         {% set icon = item.icon|first %}
-                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain">
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-8 h-8 object-contain">
                                     {% else %}
-                                        <span class="material-symbols-outlined text-2xl">notifications</span>
+                                        <span class="material-symbols-outlined text-3xl">notifications</span>
                                     {% endif %}
                                 </div>
                                 <div class="min-w-0">
