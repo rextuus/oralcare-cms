@@ -111,6 +111,12 @@
                         <param name="default" value="standard"/>
                     </params>
                 </property>
+                <property name="hero_services_link" type="single_page_selection">
+                    <meta>
+                        <title lang="en">Services Button Link</title>
+                        <title lang="de">Leistungen Button Link</title>
+                    </meta>
+                </property>
                 <property name="hero_image_mobile_variant" type="single_select">
                     <meta>
                         <title lang="en">Hero Image Variant (Mobile)</title>

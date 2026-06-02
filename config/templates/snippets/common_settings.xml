@@ -42,6 +42,16 @@
                 <param name="type" value="toggler"/>
             </params>
         </property>
+
+        <property name="enable_online_booking" type="checkbox">
+            <meta>
+                <title lang="en">Enable Online Booking (Global)</title>
+                <title lang="de">Online-Terminbuchung aktivieren (Global)</title>
+            </meta>
+            <params>
+                <param name="type" value="toggler"/>
+            </params>
+        </property>
     </properties>
 
     <areas>

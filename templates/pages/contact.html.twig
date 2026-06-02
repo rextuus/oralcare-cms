@@ -49,7 +49,7 @@
                             </a>
                         {% endif %}
 
-                        {% if content.booking_link is not empty %}
+                        {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
                             <a href="{{ sulu_content_path(content.booking_link.url) }}" class="flex items-center p-4 bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
                                 <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors">
                                     <span class="material-symbols-outlined">calendar_month</span>

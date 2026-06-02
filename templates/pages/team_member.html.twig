@@ -64,7 +64,7 @@
                                         <span class="font-medium">{{ contact.phone }}</span>
                                     </a>
                                 {% endif %}
-                                {% if contact.calendar_url is not empty %}
+                                {% if contact.calendar_url is not empty and common_settings.content.enable_online_booking|default(false) %}
                                     <a href="{{ contact.calendar_url }}" target="_blank" class="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors group">
                                         <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                                             <span class="material-symbols-outlined text-sm">calendar_month</span>

@@ -164,9 +164,11 @@
                             {{ addressSettings.content.phone }}
                         </a>
                     {% endif %}
-                    <a href="{{ booking_url }}" class="block w-full text-center bg-primary hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-xl transition-all shadow-lg shadow-blue-500/25">
-                        {{ headerSettings.content.booking_button_text|default('Termin buchen'|trans) }}
-                    </a>
+                    {% if common_settings.content.enable_online_booking|default(false) %}
+                        <a href="{{ booking_url }}" class="block w-full text-center bg-primary hover:bg-blue-600 text-white px-6 py-4 rounded-full font-bold text-xl transition-all shadow-lg shadow-blue-500/25">
+                            {{ headerSettings.content.booking_button_text|default('Termin buchen'|trans) }}
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>
