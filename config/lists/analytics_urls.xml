@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns="http://schemas.sulu.io/list-builder/list"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/list-builder/list http://schemas.sulu.io/list-builder/list-1.0.xsd">
+
+    <key>analytics_urls</key>
+
+    <properties>
+        <property name="url" visibility="yes" searchability="yes" translation="Aufgerufene URL">
+            <field-name>url</field-name>
+        </property>
+
+        <property name="hits" visibility="yes" translation="Anzahl Aufrufe (Hits)">
+            <field-name>hits</field-name>
+        </property>
+    </properties>
+</list>

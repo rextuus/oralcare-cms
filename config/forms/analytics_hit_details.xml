@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://schemas.sulu.io/template/template"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/form-1.0.xsd">
+
+    <key>analytics_hit_details</key>
+
+    <properties>
+        <property name="url" type="text_line">
+            <meta>
+                <title>URL</title>
+            </meta>
+            <params>
+                <param name="disabled" value="true"/>
+            </params>
+        </property>
+
+        <property name="userAgent" type="text_line">
+            <meta>
+                <title>User Agent</title>
+            </meta>
+            <params>
+                <param name="disabled" value="true"/>
+            </params>
+        </property>
+
+        <property name="referer" type="text_line">
+            <meta>
+                <title>Referer</title>
+            </meta>
+            <params>
+                <param name="disabled" value="true"/>
+            </params>
+        </property>
+    </properties>
+</form>

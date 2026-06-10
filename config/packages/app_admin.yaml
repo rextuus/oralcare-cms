@@ -1,0 +1,12 @@
+sulu_admin:
+    resources:
+        analytics_hits:
+            routes:
+                list: 'app.get_analytics_hits'
+                detail: 'app.get_analytics_hit'
+        analytics_urls:
+            routes:
+                list: 'app.get_analytics_urls'
+        analytics_daily:
+            routes:
+                list: 'app.get_analytics_daily'

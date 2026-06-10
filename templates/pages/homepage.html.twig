@@ -23,22 +23,22 @@
                             {{ content.title|raw }}
                         </h1>
                         {% if content.hero_subtitle is not empty %}
-                            <p class="mt-6 text-lg text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed break-words overflow-hidden">
+                            <p class="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed break-words overflow-hidden">
                                 {{ content.hero_subtitle|raw }}
                             </p>
                         {% endif %}
                     </div>
-                    <div class="flex flex-col sm:flex-row gap-4">
-                        {% if common_settings.content.enable_online_booking|default(false) %}
-                            <a href="{{ sulu_content_path('/contact') }}" class="bg-primary hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2">
-                                {{ 'Termin online buchen'|trans }}
-                                <span class="material-symbols-outlined">calendar_today</span>
-                            </a>
-                        {% endif %}
-                        <a href="{{ content.hero_services_link is not empty ? sulu_content_path(content.hero_services_link.url) : '#services' }}" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
-                            {{ 'Leistungen ansehen'|trans }}
+                <div class="flex flex-col sm:flex-row gap-4">
+                    {% if common_settings.content.enable_online_booking|default(false) %}
+                        <a href="{{ sulu_content_path('/contact') }}" class="bg-primary hover:bg-blue-600 text-white px-8 py-4 rounded-xl font-bold text-lg transition-all shadow-xl shadow-blue-500/30 flex items-center justify-center gap-2">
+                            {{ 'Termin online buchen'|trans }}
+                            <span class="material-symbols-outlined !text-white">calendar_today</span>
                         </a>
-                    </div>
+                    {% endif %}
+                    <a href="{{ content.hero_services_link is not empty ? sulu_content_path(content.hero_services_link.url) : '#services' }}" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-300 px-8 py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2">
+                        {{ 'Leistungen ansehen'|trans }}
+                    </a>
+                </div>
                 </div>
                 <div class="relative animate-in fade-in zoom-in duration-1000 w-full max-w-[500px] mx-auto lg:max-w-none min-w-0 flex flex-col items-center max-w-full lg:flex-1">
                     <div class="absolute -top-6 -left-6 w-24 h-24 bg-blue-100 dark:bg-blue-900/20 rounded-full blur-2xl -z-10"></div>
@@ -55,12 +55,12 @@
 
                                 {% set quality = content.hero_image_quality|default(default_quality, true) %}
                                 {% set mobile_quality = content.hero_image_mobile_quality|default(default_quality, true) %}
-                                {% if quality == 'best' %}
+                                {% if quality == 'best' or true %}
                                     {% set desktop_format = variant ~ '-xl' %}
                                 {% else %}
                                     {% set desktop_format = variant ~ '-lg' %}
                                 {% endif %}
-                                {% if mobile_quality == 'best' %}
+                                {% if mobile_quality == 'best' or true %}
                                     {% set mobile_format = mobile_variant ~ '-xl' %}
                                 {% else %}
                                     {% set mobile_format = mobile_variant ~ '-md' %}
@@ -79,14 +79,14 @@
                         </div>
                         {% if content.hero_avail_title is not empty or content.hero_avail_text is not empty %}
                             <div class="absolute bottom-6 left-4 right-4 sm:left-8 sm:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-4 sm:p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20 z-10">
-                                <div class="bg-green-100 dark:bg-green-900/30 p-2 sm:p-3 rounded-full flex-shrink-0">
+                                <div class="bg-blue-50 dark:bg-slate-800 p-2 sm:p-3 rounded-full flex-shrink-0">
                                     <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified</span>
                                 </div>
                                 <div>
                                     <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">
                                         {{ content.hero_avail_title|default('Nächster freier Termin'|trans) }}
                                     </p>
-                                    <p class="text-sm sm:text-base text-primary font-bold">
+                                    <p class="text-sm sm:text-base text-primary dark:text-blue-400 font-bold">
                                         {{ content.hero_avail_text|default('Heute, 14:30 Uhr'|trans) }}
                                     </p>
                                 </div>
@@ -98,7 +98,7 @@
                                 </div>
                                 <div>
                                     <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">{{ 'Nächster freier Termin'|trans }}</p>
-                                    <p class="text-sm sm:text-base text-primary font-bold">{{ 'Heute, 14:30 Uhr'|trans }}</p>
+                                    <p class="text-sm sm:text-base text-primary dark:text-blue-400 font-bold">{{ 'Heute, 14:30 Uhr'|trans }}</p>
                                 </div>
                             </div>
                         {% endif %}
@@ -157,12 +157,12 @@
                     </div>
                     <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white break-words">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
                     {% if content.about_description_1 is not empty %}
-                        <div class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed break-words overflow-hidden">
+                        <div class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed break-words overflow-hidden">
                             {{ content.about_description_1|raw }}
                         </div>
                     {% endif %}
                     {% if content.about_description_2 is not empty %}
-                        <div class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed break-words overflow-hidden">
+                        <div class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed break-words overflow-hidden">
                             {{ content.about_description_2|raw }}
                         </div>
                     {% endif %}
@@ -171,17 +171,17 @@
                         <div class="grid grid-cols-2 gap-6 pt-4">
                             {% for feature in content.about_features %}
                                 <div class="flex items-start gap-3 min-w-0">
-                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center flex-shrink-0 p-2">
+                                <div class="w-10 h-10 bg-blue-50 dark:bg-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 p-2">
                                     {% if feature.icon is not empty %}
                                         {% set icon = feature.icon|first %}
-                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:invert">
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-200">
                                     {% else %}
                                         <span class="material-symbols-outlined text-primary text-2xl">verified</span>
                                     {% endif %}
                                 </div>
                                     <div class="min-w-0">
                                         <h4 class="font-bold text-slate-900 dark:text-white truncate">{{ feature.title }}</h4>
-                                        <p class="text-sm text-slate-500 truncate">{{ feature.subtitle }}</p>
+                                        <p class="text-sm text-slate-500 dark:text-slate-300 truncate">{{ feature.subtitle }}</p>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -200,7 +200,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 min-w-0">
             <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white mb-4 break-words">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
             {% if content.services_subtitle is not empty %}
-                <div class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-lg break-words overflow-hidden">
+                <div class="text-slate-600 dark:text-slate-300 max-w-2xl mx-auto text-lg break-words overflow-hidden">
                     {{ content.services_subtitle|raw }}
                 </div>
             {% endif %}
@@ -264,13 +264,13 @@
                         {% if content.services_carousel_show_nav|default(false) %}
                             <!-- Controls -->
                             <button class="carousel-control-prev !left-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="prev">
-                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
-                                    <span class="material-symbols-outlined">chevron_left</span>
+                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-slate-900 dark:text-white group">
+                                    <span class="material-symbols-outlined !text-slate-900 dark:!text-white">chevron_left</span>
                                 </span>
                             </button>
                             <button class="carousel-control-next !right-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="next">
-                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors text-slate-900 dark:text-white">
-                                    <span class="material-symbols-outlined">chevron_right</span>
+                                <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-slate-900 dark:text-white group">
+                                    <span class="material-symbols-outlined !text-slate-900 dark:!text-white">chevron_right</span>
                                 </span>
                             </button>
                         {% endif %}
@@ -293,6 +293,12 @@
                 height: 12px;
                 border-radius: 50%;
                 margin: 0 5px;
+            }
+            .dark .carousel-indicators [data-bs-target] {
+                background-color: rgb(71 85 105); /* slate-600 */
+            }
+            .dark .carousel-indicators [data-bs-target].active {
+                background-color: rgb(255 255 255);
             }
             #servicesBootstrapCarousel .carousel-item {
                 transition: transform 0.6s ease-in-out;
@@ -344,18 +350,18 @@
             {% endif %}
 
             <div class="relative z-10 flex flex-col h-full {{ has_image ? 'p-6 sm:p-8 pt-20 sm:pt-24' : '' }}">
-                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md' : 'bg-blue-50 dark:bg-blue-900/20 group-hover:bg-primary' }}">
+                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md' : 'bg-blue-50 dark:bg-blue-900/40 group-hover:bg-primary' }}">
                     {% if not is_page and service.icon is defined and service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:invert group-hover:invert-0' }}">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:brightness-200 group-hover:brightness-100 group-hover:invert-0 transition-all' }}">
                     {% else %}
-                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary' }} group-hover:text-white text-2xl sm:text-4xl">medical_services</span>
+                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary dark:text-blue-400' }} group-hover:text-white text-2xl sm:text-4xl">medical_services</span>
                     {% endif %}
                 </div>
 
                 <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 break-words {{ has_image ? 'text-white' : 'text-slate-900 dark:text-white' }}">{{ service.title }}</h3>
 
-                <div class="mb-4 sm:mb-6 leading-relaxed break-words flex-grow overflow-y-auto no-scrollbar {{ has_image ? 'text-white/90' : 'text-slate-600 dark:text-slate-400' }}">
+                <div class="mb-4 sm:mb-6 leading-relaxed break-words flex-grow overflow-y-auto no-scrollbar {{ has_image ? 'text-white/90' : 'text-slate-600 dark:text-slate-300' }}">
                     {% if is_page %}
                         {{ service.excerpt.description|default(service.title) }}
                     {% else %}
@@ -366,7 +372,7 @@
                 {% if not is_page and service.features is defined and service.features is not empty %}
                     <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 text-left">
                         {% for feature in service.features %}
-                            <li class="flex items-center gap-2 text-xs sm:text-sm min-w-0 {{ has_image ? 'text-white/80' : 'text-slate-500 dark:text-slate-400' }}">
+                            <li class="flex items-center gap-2 text-xs sm:text-sm min-w-0 {{ has_image ? 'text-white/80' : 'text-slate-500 dark:text-slate-300' }}">
                                 <span class="material-symbols-outlined text-primary text-base flex-shrink-0">check_circle</span>
                                 <span class="truncate">{{ feature.text }}</span>
                             </li>
@@ -405,10 +411,10 @@
 
                         <div class="{{ bgColor }} p-8 rounded-[2rem] border transition-all hover:shadow-lg min-w-0 overflow-hidden">
                             <div class="flex items-center gap-4 mb-6">
-                                <div class="w-12 h-12 rounded-xl bg-white dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm p-2 flex-shrink-0">
+                                <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-slate-800 flex items-center justify-center {{ iconColor }} shadow-sm p-2 flex-shrink-0">
                                     {% if item.icon is not empty %}
                                         {% set icon = item.icon|first %}
-                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-8 h-8 object-contain">
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-8 h-8 object-contain dark:brightness-200">
                                     {% else %}
                                         <span class="material-symbols-outlined text-3xl">notifications</span>
                                     {% endif %}
@@ -420,7 +426,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            <div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-400 break-words overflow-hidden">
+                            <div class="prose prose-slate dark:prose-invert max-w-none text-slate-600 dark:text-slate-300 break-words overflow-hidden">
                                 {{ item.text|raw }}
                             </div>
                         </div>
@@ -441,42 +447,43 @@
                             {% if addressSettings.content.address is defined and addressSettings.content.address %}
                                 <div class="flex items-start gap-4">
                                     <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg flex-shrink-0">
-                                        <span class="material-symbols-outlined text-primary">location_on</span>
+                                        <span class="material-symbols-outlined text-primary dark:text-blue-400">location_on</span>
                                     </div>
                                     <div class="min-w-0">
                                         <h4 class="font-bold text-slate-900 dark:text-white text-lg truncate">{{ 'Unser Standort'|trans }}</h4>
-                                        <div class="text-slate-600 dark:text-slate-400 break-words overflow-hidden">
+                                        <div class="text-slate-600 dark:text-slate-300 break-words overflow-hidden">
                                             {{ addressSettings.content.address|raw }}
                                         </div>
                                     </div>
                                 </div>
                             {% endif %}
-                            <div class="flex items-start gap-4">
-                                <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg flex-shrink-0">
-                                    <span class="material-symbols-outlined text-primary">schedule</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <h4 class="font-bold text-slate-900 dark:text-white text-lg truncate">{{ 'Öffnungszeiten'|trans }}</h4>
-                                    <div class="text-slate-600 dark:text-slate-400 break-words overflow-hidden">
-                                        {% if addressSettings.content.hours is defined and addressSettings.content.hours is not empty %}
-                                            {% for entry in addressSettings.content.hours %}
-                                                {{ entry.days }}: {{ entry.time }}{% if not loop.last %}<br/>{% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
-                                            {{ 'Sa: 09:00 - 14:00'|trans }}
-                                        {% endif %}
-                                    </div>
+                        {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
+                        <div class="flex items-start gap-4">
+                            <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg flex-shrink-0">
+                                <span class="material-symbols-outlined text-primary dark:text-blue-400">schedule</span>
+                            </div>
+                            <div class="min-w-0">
+                                <h4 class="font-bold text-slate-900 dark:text-white text-lg truncate">{{ 'Öffnungszeiten'|trans }}</h4>
+                                <div class="text-slate-600 dark:text-slate-300 break-words overflow-hidden">
+                                    {% if hours is not empty %}
+                                        {% for entry in hours %}
+                                            {{ entry.days }}: {{ entry.time }}{% if not loop.last %}<br/>{% endif %}
+                                        {% endfor %}
+                                    {% else %}
+                                        {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
+                                        {{ 'Sa: 09:00 - 14:00'|trans }}
+                                    {% endif %}
                                 </div>
                             </div>
+                        </div>
                             {% if (addressSettings.content.email is defined and addressSettings.content.email) or (addressSettings.content.phone is defined and addressSettings.content.phone) %}
                                 <div class="flex items-start gap-4">
                                     <div class="bg-blue-50 dark:bg-slate-800 p-3 rounded-lg flex-shrink-0">
-                                        <span class="material-symbols-outlined text-primary">alternate_email</span>
+                                        <span class="material-symbols-outlined text-primary dark:text-blue-400">alternate_email</span>
                                     </div>
                                     <div class="min-w-0">
                                         <h4 class="font-bold text-slate-900 dark:text-white text-lg truncate">{{ 'E-Mail & Telefon'|trans }}</h4>
-                                        <div class="text-slate-600 dark:text-slate-400 break-words overflow-hidden">
+                                        <div class="text-slate-600 dark:text-slate-300 break-words overflow-hidden">
                                             {% if addressSettings.content.email %}
                                                 <a href="mailto:{{ addressSettings.content.email }}" class="hover:text-primary transition-colors block truncate">{{ addressSettings.content.email }}</a>
                                             {% endif %}
@@ -491,13 +498,13 @@
                     </div>
                     {% if content.emergency_text is not empty %}
                         <div class="mt-10 p-6 bg-primary rounded-2xl text-white overflow-hidden">
-                            <h4 class="text-xl font-bold mb-2 break-words">{{ content.emergency_title|default('Notfalltermin?'|trans) }}</h4>
+                            <h4 class="text-xl font-bold mb-2 break-words text-white">{{ content.emergency_title|default('Notfalltermin?'|trans) }}</h4>
                             <div class="opacity-90 mb-6 break-words overflow-hidden">
                                 {{ content.emergency_text|raw }}
                             </div>
                             {% if addressSettings and addressSettings.content.phone %}
                                 <a class="bg-white text-primary px-6 py-3 rounded-xl font-bold inline-flex items-center gap-2 hover:bg-slate-100 transition-colors max-w-full" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
-                                    <span class="material-symbols-outlined flex-shrink-0">phone_in_talk</span>
+                                    <span class="material-symbols-outlined flex-shrink-0 !text-primary">phone_in_talk</span>
                                     <span class="truncate">{{ 'Jetzt anrufen'|trans }}</span>
                                 </a>
                             {% endif %}

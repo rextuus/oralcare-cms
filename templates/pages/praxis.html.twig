@@ -16,7 +16,7 @@
                     </h1>
 
                     {% if content.hero_subtitle is not empty %}
-                        <div class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl prose prose-slate dark:prose-invert break-words min-w-0 w-full max-w-full overflow-hidden">
+                        <div class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl prose prose-slate dark:prose-invert break-words min-w-0 w-full max-w-full overflow-hidden">
                             {{ content.hero_subtitle|raw }}
                         </div>
                     {% endif %}
@@ -82,7 +82,7 @@
                         {% set placeholder_classes = display_style == 'fancy' ? 'rounded-[2.5rem] shadow-2xl shadow-blue-900/20' : '' %}
 
                         <div class="relative {{ placeholder_classes }} overflow-hidden aspect-square bg-slate-200 dark:bg-slate-800 flex items-center justify-center w-full max-w-full">
-                            <span class="material-symbols-outlined text-6xl text-slate-400">
+                            <span class="material-symbols-outlined text-6xl text-slate-400 dark:text-slate-500">
                                 image
                             </span>
                         </div>
@@ -185,7 +185,7 @@
                             {% else %}
 
                                 <div class="relative overflow-hidden rounded-3xl bg-slate-100 dark:bg-slate-800 {{ variant == 'horizontal' ? 'aspect-[21/9]' : (variant == 'vertical' ? 'aspect-[2/3]' : 'aspect-square') }} flex items-center justify-center">
-                                    <span class="material-symbols-outlined text-4xl text-slate-300">
+                                    <span class="material-symbols-outlined text-4xl text-slate-300 dark:text-slate-500">
                                         image
                                     </span>
                                 </div>
@@ -193,7 +193,7 @@
                             {% endif %}
 
                             {% if item.caption is not empty %}
-                                <p class="mt-4 text-slate-500 dark:text-slate-400 text-sm md:hidden">
+                                <p class="mt-4 text-slate-500 dark:text-slate-300 text-sm md:hidden">
                                     {{ item.caption }}
                                 </p>
                             {% endif %}

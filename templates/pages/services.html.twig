@@ -17,7 +17,7 @@
                     {{ content.title|raw }}
                 </h1>
                 {% if content.hero_subtitle is not empty %}
-                    <p class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl break-words">
+                    <p class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl break-words">
                         {{ content.hero_subtitle|raw }}
                     </p>
                 {% endif %}
@@ -29,7 +29,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
             {% for service in content.services_list %}
-                <article class="group flex flex-col bg-white dark:bg-gray-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700">
+                <article class="group flex flex-col bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700">
                     <div class="h-64 overflow-hidden">
                         {% if service.image is not empty or service.image_mobile is not empty %}
                             {% set image = service.image|first %}
@@ -63,17 +63,17 @@
                     </div>
                     <div class="p-8">
                         <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary p-2 flex-shrink-0">
+                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-blue-400 p-2 flex-shrink-0">
                                 {% if service.icon is not empty %}
                                     {% set icon = service.icon|first %}
-                                    <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:invert">
+                                    <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-200">
                                 {% else %}
-                                    <span class="material-symbols-outlined text-primary text-2xl">verified</span>
+                                    <span class="material-symbols-outlined text-primary dark:text-blue-400 text-2xl">verified</span>
                                 {% endif %}
                             </div>
                             <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>
                         </div>
-                        <p class="text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+                        <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
                             {{ service.description|raw }}
                         </p>
                         {% if service.link is not empty %}
@@ -102,11 +102,11 @@
                         </a>
                     {% endif %}
                 </div>
-                <div class="absolute top-0 right-0 p-8 opacity-10">
-                    <span class="material-symbols-outlined text-[12rem]">calendar_month</span>
+                <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+                    <span class="material-symbols-outlined text-[12rem] !text-white">calendar_month</span>
                 </div>
-                <div class="absolute bottom-0 left-0 p-8 opacity-10">
-                    <span class="material-symbols-outlined text-[8rem]">verified</span>
+                <div class="absolute bottom-0 left-0 p-8 opacity-10 pointer-events-none">
+                    <span class="material-symbols-outlined text-[8rem] !text-white">verified</span>
                 </div>
             </section>
         {% endif %}

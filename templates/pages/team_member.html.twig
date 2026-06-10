@@ -25,7 +25,7 @@
                         {% set mobile_format = mobile_variant ~ '-md' %}
                     {% endif %}
 
-                    <div class="relative rounded-[2.5rem] shadow-2xl w-full max-w-full">
+                    <div class="relative rounded-[2.5rem] shadow-2xl dark:shadow-none w-full max-w-full">
                         <div class="rounded-[2.5rem] overflow-hidden {{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} bg-slate-100 dark:bg-slate-800 w-full max-w-full">
                             {% if content.image is defined and (content.image is not empty or content.image_mobile is not empty) %}
                                 {% set image = content.image|first %}
@@ -49,7 +49,7 @@
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-6">{{ 'Kontakt'|trans }}</h3>
                             <div class="space-y-4">
                                 {% if contact.email is not empty %}
-                                    <a href="mailto:{{ contact.email }}" class="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors group">
+                                    <a href="mailto:{{ contact.email }}" class="flex items-center gap-4 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors group">
                                         <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                                             <span class="material-symbols-outlined text-sm">mail</span>
                                         </div>
@@ -57,7 +57,7 @@
                                     </a>
                                 {% endif %}
                                 {% if contact.phone is not empty %}
-                                    <a href="tel:{{ contact.phone|replace({' ': ''}) }}" class="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors group">
+                                    <a href="tel:{{ contact.phone|replace({' ': ''}) }}" class="flex items-center gap-4 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors group">
                                         <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                                             <span class="material-symbols-outlined text-sm">call</span>
                                         </div>
@@ -65,7 +65,7 @@
                                     </a>
                                 {% endif %}
                                 {% if contact.calendar_url is not empty and common_settings.content.enable_online_booking|default(false) %}
-                                    <a href="{{ contact.calendar_url }}" target="_blank" class="flex items-center gap-4 text-slate-600 dark:text-slate-400 hover:text-primary transition-colors group">
+                                    <a href="{{ contact.calendar_url }}" target="_blank" class="flex items-center gap-4 text-slate-600 dark:text-slate-300 hover:text-primary transition-colors group">
                                         <div class="w-10 h-10 rounded-full bg-white dark:bg-slate-700 flex items-center justify-center shadow-sm group-hover:bg-primary group-hover:text-white transition-all">
                                             <span class="material-symbols-outlined text-sm">calendar_month</span>
                                         </div>
@@ -90,7 +90,7 @@
                         <span class="inline-block px-4 py-1 bg-blue-50 dark:bg-blue-900/30 text-primary text-sm font-bold rounded-lg uppercase tracking-wider mb-4">{{ role_label }}</span>
                         <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white mb-6 break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden">{{ content.title }}</h1>
                         {% if content.description is not empty %}
-                            <div class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed font-medium break-words overflow-hidden">
+                            <div class="text-xl text-slate-600 dark:text-slate-300 leading-relaxed font-medium break-words overflow-hidden">
                                 {{ content.description|raw }}
                             </div>
                         {% endif %}

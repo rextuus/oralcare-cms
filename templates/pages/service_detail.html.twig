@@ -87,7 +87,7 @@
     {% if content.blocks is not empty %}
         {% for block in content.blocks %}
             {% if block.type == 'text_image' %}
-                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-background-light dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900' }}">
+                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-slate-50 dark:bg-slate-800/50' : 'bg-white dark:bg-slate-900' }}">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div class="grid lg:grid-cols-2 gap-16 items-center">
                             <div class="{{ block.image_position == 'left' ? 'lg:order-2' : '' }} space-y-6">
@@ -135,7 +135,7 @@
                     </div>
                 </section>
             {% elseif block.type == 'features' %}
-                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-background-light dark:bg-slate-900/50' : 'bg-white dark:bg-slate-900' }}">
+                <section class="py-24 {{ loop.index0 % 2 == 0 ? 'bg-slate-50 dark:bg-slate-800/50' : 'bg-white dark:bg-slate-900' }}">
                     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                         {% if block.title is not empty %}
                             <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white text-center mb-16">{{ block.title }}</h2>
@@ -146,7 +146,7 @@
                                     <div class="w-12 h-12 bg-blue-50 dark:bg-blue-900/20 rounded-xl flex items-center justify-center mb-6 p-2">
                                         {% if item.icon is not empty %}
                                             {% set icon = item.icon|first %}
-                                            <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:invert">
+                                            <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-full h-full object-contain dark:brightness-200">
                                         {% else %}
                                             <span class="material-symbols-outlined text-primary text-2xl">verified</span>
                                         {% endif %}

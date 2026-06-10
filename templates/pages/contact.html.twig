@@ -17,14 +17,14 @@
             <div class="lg:col-span-5 space-y-10 min-w-0 w-full overflow-hidden">
                 <section>
                     <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary">contact_support</span>
+                        <span class="material-symbols-outlined text-primary dark:text-primary-light">contact_support</span>
                         {{ 'So erreichen Sie uns'|trans }}
                     </h2>
                     <div class="space-y-4">
                         {% set email = content.email|default(addressSettings.content.email|default('')) %}
                         {% if email is not empty %}
                             <a href="mailto:{{ email }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
                                     <span class="material-symbols-outlined">mail</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
@@ -38,7 +38,7 @@
                         {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
                         {% if phone is not empty %}
                             <a href="tel:{{ phone|replace({' ': ''}) }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
                                     <span class="material-symbols-outlined">call</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
@@ -50,8 +50,8 @@
                         {% endif %}
 
                         {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
-                            <a href="{{ sulu_content_path(content.booking_link.url) }}" class="flex items-center p-4 bg-primary/5 dark:bg-primary/10 border border-primary/20 dark:border-primary/30 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors">
+                            <a href="{{ sulu_content_path(content.booking_link.url) }}" class="flex items-center p-4 bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/40 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
+                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20">
                                     <span class="material-symbols-outlined">calendar_month</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
@@ -65,7 +65,7 @@
                         {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
                         {% if hours is not empty %}
                             <div class="flex items-start p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-primary mr-4 shrink-0">
+                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 shrink-0">
                                     <span class="material-symbols-outlined">schedule</span>
                                 </div>
                                 <div>
@@ -86,7 +86,7 @@
                 {% if content.questions is not empty %}
                     <section>
                         <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary">quiz</span>
+                            <span class="material-symbols-outlined text-primary dark:text-primary-light">quiz</span>
                             {{ 'Häufige Fragen'|trans }}
                         </h2>
                         <div class="space-y-3">
@@ -119,7 +119,7 @@
                                     style="border:0;"
                                     allowfullscreen=""
                                     loading="lazy"
-                                    class="opacity-80 dark:opacity-40">
+                                    class="opacity-90 dark:opacity-60 grayscale dark:invert-[0.85] dark:hue-rotate-180">
                                 </iframe>
                                 <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
                                     <div class="bg-primary p-3 rounded-full shadow-2xl animate-bounce">
@@ -135,7 +135,7 @@
                         <div class="p-6">
                             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                 <div class="flex items-start gap-4">
-                                    <div class="bg-blue-50 dark:bg-blue-900/30 p-2 rounded-lg text-primary">
+                                    <div class="bg-blue-50 dark:bg-blue-900/40 p-2 rounded-lg text-primary dark:text-primary-light">
                                         <span class="material-symbols-outlined">location_on</span>
                                     </div>
                                     <div>
@@ -163,8 +163,8 @@
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {% if content.emergency_info is not empty %}
-                            <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
-                                <span class="material-symbols-outlined text-primary mb-2">emergency</span>
+                            <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
+                                <span class="material-symbols-outlined text-primary dark:text-primary-light mb-2">emergency</span>
                                 <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Notfallversorgung'|trans }}</h4>
                                 <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info|raw }}</p>
                             </div>

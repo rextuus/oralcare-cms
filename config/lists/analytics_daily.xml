@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<list xmlns="http://schemas.sulu.io/list-builder/list"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://schemas.sulu.io/list-builder/list http://schemas.sulu.io/list-builder/list-1.0.xsd">
+
+    <key>analytics_daily</key>
+
+    <properties>
+        <property name="date" visibility="yes" translation="Datum">
+            <field-name>date</field-name>
+        </property>
+
+        <property name="count" visibility="yes" translation="Hits an diesem Tag">
+            <field-name>count</field-name>
+        </property>
+    </properties>
+</list>
