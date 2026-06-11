@@ -31,7 +31,7 @@ readonly class AnalyticsListener
         }
 
         // Ignoriere statische Dateien (Sulu Media etc. falls gewünscht, hier einfachheitshalber alles mit Endung)
-        if (preg_match('/\.(js|css|png|jpg|jpeg|gif|ico|svg|webmanifest)$/i', $path)) {
+        if (preg_match('/\.(js|css|png|jpg|jpeg|gif|ico|svg|webp|webmanifest)$/i', $path) || str_contains($path, '/media/')) {
             return;
         }
 

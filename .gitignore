@@ -64,3 +64,4 @@ yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /_design/
 /.junie/
+/assets/admin/.!!Aap/

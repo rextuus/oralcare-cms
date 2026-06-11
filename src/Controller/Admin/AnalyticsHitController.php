@@ -156,6 +156,15 @@ class AnalyticsHitController extends AbstractRestController
         return $this->handleView($this->view(null, Response::HTTP_NO_CONTENT));
     }
 
+    #[Route('/admin/api/analytics_hits_cleanup', name: 'app.cleanup_analytics_hits', methods: ['DELETE'])]
+    public function cleanupAction(): Response
+    {
+        $repo = $this->entityManager->getRepository(AnalyticsHit::class);
+        $count = $repo->deleteImages();
+
+        return $this->handleView($this->view(['count' => $count], Response::HTTP_OK));
+    }
+
     public function getSecurityContext(): string
     {
         return AnalyticsAdmin::SECURITY_CONTEXT;

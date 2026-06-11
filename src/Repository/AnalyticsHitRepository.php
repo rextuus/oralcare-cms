@@ -39,4 +39,19 @@ class AnalyticsHitRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function deleteImages(): int
+    {
+        return $this->createQueryBuilder('h')
+            ->delete()
+            ->where('h.url LIKE :webp OR h.url LIKE :media OR h.url LIKE :jpg OR h.url LIKE :jpeg OR h.url LIKE :png OR h.url LIKE :gif')
+            ->setParameter('webp', '%.webp%')
+            ->setParameter('media', '%/media/%')
+            ->setParameter('jpg', '%.jpg%')
+            ->setParameter('jpeg', '%.jpeg%')
+            ->setParameter('png', '%.png%')
+            ->setParameter('gif', '%.gif%')
+            ->getQuery()
+            ->execute();
+    }
 }
