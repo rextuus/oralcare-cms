@@ -83,8 +83,8 @@
                         {# Das schwebende "Nächster freier Termin"-Overlay fadet jetzt ebenfalls geschmeidig mit #}
                         {% if content.hero_avail_title is not empty or content.hero_avail_text is not empty %}
                             <div class="absolute bottom-6 left-4 right-4 sm:left-8 sm:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-4 sm:p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20 z-10 transition-colors duration-500 ease-in-out">
-                                <div class="bg-blue-50 dark:bg-slate-800 p-2 sm:p-3 rounded-full flex-shrink-0 transition-colors duration-500">
-                                    <span class="material-symbols-outlined text-green-600 dark:text-green-400 transition-colors duration-500">verified</span>
+                                <div class="{{ tokens.icon.circle }}">
+                                    <span class="material-symbols-outlined text-green-600 dark:text-slate-900 transition-colors duration-500">verified</span>
                                 </div>
                                 <div>
                                     <p class="text-xs sm:text-sm font-semibold {{ tokens.text.title }} transition-colors duration-500">
@@ -97,8 +97,8 @@
                             </div>
                         {% else %}
                             <div class="absolute bottom-6 left-4 right-4 sm:left-8 sm:right-8 bg-white/90 dark:bg-slate-900/90 backdrop-blur p-4 sm:p-6 rounded-2xl shadow-xl flex items-center gap-4 border border-white/20 z-10 transition-colors duration-500 ease-in-out">
-                                <div class="bg-green-100 dark:bg-green-900/30 p-2 sm:p-3 rounded-full flex-shrink-0 transition-colors duration-500">
-                                    <span class="material-symbols-outlined text-green-600 dark:text-green-400 transition-colors duration-500">verified</span>
+                                <div class="{{ tokens.icon.circle }}">
+                                    <span class="material-symbols-outlined text-green-600 dark:text-slate-900 transition-colors duration-500">verified</span>
                                 </div>
                                 <div>
                                     <p class="text-xs sm:text-sm font-semibold {{ tokens.text.title }} transition-colors duration-500">{{ 'Nächster freier Termin'|trans }}</p>
@@ -179,14 +179,14 @@
                         <div class="grid grid-cols-2 gap-6 pt-4">
                             {% for feature in content.about_features %}
                                 <div class="flex items-start gap-3 min-w-0">
-                                    <div class="w-10 h-10 bg-slate-800 dark:bg-slate-950 border border-slate-700 dark:border-slate-800 rounded-lg flex items-center justify-center flex-shrink-0 p-2 text-white transition-colors duration-500">
-                                        {% if feature.icon is not empty %}
-                                            {% set icon = feature.icon|first %}
-                                            <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain brightness-200">
-                                        {% else %}
-                                            <span class="material-symbols-outlined text-white text-xl">verified</span>
-                                        {% endif %}
-                                    </div>
+                                <div class="{{ tokens.icon.circle }} !rounded-lg">
+                                    {% if feature.icon is not empty %}
+                                        {% set icon = feature.icon|first %}
+                                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-0">
+                                    {% else %}
+                                        <span class="material-symbols-outlined text-xl text-primary dark:text-slate-900">verified</span>
+                                    {% endif %}
+                                </div>
                                     <div class="min-w-0">
                                         <h4 class="font-bold {{ tokens.text.title }} truncate transition-colors duration-500">{{ feature.title }}</h4>
                                         <p class="text-sm {{ tokens.text.muted }} truncate transition-colors duration-500">{{ feature.subtitle }}</p>
@@ -367,9 +367,9 @@
                 <div class="{{ has_image ? 'w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/20 backdrop-blur-md' : (tokens.icon.circle ~ ' !rounded-full') }} flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0">
                     {% if not is_page and service.icon is defined and service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:brightness-200 transition-all' }}">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:brightness-0 transition-all' }}">
                     {% else %}
-                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary dark:text-blue-400' }} text-2xl sm:text-3xl">medical_services</span>
+                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary dark:text-slate-900' }} text-2xl sm:text-3xl">medical_services</span>
                     {% endif %}
                 </div>
 

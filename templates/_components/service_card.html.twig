@@ -29,9 +29,9 @@
                 <div class="{{ tokens.icon.circle }}">
                     {% if service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-200">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-0">
                     {% else %}
-                        <span class="material-symbols-outlined text-2xl">verified</span>
+                        <span class="material-symbols-outlined text-2xl text-primary dark:text-slate-900">verified</span>
                     {% endif %}
                 </div>
                 <h2 class="text-2xl font-bold {{ tokens.text.title }}">{{ service.title }}</h2>

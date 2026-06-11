@@ -41,7 +41,7 @@
                 {% endif %}
 
                 {{ btn.secondary(
-                    'https://www.google.com/maps/dir/?api=1&destination=' ~ address|url_encode,
+                    'https://www.google.com/maps/dir/?api=1&destination=' ~ address|striptags|url_encode,
                     'directions',
                     'Anfahrt'
                 ) }}
