@@ -2,6 +2,22 @@
 
 {% block content %}
 
+    {% set tokens = {
+        card: {
+            soft: "bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-colors duration-500",
+            primary: "bg-primary/10 dark:bg-primary/20 border border-primary/20",
+            flat: "bg-transparent"
+        },
+        text: {
+            title: "text-slate-800 dark:text-slate-100",
+            body: "text-slate-600 dark:text-slate-300",
+            muted: "text-slate-500 dark:text-slate-400",
+            label: "text-xs uppercase tracking-wider text-slate-400 dark:text-slate-300 font-bold"
+        },
+        icon: {
+            circle: "w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-200 flex items-center justify-center text-primary dark:text-blue-400 shrink-0"
+        }
+    } %}
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
 
@@ -19,11 +35,11 @@
                             {{ content.hero_badge }}
                         </span>
                         {% endif %}
-                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold text-slate-900 dark:text-white leading-[1.1] break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden transition-colors duration-500">
+                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-display font-bold {{ tokens.text.title }} leading-[1.1] break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden transition-colors duration-500">
                             {{ content.title|raw }}
                         </h1>
                         {% if content.hero_subtitle is not empty %}
-                            <p class="mt-6 text-lg text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed break-words overflow-hidden transition-colors duration-500">
+                            <p class="mt-6 text-lg {{ tokens.text.body }} max-w-xl leading-relaxed break-words overflow-hidden transition-colors duration-500">
                                 {{ content.hero_subtitle|raw }}
                             </p>
                         {% endif %}
@@ -36,7 +52,7 @@
                             </a>
                         {% endif %}
                         {# Der zweite Button wechselt jetzt ebenfalls flüssig den Rahmen, Hintergrund und Textfarbe #}
-                        <a href="{{ content.hero_services_link is not empty ? sulu_content_path(content.hero_services_link.url) : '#services' }}" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-slate-700 px-8 py-4 rounded-xl font-bold text-lg transition-all duration-500 flex items-center justify-center gap-2">
+                        <a href="{{ content.hero_services_link is not empty ? sulu_content_path(content.hero_services_link.url) : '#services' }}" class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 {{ tokens.text.title }} px-8 py-4 rounded-xl font-bold text-lg transition-all duration-500 flex items-center justify-center gap-2">
                             {{ 'Leistungen ansehen'|trans }}
                         </a>
                     </div>
@@ -86,7 +102,7 @@
                                     <span class="material-symbols-outlined text-green-600 dark:text-green-400 transition-colors duration-500">verified</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white transition-colors duration-500">
+                                    <p class="text-xs sm:text-sm font-semibold {{ tokens.text.title }} transition-colors duration-500">
                                         {{ content.hero_avail_title|default('Nächster freier Termin'|trans) }}
                                     </p>
                                     <p class="text-sm sm:text-base text-primary dark:text-blue-400 font-bold transition-colors duration-500">
@@ -100,7 +116,7 @@
                                     <span class="material-symbols-outlined text-green-600 dark:text-green-400 transition-colors duration-500">verified</span>
                                 </div>
                                 <div>
-                                    <p class="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white transition-colors duration-500">{{ 'Nächster freier Termin'|trans }}</p>
+                                    <p class="text-xs sm:text-sm font-semibold {{ tokens.text.title }} transition-colors duration-500">{{ 'Nächster freier Termin'|trans }}</p>
                                     <p class="text-sm sm:text-base text-primary dark:text-blue-400 font-bold transition-colors duration-500">{{ 'Heute, 14:30 Uhr'|trans }}</p>
                                 </div>
                             </div>
@@ -161,15 +177,15 @@
                         {{ content.about_badge|default('Über die Praxis'|trans) }}
                     </div>
 
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-900 dark:text-white break-words transition-colors duration-500">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold {{ tokens.text.title }} break-words transition-colors duration-500">{{ content.about_title|default('Fachkompetente Betreuung für jeden Patienten'|trans) }}</h2>
 
                     {% if content.about_description_1 is not empty %}
-                        <div class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed break-words overflow-hidden transition-colors duration-500">
+                        <div class="text-lg {{ tokens.text.body }} leading-relaxed break-words overflow-hidden transition-colors duration-500">
                             {{ content.about_description_1|raw }}
                         </div>
                     {% endif %}
                     {% if content.about_description_2 is not empty %}
-                        <div class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed break-words overflow-hidden transition-colors duration-500">
+                        <div class="text-lg {{ tokens.text.body }} leading-relaxed break-words overflow-hidden transition-colors duration-500">
                             {{ content.about_description_2|raw }}
                         </div>
                     {% endif %}
@@ -187,8 +203,8 @@
                                         {% endif %}
                                     </div>
                                     <div class="min-w-0">
-                                        <h4 class="font-bold text-slate-900 dark:text-white truncate transition-colors duration-500">{{ feature.title }}</h4>
-                                        <p class="text-sm text-slate-500 dark:text-slate-400 truncate transition-colors duration-500">{{ feature.subtitle }}</p>
+                                        <h4 class="font-bold {{ tokens.text.title }} truncate transition-colors duration-500">{{ feature.title }}</h4>
+                                        <p class="text-sm {{ tokens.text.muted }} truncate transition-colors duration-500">{{ feature.subtitle }}</p>
                                     </div>
                                 </div>
                             {% endfor %}
@@ -207,9 +223,9 @@
         <section class="py-24 bg-slate-100 dark:bg-slate-900/50 overflow-hidden transition-colors duration-500 ease-in-out" id="services">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12 sm:mb-16 min-w-0">
                 {# Hauptüberschrift: Maximaler Kontrast im Lightmode + flüssiger Übergang #}
-                <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-950 dark:text-white mb-4 break-words transition-colors duration-500">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold {{ tokens.text.title }} mb-4 break-words transition-colors duration-500">{{ content.services_title|default('Unsere Kernleistungen'|trans) }}</h2>
                 {% if content.services_subtitle is not empty %}
-                    <div class="text-slate-900 dark:text-slate-300 max-w-2xl mx-auto text-lg break-words overflow-hidden transition-colors duration-500">
+                    <div class="{{ tokens.text.body }} max-w-2xl mx-auto text-lg break-words overflow-hidden transition-colors duration-500">
                         {{ content.services_subtitle|raw }}
                     </div>
                 {% endif %}
@@ -262,7 +278,7 @@
                                     <div class="carousel-item {{ loop.first ? 'active' : '' }}">
                                         <div class="px-md-5">
                                             <div class="{{ height_class }} {{ width_class }} mx-auto">
-                                                {{ _self.render_service_card(service, services_selection is not empty) }}
+                                                {{ _self.render_service_card(service, services_selection is not empty, tokens) }}
                                             </div>
                                         </div>
                                     </div>
@@ -272,13 +288,13 @@
                             {% if content.services_carousel_show_nav|default(false) %}
                                 <!-- Controls: Pfeile faden jetzt ebenfalls smooth mit und wechseln sauber die Rahmenfarben -->
                                 <button class="carousel-control-prev !left-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="prev">
-                            <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-500 text-slate-900 dark:text-white group">
-                                <span class="material-symbols-outlined text-slate-900 dark:slate-800 transition-colors duration-500">chevron_left</span>
+                            <span class="flex {{ tokens.icon.circle }} shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-500 group !rounded-full">
+                                <span class="material-symbols-outlined {{ tokens.text.title }} transition-colors duration-500">chevron_left</span>
                             </span>
                                 </button>
                                 <button class="carousel-control-next !right-[-5%] !w-[5%] !opacity-100 hidden lg:flex" type="button" data-bs-target="#servicesBootstrapCarousel" data-bs-slide="next">
-                            <span class="flex w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 items-center justify-center shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-500 text-slate-900 dark:text-white group">
-                                <span class="material-symbols-outlined text-slate-900 dark:slate-800 transition-colors duration-500">chevron_right</span>
+                            <span class="flex {{ tokens.icon.circle }} shadow-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-500 group !rounded-full">
+                                <span class="material-symbols-outlined {{ tokens.text.title }} transition-colors duration-500">chevron_right</span>
                             </span>
                                 </button>
                             {% endif %}
@@ -287,7 +303,7 @@
                         <div class="grid md:grid-cols-2 {{ carousel_height == 'small' ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} gap-8 min-w-0">
                             {% for service in services %}
                                 <div class="{{ height_class }}">
-                                    {{ _self.render_service_card(service, services_selection is not empty) }}
+                                    {{ _self.render_service_card(service, services_selection is not empty, tokens) }}
                                 </div>
                             {% endfor %}
                         </div>
@@ -307,6 +323,9 @@
                 .dark .carousel-indicators [data-bs-target] {
                     background-color: rgb(71 85 105); /* slate-600 */
                 }
+                .carousel-indicators [data-bs-target].active {
+                    background-color: #2563eb;
+                }
                 .dark .carousel-indicators [data-bs-target].active {
                     background-color: rgb(255 255 255);
                 }
@@ -318,7 +337,7 @@
     {% endif %}
 
     {# Card partial to avoid repetition #}
-    {% macro render_service_card(service, is_page) %}
+    {% macro render_service_card(service, is_page, tokens) %}
         {% set image = null %}
         {% set image_mobile = null %}
         {% set variant = 'horizontal' %}
@@ -343,7 +362,7 @@
 
         {% set has_image = image is not empty %}
 
-        <div class="relative rounded-[2rem] border border-slate-100 dark:border-slate-700 hover:shadow-2xl transition-all group min-w-0 overflow-hidden h-full flex flex-col text-left {{ not has_image ? 'bg-white dark:bg-slate-800 p-6 sm:p-8' : '' }}">
+        <div class="relative rounded-[2rem] {{ tokens.card.soft }} hover:shadow-2xl transition-all group min-w-0 overflow-hidden h-full flex flex-col text-left {{ not has_image ? 'p-6 sm:p-8' : '' }}">
             {% if has_image %}
                 {# Full Background Image #}
                 <div class="absolute inset-0 z-0">
@@ -360,18 +379,18 @@
             {% endif %}
 
             <div class="relative z-10 flex flex-col h-full {{ has_image ? 'p-6 sm:p-8 pt-20 sm:pt-24' : '' }}">
-                <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0 {{ has_image ? 'bg-white/20 backdrop-blur-md' : 'bg-blue-50 dark:bg-blue-900/40 group-hover:bg-primary' }}">
+                <div class="{{ has_image ? 'w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-white/20 backdrop-blur-md' : (tokens.icon.circle ~ ' !rounded-full') }} flex items-center justify-center mb-4 sm:mb-6 transition-colors flex-shrink-0">
                     {% if not is_page and service.icon is defined and service.icon is not empty %}
                         {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:brightness-200 group-hover:brightness-100 group-hover:invert-0 transition-all' }}">
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 sm:w-10 sm:h-10 object-contain {{ has_image ? '' : 'dark:brightness-200 transition-all' }}">
                     {% else %}
-                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary dark:text-blue-400' }} group-hover:text-white text-2xl sm:text-4xl">medical_services</span>
+                        <span class="material-symbols-outlined {{ has_image ? 'text-white' : 'text-primary dark:text-blue-400' }} text-2xl sm:text-3xl">medical_services</span>
                     {% endif %}
                 </div>
 
-                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 break-words {{ has_image ? 'text-white' : 'text-slate-900 dark:text-white' }}">{{ service.title }}</h3>
+                <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 break-words {{ has_image ? 'text-white' : tokens.text.title }}">{{ service.title }}</h3>
 
-                <div class="mb-4 sm:mb-6 leading-relaxed break-words flex-grow overflow-y-auto no-scrollbar {{ has_image ? 'text-white/90' : 'text-slate-600 dark:text-slate-300' }}">
+                <div class="mb-4 sm:mb-6 leading-relaxed break-words flex-grow overflow-y-auto no-scrollbar {{ has_image ? 'text-white/90' : tokens.text.body }}">
                     {% if is_page %}
                         {{ service.excerpt.description|default(service.title) }}
                     {% else %}
@@ -382,7 +401,7 @@
                 {% if not is_page and service.features is defined and service.features is not empty %}
                     <ul class="space-y-2 sm:space-y-3 mb-6 sm:mb-8 text-left">
                         {% for feature in service.features %}
-                            <li class="flex items-center gap-2 text-xs sm:text-sm min-w-0 {{ has_image ? 'text-white/80' : 'text-slate-500 dark:text-slate-300' }}">
+                            <li class="flex items-center gap-2 text-xs sm:text-sm min-w-0 {{ has_image ? 'text-white/80' : tokens.text.body }}">
                                 <span class="material-symbols-outlined text-primary text-base flex-shrink-0">check_circle</span>
                                 <span class="truncate">{{ feature.text }}</span>
                             </li>
@@ -407,28 +426,28 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12 sm:mb-16">
                     {# Sektions-Überschrift: Jetzt in tiefem, klarem text-slate-950 #}
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-950 dark:text-white mb-4 break-words transition-colors duration-500">{{ content.aktuelles_title|default('Aktuelles'|trans) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold {{ tokens.text.title }} mb-4 break-words transition-colors duration-500">{{ content.aktuelles_title|default('Aktuelles'|trans) }}</h2>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {% for item in content.aktuelles_blocks %}
                         {# Karten: Reinweiß im Lightmode, tiefes Dunkelgrau im Darkmode #}
-                        <div class="bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-700 p-8 rounded-[2rem] shadow-sm transition-all duration-500 min-w-0 overflow-hidden">
+                        <div class="{{ tokens.card.soft }} p-8 rounded-[2rem] shadow-sm transition-all duration-500 min-w-0 overflow-hidden">
                             <div class="flex items-center gap-4 mb-6">
                                 {# Icon-Box #}
-                                <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 flex items-center justify-center shadow-sm flex-shrink-0 border border-slate-200 dark:border-slate-800 transition-colors duration-500">
+                                <div class="{{ tokens.icon.circle }} !rounded-full">
                                     <span class="material-symbols-outlined text-2xl flex items-center justify-center leading-none">notifications</span>
                                 </div>
                                 <div class="min-w-0">
-                                    {# Karten-Titel: Maximaler Kontrast im Lightmode mit text-slate-950 #}
-                                    <h3 class="text-xl font-bold text-slate-950 dark:text-slate-100 truncate transition-colors duration-500">{{ item.title }}</h3>
+                                    {# Karten-Titel #}
+                                    <h3 class="text-xl font-bold {{ tokens.text.title }} truncate transition-colors duration-500">{{ item.title }}</h3>
                                     {% if item.date is not empty %}
-                                        <p class="text-sm text-slate-600 dark:text-slate-100 truncate mt-0.5 transition-colors duration-500">{{ item.date }}</p>
+                                        <p class="text-sm {{ tokens.text.muted }} truncate mt-0.5 transition-colors duration-500">{{ item.date }}</p>
                                     {% endif %}
                                 </div>
                             </div>
-                            {# Beschreibungstext: Auf text-slate-900 angehoben für beste Lesbarkeit im Hellen #}
-                            <div class="text-slate-900 dark:text-slate-200 break-words overflow-hidden text-sm leading-relaxed transition-colors duration-500">
+                            {# Beschreibungstext #}
+                            <div class="{{ tokens.text.body }} break-words overflow-hidden text-sm leading-relaxed transition-colors duration-500">
                                 {{ item.text|raw }}
                             </div>
                         </div>
@@ -445,18 +464,18 @@
             <div class="grid lg:grid-cols-2 gap-16 items-center">
                 <div class="min-w-0 overflow-hidden">
                     {# Hauptüberschrift: Dunkel im Lightmode, Weiß im Darkmode #}
-                    <h2 class="text-3xl sm:text-4xl font-display font-bold text-slate-950 dark:text-white mb-8 break-words">{{ content.visit_title|default('Besuchen Sie uns'|trans) }}</h2>
+                    <h2 class="text-3xl sm:text-4xl font-display font-bold {{ tokens.text.title }} mb-8 break-words">{{ content.visit_title|default('Besuchen Sie uns'|trans) }}</h2>
                     <div class="space-y-6">
                         {% if addressSettings %}
                             {% if addressSettings.content.address is defined and addressSettings.content.address %}
                                 <div class="flex items-start gap-4">
-                                    {# Icon-Box: Identisch zur Aktuelles-Sektion (hell im Lightmode, dunkel im Darkmode) #}
-                                    <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-500">
+                                    {# Icon-Box #}
+                                    <div class="{{ tokens.icon.circle }}">
                                         <span class="material-symbols-outlined text-2xl flex items-center justify-center leading-none">location_on</span>
                                     </div>
                                     <div class="min-w-0">
-                                        <h4 class="font-bold text-slate-950 dark:text-white text-lg truncate">{{ 'Unser Standort'|trans }}</h4>
-                                        <div class="text-slate-900 dark:text-slate-300 break-words overflow-hidden mt-0.5">
+                                        <h4 class="font-bold {{ tokens.text.title }} text-lg truncate">{{ 'Unser Standort'|trans }}</h4>
+                                        <div class="{{ tokens.text.body }} break-words overflow-hidden mt-0.5">
                                             {{ addressSettings.content.address|raw }}
                                         </div>
                                     </div>
@@ -465,13 +484,13 @@
 
                             {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
                             <div class="flex items-start gap-4">
-                                {# Icon-Box: Identisch zur Aktuelles-Sektion #}
-                                <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-500">
+                                {# Icon-Box #}
+                                <div class="{{ tokens.icon.circle }}">
                                     <span class="material-symbols-outlined text-2xl flex items-center justify-center leading-none">schedule</span>
                                 </div>
                                 <div class="min-w-0">
-                                    <h4 class="font-bold text-slate-950 dark:text-white text-lg truncate">{{ 'Öffnungszeiten'|trans }}</h4>
-                                    <div class="text-slate-900 dark:text-slate-300 break-words overflow-hidden mt-0.5 leading-relaxed">
+                                    <h4 class="font-bold {{ tokens.text.title }} text-lg truncate">{{ 'Öffnungszeiten'|trans }}</h4>
+                                    <div class="{{ tokens.text.body }} break-words overflow-hidden mt-0.5 leading-relaxed">
                                         {% if hours is not empty %}
                                             {% for entry in hours %}
                                                 {{ entry.days }}: {{ entry.time }}{% if not loop.last %}<br/>{% endif %}
@@ -486,13 +505,13 @@
 
                             {% if (addressSettings.content.email is defined and addressSettings.content.email) or (addressSettings.content.phone is defined and addressSettings.content.phone) %}
                                 <div class="flex items-start gap-4">
-                                    {# Icon-Box: Identisch zur Aktuelles-Sektion #}
-                                    <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 flex items-center justify-center flex-shrink-0 shadow-sm border border-slate-200 dark:border-slate-800 transition-colors duration-500">
+                                    {# Icon-Box #}
+                                    <div class="{{ tokens.icon.circle }}">
                                         <span class="material-symbols-outlined text-2xl flex items-center justify-center leading-none">alternate_email</span>
                                     </div>
                                     <div class="min-w-0">
-                                        <h4 class="font-bold text-slate-950 dark:text-white text-lg truncate">{{ 'E-Mail & Telefon'|trans }}</h4>
-                                        <div class="text-slate-900 dark:text-slate-300 break-words overflow-hidden mt-0.5 space-y-1">
+                                        <h4 class="font-bold {{ tokens.text.title }} text-lg truncate">{{ 'E-Mail & Telefon'|trans }}</h4>
+                                        <div class="{{ tokens.text.body }} break-words overflow-hidden mt-0.5 space-y-1">
                                             {% if addressSettings.content.email %}
                                                 <a href="mailto:{{ addressSettings.content.email }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors block truncate">{{ addressSettings.content.email }}</a>
                                             {% endif %}
