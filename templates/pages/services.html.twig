@@ -4,6 +4,7 @@
 
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
+    {% import "_components/contact/button.html.twig" as btn %}
 
     {# Hero Section #}
     <header class="relative pt-16 pb-20 overflow-hidden w-full max-w-full overflow-x-hidden">
@@ -46,9 +47,11 @@
                         </p>
                     {% endif %}
                     {% if content.cta_button_link is not empty %}
-                        <a href="{{ sulu_content_path(content.cta_button_link|first.url) }}" class="bg-white text-primary px-10 py-4 rounded-xl font-bold text-lg hover:bg-blue-50 transition-colors shadow-lg inline-block">
-                            {{ content.cta_button_text|default('Termin jetzt buchen'|trans) }}
-                        </a>
+                        {{ btn.secondary(
+                            sulu_content_path(content.cta_button_link|first.url),
+                            'calendar_month',
+                            content.cta_button_text|default('Termin jetzt buchen'|trans)
+                        ) }}
                     {% endif %}
                 </div>
                 <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">

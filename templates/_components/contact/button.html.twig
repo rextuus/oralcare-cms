@@ -1,16 +1,20 @@
 {# button.html.twig #}
 {% macro primary(href, icon, label) %}
     <a href="{{ href }}"
-       class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300">
-        <span class="material-symbols-outlined">{{ icon }}</span>
+       class="{{ tokens.button.primary }}">
+        {% if icon %}
+            <span class="material-symbols-outlined">{{ icon }}</span>
+        {% endif %}
         {{ label }}
     </a>
 {% endmacro %}
 
 {% macro secondary(href, icon, label) %}
     <a href="{{ href }}"
-       class="bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-500 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300 text-slate-800 dark:text-slate-100">
-        <span class="material-symbols-outlined">{{ icon }}</span>
+       class="{{ tokens.button.secondary }}">
+        {% if icon %}
+            <span class="material-symbols-outlined">{{ icon }}</span>
+        {% endif %}
         {{ label }}
     </a>
 {% endmacro %}
