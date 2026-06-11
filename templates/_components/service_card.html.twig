@@ -1,0 +1,65 @@
+{% macro render(service, tokens) %}
+    {% set tokens = tokens|default({
+        card: {
+            soft: "bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-colors duration-500",
+            primary: "bg-primary/10 dark:bg-primary/20 border border-primary/20",
+            flat: "bg-transparent"
+        },
+        text: {
+            title: "text-slate-800 dark:text-slate-100",
+            body: "text-slate-600 dark:text-slate-300",
+            muted: "text-slate-500 dark:text-slate-400",
+            label: "text-xs uppercase tracking-wider text-slate-400 dark:text-slate-300 font-bold"
+        },
+        icon: {
+            circle: "w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0"
+        }
+    }) %}
+    <article class="group flex flex-col {{ tokens.card.soft }} rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-gray-100 dark:border-slate-700">
+        <div class="h-64 overflow-hidden">
+            {% if service.image is not empty or service.image_mobile is not empty %}
+                {% set image = service.image|first %}
+                {% set image_mobile = service.image_mobile|first|default(image) %}
+                {% set variant = service.variant|default('square') %}
+                {% set mobile_variant = service.mobile_variant|default('square') %}
+
+                {% set quality = service.quality|default('standard') %}
+                {% set mobile_quality = service.mobile_quality|default('standard') %}
+                {% set desktop_format = (quality == 'best' ? variant ~ '-xl' : variant ~ '-lg') %}
+                {% set mobile_format = (mobile_quality == 'best' ? mobile_variant ~ '-xl' : mobile_variant ~ '-md') %}
+
+                <picture>
+                    <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
+                    <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['square-md'])|default(image.url) }}"
+                         alt="{{ service.title }}"
+                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                         style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
+                </picture>
+            {% else %}
+                <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
+            {% endif %}
+        </div>
+        <div class="p-8">
+            <div class="flex items-center gap-4 mb-6">
+                {# Einheitliche Icon-Box wie im Kontakt-Bereich #}
+                <div class="{{ tokens.icon.circle }}">
+                    {% if service.icon is not empty %}
+                        {% set icon = service.icon|first %}
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-200">
+                    {% else %}
+                        <span class="material-symbols-outlined text-2xl">verified</span>
+                    {% endif %}
+                </div>
+                <h2 class="text-2xl font-bold {{ tokens.text.title }}">{{ service.title }}</h2>
+            </div>
+            <p class="{{ tokens.text.body }} mb-6 leading-relaxed">
+                {{ service.description|raw }}
+            </p>
+            {% if service.link is not empty %}
+                <a class="inline-flex items-center font-semibold text-primary group-hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+                    {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
+                </a>
+            {% endif %}
+        </div>
+    </article>
+{% endmacro %}
