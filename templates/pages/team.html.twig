@@ -9,41 +9,43 @@
         <div class="text-center mb-16 min-w-0 w-full overflow-hidden">
             <h1 class="text-4xl md:text-5xl font-display font-bold mb-6 text-slate-950 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden transition-colors duration-500">{{ content.title }}</h1>
 
-            <div id="role-description-container" class="w-full max-w-3xl mx-auto min-h-[60px]">
-                <div id="default-subtitle" class="role-desc transition-all duration-500 opacity-100">
-                    {% if content.subtitle is not empty %}
-                        <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500">
-                            {{ content.subtitle|raw }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div id="desc-dentists" class="role-desc hidden opacity-0 transition-all duration-500">
-                    {% if content.text_dentists is not empty %}
-                        <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500">
-                            {{ content.text_dentists|raw }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div id="desc-reception" class="role-desc hidden opacity-0 transition-all duration-500">
-                    {% if content.text_reception is not empty %}
-                        <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500">
-                            {{ content.text_reception|raw }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div id="desc-assistants" class="role-desc hidden opacity-0 transition-all duration-500">
-                    {% if content.text_assistants is not empty %}
-                        <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500">
-                            {{ content.text_assistants|raw }}
-                        </div>
-                    {% endif %}
-                </div>
-                <div id="desc-prophylaxis" class="role-desc hidden opacity-0 transition-all duration-500">
-                    {% if content.text_prophylaxis is not empty %}
-                        <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500">
-                            {{ content.text_prophylaxis|raw }}
-                        </div>
-                    {% endif %}
+            <div id="role-description-container" class="grid transition-[grid-template-rows] duration-500 ease-in-out relative" style="grid-template-rows: 1fr;">
+                <div class="overflow-hidden relative min-h-[1.5em]">
+                    <div id="default-subtitle" class="role-desc active transition-all duration-500 opacity-100 relative">
+                        {% if content.subtitle is not empty %}
+                            <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500 pb-4">
+                                {{ content.subtitle|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="desc-dentists" class="role-desc inactive transition-all duration-500 opacity-0 absolute inset-0 pointer-events-none">
+                        {% if content.text_dentists is not empty %}
+                            <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500 pb-4">
+                                {{ content.text_dentists|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="desc-reception" class="role-desc inactive transition-all duration-500 opacity-0 absolute inset-0 pointer-events-none">
+                        {% if content.text_reception is not empty %}
+                            <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500 pb-4">
+                                {{ content.text_reception|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="desc-assistants" class="role-desc inactive transition-all duration-500 opacity-0 absolute inset-0 pointer-events-none">
+                        {% if content.text_assistants is not empty %}
+                            <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500 pb-4">
+                                {{ content.text_assistants|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div id="desc-prophylaxis" class="role-desc inactive transition-all duration-500 opacity-0 absolute inset-0 pointer-events-none">
+                        {% if content.text_prophylaxis is not empty %}
+                            <div class="role-text-box text-lg text-slate-900 dark:text-slate-200 leading-relaxed break-words transition-colors duration-500 pb-4">
+                                {{ content.text_prophylaxis|raw }}
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>
@@ -56,13 +58,13 @@
             <button data-filter="prophylaxis" class="filter-btn px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500">{{ 'Prophylaxe'|trans }}</button>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8" id="team-grid">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 transition-all duration-500" id="team-grid">
             {% for member in content.team_members %}
                 {% set variant = member.variant|default('vertical') %}
                 {% set mobile_variant = member.mobile_variant|default('vertical') %}
                 {% set memberLink = member.link is not empty ? sulu_content_path(member.link|first.url) : null %}
 
-                <div class="team-card team-card-inner group rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2"
+                <div class="team-card team-card-inner group rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 opacity-100 scale-100"
                      data-category="{{ member.category|default('all') }}">
                     <div class="{{ variant == 'square' ? 'aspect-square' : (variant == 'horizontal' ? 'aspect-video' : 'aspect-[4/5]') }} overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
                         {% if member.image is defined and (member.image is not empty or member.image_mobile is not empty) %}
@@ -126,7 +128,36 @@
     </div>
 
     <style>
-        .role-desc.hidden { display: none !important; }
+        .role-desc.active {
+            opacity: 1;
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .role-desc.inactive {
+            opacity: 0;
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        #team-grid {
+            transition: all 0.5s ease-in-out;
+        }
+
+        .team-card.filtering-out {
+            opacity: 0;
+            transform: scale(0.9) translateY(20px);
+            pointer-events: none;
+            /* Wichtig: während der FLIP Animation sollte filtering-out nicht die transform überschreiben */
+        }
+
+        .team-card.filtering-in {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
 
         /* Lightmode */
         .team-card-inner { background-color: #ffffff !important; border: 1px solid #f1f5f9 !important; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); }
@@ -159,10 +190,19 @@
             const filterButtons = document.querySelectorAll('.filter-btn');
             const teamCards = document.querySelectorAll('.team-card');
             const roleDescriptions = document.querySelectorAll('.role-desc');
+            const descriptionContainer = document.getElementById('role-description-container');
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     const filter = button.getAttribute('data-filter');
+
+                    // --- FLIP Start: Positionen speichern ---
+                    const visibleCards = Array.from(teamCards).filter(card => !card.classList.contains('hidden'));
+                    const firstPositions = new Map();
+                    visibleCards.forEach(card => {
+                        firstPositions.set(card, card.getBoundingClientRect());
+                    });
+                    // --- FLIP End ---
 
                     // Active-Klassen für Buttons tauschen
                     filterButtons.forEach(btn => {
@@ -175,36 +215,90 @@
 
                     // Team-Karten filtern
                     teamCards.forEach(card => {
-                        if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        const isMatch = filter === 'all' || card.getAttribute('data-category') === filter;
+
+                        if (isMatch) {
                             card.classList.remove('hidden');
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 10);
+                            card.classList.remove('filtering-out');
+                            card.classList.add('filtering-in');
+                            card.style.transform = ''; // Reset inline styles from previous animations
+                            card.style.transition = '';
                         } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.classList.add('hidden');
-                            }, 300);
+                            card.classList.remove('filtering-in');
+                            card.classList.add('filtering-out');
                         }
                     });
 
-                    // Erklärtexte filtern
-                    roleDescriptions.forEach(desc => {
-                        desc.classList.remove('opacity-100');
-                        desc.classList.add('opacity-0', 'hidden');
+                    // Force Reflow damit die neuen Positionen berechnet werden
+                    document.body.offsetHeight;
+
+                    // --- FLIP: Last, Invert, Play ---
+                    const nextVisibleCards = Array.from(teamCards).filter(card => !card.classList.contains('hidden'));
+
+                    nextVisibleCards.forEach(card => {
+                        const firstRect = firstPositions.get(card);
+                        if (!firstRect) {
+                            // Karte war vorher nicht sichtbar -> Sanft einblenden
+                            return;
+                        }
+
+                        const lastRect = card.getBoundingClientRect();
+                        const dx = firstRect.left - lastRect.left;
+                        const dy = firstRect.top - lastRect.top;
+
+                        if (dx !== 0 || dy !== 0) {
+                            // Invert: Zurück an die alte Stelle schieben (ohne Transition)
+                            card.style.transition = 'none';
+                            card.style.transform = `translate(${dx}px, ${dy}px)`;
+                        }
                     });
 
+                    // Zweiter Durchgang für das Play-Stadium nach einem Reflow
+                    requestAnimationFrame(() => {
+                        nextVisibleCards.forEach(card => {
+                            if (!firstPositions.has(card)) return;
+
+                            card.style.transition = 'transform 0.5s ease-in-out, opacity 0.5s ease-in-out';
+                            card.style.transform = '';
+                        });
+
+                        // Ausgeblendete Karten erst nach der Transition auf hidden setzen
+                        teamCards.forEach(card => {
+                            if (card.classList.contains('filtering-out')) {
+                                const onTransitionEnd = (e) => {
+                                    if (e.propertyName === 'opacity' || e.propertyName === 'transform') {
+                                        if (card.classList.contains('filtering-out')) {
+                                            card.classList.add('hidden');
+                                        }
+                                        card.removeEventListener('transitionend', onTransitionEnd);
+                                    }
+                                };
+                                card.addEventListener('transitionend', onTransitionEnd);
+                                // Backup
+                                setTimeout(() => {
+                                    if (card.classList.contains('filtering-out')) {
+                                        card.classList.add('hidden');
+                                    }
+                                }, 600);
+                            }
+                        });
+                    });
+                    // --- FLIP End ---
+
+                    // Erklärtexte filtern mit smoother Cross-Fade Animation
                     const targetId = filter === 'all' ? 'default-subtitle' : 'desc-' + filter;
                     const activeDesc = document.getElementById(targetId);
 
-                    if (activeDesc) {
-                        activeDesc.classList.remove('hidden');
-                        setTimeout(() => {
-                            activeDesc.classList.remove('opacity-0');
-                            activeDesc.classList.add('opacity-100');
-                        }, 50);
+                    if (activeDesc && !activeDesc.classList.contains('active')) {
+                        roleDescriptions.forEach(desc => {
+                            if (desc.id !== targetId) {
+                                desc.classList.remove('active', 'opacity-100', 'relative');
+                                desc.classList.add('inactive', 'opacity-0', 'absolute');
+                            }
+                        });
+
+                        activeDesc.classList.remove('inactive', 'opacity-0', 'absolute');
+                        activeDesc.classList.add('active', 'opacity-100', 'relative');
                     }
                 });
             });
