@@ -17,23 +17,23 @@
 
         </div>
 
-        <div class="p-6 flex flex-col md:flex-row justify-between gap-6">
+        <div class="p-6 flex flex-col sm:flex-row justify-between gap-6">
 
-            <div class="flex gap-4 items-start">
+            <div class="flex gap-4 items-start min-w-0">
                 {% import "_components/contact/icon.html.twig" as iconUI %}
                 {{ iconUI.render('location_on') }}
 
-                <div>
+                <div class="min-w-0">
                     <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">
                         Unser Standort
                     </h3>
-                    <div class="text-slate-600 dark:text-slate-300">
+                    <div class="text-slate-600 dark:text-slate-300 break-words">
                         {{ address|raw }}
                     </div>
                 </div>
             </div>
 
-            <div class="flex gap-3">
+            <div class="grid grid-cols-1 xs:grid-cols-2 sm:flex sm:flex-row gap-3 shrink-0">
                 {% import "_components/contact/button.html.twig" as btn %}
 
                 {% if phone %}

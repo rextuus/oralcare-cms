@@ -44,7 +44,7 @@
 
                             {{ icon.render('mail') }}
 
-                            <div class="flex-grow ml-4">
+                            <div class="flex-grow ml-4 min-w-0">
                                 <div class="{{ tokens.text.label }}">E-Mail</div>
                                 <div class="{{ tokens.text.title }} truncate">
                                     {{ email }}
@@ -68,9 +68,9 @@
 
                             {{ icon.render('call') }}
 
-                            <div class="flex-grow ml-4">
+                            <div class="flex-grow ml-4 min-w-0">
                                 <div class="{{ tokens.text.label }}">Telefon</div>
-                                <div class="{{ tokens.text.title }}">
+                                <div class="{{ tokens.text.title }} truncate">
                                     {{ phone }}
                                 </div>
                             </div>

@@ -28,8 +28,8 @@ class DesignTokenExtension extends AbstractExtension implements GlobalsInterface
                     'circle' => 'w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-200 flex items-center justify-center text-primary dark:text-slate-900 shrink-0',
                 ],
                 'button' => [
-                    'primary' => 'bg-primary hover:bg-blue-600 text-white dark:!text-slate-900 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-500/20',
-                    'secondary' => 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:!text-slate-900 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300',
+                    'primary' => 'bg-primary hover:bg-blue-600 text-white dark:!text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-500/20 text-sm sm:text-base',
+                    'secondary' => 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:!text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base',
                 ],
             ],
         ];

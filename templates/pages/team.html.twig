@@ -5,7 +5,7 @@
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
 
-    <div class="pt-6 md:pt-10 pb-10 px-2 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full max-w-full overflow-x-hidden transition-colors duration-500 ease-in-out">
+    <div class="pt-6 md:pt-10 pb-10 px-1 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full overflow-x-hidden transition-colors duration-500 ease-in-out">
         <div class="text-center mb-6 md:mb-10 min-w-0 w-full overflow-hidden">
             <h1 class="text-4xl md:text-5xl font-display font-bold mb-4 md:mb-6 text-slate-950 dark:text-white break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden transition-colors duration-500">{{ content.title }}</h1>
         </div>
@@ -18,7 +18,7 @@
             <button data-filter="prophylaxis" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Prophylaxe'|trans }}</button>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 transition-all duration-500" id="team-grid">
+        <div class="p-2 md:p-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 transition-color duration-500" id="team-grid">
             {% for member in content.team_members %}
                 {% set variant = member.variant|default('vertical') %}
                 {% set mobile_variant = member.mobile_variant|default('vertical') %}
@@ -72,8 +72,8 @@
             {% endfor %}
         </div>
 
-        <div id="role-description-container" class="grid transition-[grid-template-rows] duration-500 ease-in-out relative mt-16 text-center max-w-5xl mx-auto" style="grid-template-rows: 1fr;">
-            <div class="overflow-hidden relative min-h-[1.5em] bg-slate-100/50 dark:bg-slate-800/50 rounded-3xl p-6 md:p-6 border border-slate-100 dark:border-slate-800/50">
+    <div id="role-description-container" class="grid transition-[grid-template-rows] duration-500 ease-in-out relative mt-16 text-center max-w-7xl mx-auto px-1 sm:px-6 lg:px-8" style="grid-template-rows: 1fr;">
+            <div class="overflow-hidden relative min-h-[1.5em] bg-slate-100/50 dark:bg-slate-800/50 rounded-3xl p-6 md:p-8 border border-slate-100 dark:border-slate-800/50">
                 <div id="default-subtitle" class="role-desc active transition-all duration-500 opacity-100 relative">
                     {% if content.subtitle is not empty %}
                         <div class="role-text-box text-lg md:text-xl text-slate-700 dark:text-slate-300 leading-relaxed break-words transition-colors duration-500">
@@ -172,7 +172,7 @@
         .dark .role-text-box, .dark .role-text-box *,
         [data-theme="dark"] .role-text-box, [data-theme="dark"] .role-text-box * { color: #cbd5e1 !important; }
 
-        .dark .team-card-inner, [data-theme="dark"] .team-card-inner { background-color: #020617 !important; border-color: #0f172a !important; }
+        .dark .team-card-inner, [data-theme="dark"] .team-card-inner { background-color: #343647 !important; border-color: #0f172a !important; }
         .dark .team-card-title, .dark .team-card-title a, [data-theme="dark"] .team-card-title, [data-theme="dark"] .team-card-title a { color: #ffffff !important; }
 
         /* Zwingt ALLE Elemente (p, strong, span) in der Beschreibung hell zu sein */
