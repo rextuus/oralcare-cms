@@ -13,68 +13,104 @@
             {% endif %}
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full min-w-0">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full min-w-0  transition-color duration-500">
             <div class="lg:col-span-5 space-y-10 min-w-0 w-full overflow-hidden">
                 <section>
-                    <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary dark:text-primary-light">contact_support</span>
-                        {{ 'So erreichen Sie uns'|trans }}
+                    <h2 class="flex items-center gap-3 mb-6 text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-500">
+    <span
+        class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
+        <span class="material-symbols-outlined">contact_support</span>
+    </span>
+
+                        <span>
+        {{ 'So erreichen Sie uns'|trans }}
+    </span>
                     </h2>
                     <div class="space-y-4">
                         {% set email = content.email|default(addressSettings.content.email|default('')) %}
                         {% if email is not empty %}
-                            <a href="mailto:{{ email }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <a href="mailto:{{ email }}"
+                               class="flex items-center p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition-colors duration-500 cursor-pointer group">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
                                     <span class="material-symbols-outlined">mail</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
-                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'E-Mail'|trans }}</p>
-                                    <p class="font-medium truncate">{{ email }}</p>
+                                    <div
+                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-0.5">
+                                        {{ 'E-Mail'|trans }}
+                                    </div>
+                                    <div class="font-medium truncate text-slate-800 dark:text-slate-100">
+                                        {{ email }}
+                                    </div>
                                 </div>
-                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+                                <span
+                                    class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">
+        chevron_right
+    </span>
                             </a>
                         {% endif %}
 
                         {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
                         {% if phone is not empty %}
-                            <a href="tel:{{ phone|replace({' ': ''}) }}" class="flex items-center p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
+                            <a href="tel:{{ phone|replace({' ': ''}) }}"
+                               class="flex items-center p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition-color duration-500 cursor-pointer group">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
                                     <span class="material-symbols-outlined">call</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
-                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'Telefon'|trans }}</p>
-                                    <p class="font-medium truncate">{{ phone }}</p>
+                                    <div
+                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-0.5">{{ 'Telefon'|trans }}</div>
+                                    <div
+                                        class="font-medium truncate text-slate-800 dark:text-slate-100 ">{{ phone }}</div>
                                 </div>
-                                <span class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
+                                <span
+                                    class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
                             </a>
                         {% endif %}
 
                         {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
-                            <a href="{{ sulu_content_path(content.booking_link.url) }}" class="flex items-center p-4 bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/40 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20">
+                            <a href="{{ sulu_content_path(content.booking_link.url) }}"
+                               class="flex items-center p-4 bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/40 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20">
                                     <span class="material-symbols-outlined">calendar_month</span>
                                 </div>
                                 <div class="flex-grow min-w-0">
                                     <p class="text-xs uppercase tracking-wider text-primary/70 font-bold mb-0.5">{{ 'Online-Termin'|trans }}</p>
                                     <p class="font-bold text-primary truncate">{{ 'Termin buchen'|trans }}</p>
                                 </div>
-                                <span class="material-symbols-outlined text-primary/40 group-hover:text-primary transition-colors">chevron_right</span>
+                                <span
+                                    class="material-symbols-outlined text-primary/40 group-hover:text-primary transition-colors">chevron_right</span>
                             </a>
                         {% endif %}
 
                         {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
                         {% if hours is not empty %}
-                            <div class="flex items-start p-4 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl">
-                                <div class="w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-primary-light mr-4 shrink-0">
+                            <div
+                                class="flex items-start p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl transition-colors duration-500">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 shrink-0">
                                     <span class="material-symbols-outlined">schedule</span>
                                 </div>
-                                <div>
-                                    <p class="text-xs uppercase tracking-wider text-slate-400 font-bold mb-0.5">{{ 'Öffnungszeiten'|trans }}</p>
+
+                                <div class="flex-grow">
+                                    <div
+                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-2">
+                                        {{ 'Öffnungszeiten'|trans }}
+                                    </div>
+
                                     <div class="space-y-1">
                                         {% for entry in hours %}
-                                            <p class="font-medium text-sm">
-                                                <span class="text-slate-500 dark:text-slate-400">{{ entry.days }}:</span> {{ entry.time }}
-                                            </p>
+                                            <div class="text-sm">
+                    <span class="text-slate-500 dark:text-slate-300">
+                        {{ entry.days }}:
+                    </span>
+                                                <span class="font-medium text-slate-800 dark:text-slate-100">
+                        {{ entry.time }}
+                    </span>
+                                            </div>
                                         {% endfor %}
                                     </div>
                                 </div>
@@ -85,18 +121,31 @@
 
                 {% if content.questions is not empty %}
                     <section>
-                        <h2 class="text-xl font-semibold mb-6 flex items-center gap-2">
-                            <span class="material-symbols-outlined text-primary dark:text-primary-light">quiz</span>
-                            {{ 'Häufige Fragen'|trans }}
+                        <h2 class="flex items-center gap-3 mb-6 text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-500">
+    <span
+        class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
+        <span class="material-symbols-outlined">quiz</span>
+    </span>
+
+                            <span>
+        {{ 'Häufige Fragen'|trans }}
+    </span>
                         </h2>
                         <div class="space-y-3">
                             {% for item in content.questions %}
-                                <details class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
-                                    <summary class="flex justify-between items-center p-4 cursor-pointer font-medium hover:bg-slate-50 dark:hover:bg-slate-700/50 transition">
+                                <details
+                                    class="group bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-colors duration-500">
+                                    <summary
+                                        class="flex justify-between items-center p-4 cursor-pointer font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-600/30 transition-colors duration-300">
                                         {{ item.question }}
-                                        <span class="material-symbols-outlined expand-icon transition-transform text-slate-400 group-open:rotate-180">expand_more</span>
+
+                                        <span
+                                            class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform duration-300 group-open:rotate-180">
+            expand_more
+        </span>
                                     </summary>
-                                    <div class="px-4 pb-4 text-slate-500 dark:text-slate-400 leading-relaxed text-sm">
+
+                                    <div class="px-4 pb-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
                                         {{ item.answer|raw }}
                                     </div>
                                 </details>
@@ -108,9 +157,11 @@
 
             <div class="lg:col-span-7">
                 <div class="sticky top-28 space-y-6">
-                    <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none border border-slate-200 dark:border-slate-700 p-2">
-                        <div class="relative w-full aspect-video lg:aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
+                    <div class="bg-slate-50/10 dark:bg-slate-700/50 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 transition-colors duration-500 p-2">
+                        <div
+                            class="relative w-full aspect-video lg:aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
                             {% set map_link = content.map_link|default(addressSettings.content.map_link|default('')) %}
+
                             {% if map_link is not empty %}
                                 <iframe
                                     src="{{ map_link }}"
@@ -119,41 +170,72 @@
                                     style="border:0;"
                                     allowfullscreen=""
                                     loading="lazy"
-                                    class="opacity-90 dark:opacity-60 grayscale dark:invert-[0.85] dark:hue-rotate-180">
+                                    class="opacity-90 dark:opacity-75">
                                 </iframe>
+
                                 <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
-                                    <div class="bg-primary p-3 rounded-full shadow-2xl animate-bounce">
-                                        <span class="material-symbols-outlined text-white text-3xl">location_on</span>
+                                    <div class="bg-primary p-3 rounded-full shadow-2xl">
+                                        <span class="material-symbols-outlined text-white text-3xl">
+                                            location_on
+                                        </span>
                                     </div>
                                 </div>
                             {% else %}
-                                <div class="absolute inset-0 flex items-center justify-center text-slate-400">
+                                <div
+                                    class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
                                     {{ 'Keine Karte verfügbar'|trans }}
                                 </div>
                             {% endif %}
                         </div>
+
                         <div class="p-6">
                             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                                 <div class="flex items-start gap-4">
-                                    <div class="bg-blue-50 dark:bg-blue-900/40 p-2 rounded-lg text-primary dark:text-primary-light">
-                                        <span class="material-symbols-outlined">location_on</span>
+                                    <div
+                                        class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
+                    <span class="material-symbols-outlined">
+                        location_on
+                    </span>
                                     </div>
+
                                     <div>
-                                        <h3 class="font-bold text-lg dark:text-white">{{ 'Unser Standort'|trans }}</h3>
+                                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">
+                                            {{ 'Unser Standort'|trans }}
+                                        </h3>
+
                                         {% set address = content.address|default(addressSettings.content.address|default('')) %}
-                                        <p class="text-slate-500 dark:text-slate-400">{{ address|raw }}</p>
+
+                                        <div class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                                            {{ address|raw }}
+                                        </div>
                                     </div>
                                 </div>
+
                                 <div class="flex flex-col sm:flex-row gap-3">
                                     {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
+
                                     {% if phone is not empty %}
-                                        <a href="tel:{{ phone|replace({' ': ''}) }}" class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition whitespace-nowrap">
-                                            <span class="material-symbols-outlined">call</span>
+                                        <a
+                                            href="tel:{{ phone|replace({' ': ''}) }}"
+                                            class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300 whitespace-nowrap"
+                                        >
+                        <span class="material-symbols-outlined">
+                            call
+                        </span>
+
                                             {{ 'Jetzt anrufen'|trans }}
                                         </a>
                                     {% endif %}
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination={{ address|url_encode }}" target="_blank" class="bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-600 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition whitespace-nowrap">
-                                        <span class="material-symbols-outlined">directions</span>
+
+                                    <a
+                                        href="https://www.google.com/maps/dir/?api=1&destination={{ address|url_encode }}"
+                                        target="_blank"
+                                        class="bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-500 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300 whitespace-nowrap text-slate-800 dark:text-slate-100"
+                                    >
+                    <span class="material-symbols-outlined">
+                        directions
+                    </span>
+
                                         {{ 'Anfahrt'|trans }}
                                     </a>
                                 </div>
@@ -162,20 +244,44 @@
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
                         {% if content.emergency_info is not empty %}
-                            <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
-                                <span class="material-symbols-outlined text-primary dark:text-primary-light mb-2">emergency</span>
-                                <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Notfallversorgung'|trans }}</h4>
-                                <div class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info|raw }}</div>
+                            <div class="bg-slate-50/10 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 transition-colors duration-500">
+
+                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mb-3">
+                                    <span class="material-symbols-outlined">emergency</span>
+                                </div>
+
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-1">
+                                    {{ 'Notfallversorgung'|trans }}
+                                </h4>
+
+                                <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    {{ content.emergency_info|raw }}
+                                </div>
+
                             </div>
                         {% endif %}
+
+
                         {% if content.languages_info is not empty %}
-                            <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
-                                <span class="material-symbols-outlined text-slate-500 mb-2">language</span>
-                                <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Gesprochene Sprachen'|trans }}</h4>
-                                <div class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info|raw }}</div>
+                            <div class="bg-slate-50/10 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 transition-colors duration-500">
+
+                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mb-3">
+                                    <span class="material-symbols-outlined">language</span>
+                                </div>
+
+                                <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-1">
+                                    {{ 'Gesprochene Sprachen'|trans }}
+                                </h4>
+
+                                <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    {{ content.languages_info|raw }}
+                                </div>
+
                             </div>
                         {% endif %}
+
                     </div>
                 </div>
             </div>
