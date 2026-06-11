@@ -2,22 +2,6 @@
 
 {% block content %}
 
-    {% set tokens = {
-        card: {
-            soft: "bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-colors duration-500",
-            primary: "bg-primary/10 dark:bg-primary/20 border border-primary/20",
-            flat: "bg-transparent"
-        },
-        text: {
-            title: "text-slate-800 dark:text-slate-100",
-            body: "text-slate-600 dark:text-slate-300",
-            muted: "text-slate-500 dark:text-slate-400",
-            label: "text-xs uppercase tracking-wider text-slate-400 dark:text-slate-300 font-bold"
-        },
-        icon: {
-            circle: "w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-200 flex items-center justify-center text-primary dark:text-blue-400 shrink-0"
-        }
-    } %}
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
 
@@ -278,7 +262,7 @@
                                     <div class="carousel-item {{ loop.first ? 'active' : '' }}">
                                         <div class="px-md-5">
                                             <div class="{{ height_class }} {{ width_class }} mx-auto">
-                                                {{ _self.render_service_card(service, services_selection is not empty, tokens) }}
+                                                {{ _self.render_service_card(service, services_selection is not empty) }}
                                             </div>
                                         </div>
                                     </div>
@@ -303,7 +287,7 @@
                         <div class="grid md:grid-cols-2 {{ carousel_height == 'small' ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} gap-8 min-w-0">
                             {% for service in services %}
                                 <div class="{{ height_class }}">
-                                    {{ _self.render_service_card(service, services_selection is not empty, tokens) }}
+                                    {{ _self.render_service_card(service, services_selection is not empty) }}
                                 </div>
                             {% endfor %}
                         </div>
@@ -337,7 +321,7 @@
     {% endif %}
 
     {# Card partial to avoid repetition #}
-    {% macro render_service_card(service, is_page, tokens) %}
+    {% macro render_service_card(service, is_page) %}
         {% set image = null %}
         {% set image_mobile = null %}
         {% set variant = 'horizontal' %}
