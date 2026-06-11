@@ -3,9 +3,9 @@
     <a href="{{ href }}"
        class="{{ tokens.button.primary }}">
         {% if icon %}
-            <span class="material-symbols-outlined">{{ icon }}</span>
+            <span class="material-symbols-outlined shrink-0">{{ icon }}</span>
         {% endif %}
-        {{ label }}
+        <span class="truncate">{{ label }}</span>
     </a>
 {% endmacro %}
 
@@ -13,8 +13,8 @@
     <a href="{{ href }}"
        class="{{ tokens.button.secondary }}">
         {% if icon %}
-            <span class="material-symbols-outlined">{{ icon }}</span>
+            <span class="material-symbols-outlined shrink-0">{{ icon }}</span>
         {% endif %}
-        {{ label }}
+        <span class="truncate">{{ label }}</span>
     </a>
 {% endmacro %}

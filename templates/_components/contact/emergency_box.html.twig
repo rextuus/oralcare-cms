@@ -1,0 +1,20 @@
+{# templates/_components/contact/emergency_box.html.twig #}
+{% macro render(title, text, phone) %}
+    {% import "_components/contact/button.html.twig" as btn %}
+    <div class="p-6 bg-blue-600 rounded-2xl text-white overflow-hidden shadow-lg shadow-black/10">
+        <h4 class="text-xl font-bold mb-2 break-words text-white flex items-center gap-2">
+            <span class="material-symbols-outlined flex-shrink-0">gpp_maybe</span>
+            {{ title|default('Notfalltermin?'|trans) }}
+        </h4>
+        <div class="text-blue-100 mb-6 break-words overflow-hidden text-sm leading-relaxed">
+            {{ text|raw }}
+        </div>
+        {% if phone %}
+            {{ btn.secondary(
+                'tel:' ~ phone|replace({' ': ''}),
+                'phone_in_talk',
+                'Jetzt anrufen'|trans
+            ) }}
+        {% endif %}
+    </div>
+{% endmacro %}

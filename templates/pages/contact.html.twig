@@ -28,6 +28,7 @@
                 {% import "_components/contact/section_title.html.twig" as title %}
                 {% import "_components/contact/icon.html.twig" as icon %}
                 {% import "_components/contact/faq.html.twig" as faq %}
+                {% import "_components/contact/emergency_box.html.twig" as emergency %}
 
                 {# CONTACT SECTION TITLE #}
                 {{ title.render('contact_support', 'So erreichen Sie uns') }}
@@ -84,27 +85,21 @@
 
                     {# ================= BOOKING ================= #}
                     {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
-
-                        <a href="{{ sulu_content_path(content.booking_link.url) }}"
-                           class="flex items-center p-4 {{ tokens.card.primary }} rounded-2xl group">
-
-                            {{ icon.render('calendar_month') }}
-
-                            <div class="flex-grow ml-4">
-                                <div class="text-xs uppercase tracking-wider text-primary/70 font-bold">
-                                    Online-Termin
-                                </div>
-                                <div class="font-bold text-primary">
-                                    Termin buchen
+                        {% import "_components/contact/button.html.twig" as btn %}
+                        <div class="p-4 {{ tokens.card.primary }} rounded-2xl group flex items-center justify-between gap-4">
+                            <div class="flex items-center">
+                                {{ icon.render('calendar_month') }}
+                                <div class="flex-grow ml-4">
+                                    <div class="text-xs uppercase tracking-wider text-primary/70 font-bold">
+                                        {{ 'Online-Termin'|trans }}
+                                    </div>
+                                    <div class="font-bold text-primary">
+                                        {{ 'Termin buchen'|trans }}
+                                    </div>
                                 </div>
                             </div>
-
-                            <span class="material-symbols-outlined text-primary/40 group-hover:text-primary">
-                            chevron_right
-                        </span>
-
-                        </a>
-
+                            {{ btn.primary(sulu_content_path(content.booking_link.url), null, 'Buchen'|trans) }}
+                        </div>
                     {% endif %}
 
                     {# ================= HOURS ================= #}
@@ -160,13 +155,13 @@
                 ) }}
 
                 {# INFO CARDS ================= #}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-6">
 
                     {% if content.emergency_info is not empty %}
-                        {{ info.render(
-                            'emergency',
+                        {{ emergency.render(
                             'Notfallversorgung',
-                            content.emergency_info
+                            content.emergency_info,
+                            addressSettings.content.phone|default('')
                         ) }}
                     {% endif %}
 
