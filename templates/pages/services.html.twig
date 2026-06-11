@@ -4,6 +4,7 @@
 
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
+
     {# Hero Section #}
     <header class="relative pt-16 pb-20 overflow-hidden w-full max-w-full overflow-x-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
@@ -29,7 +30,7 @@
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-24">
             {% for service in content.services_list %}
-                <article class="group flex flex-col bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-700">
+                <article class="group flex flex-col bg-slate-50 dark:bg-slate-700/50 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-colors duration-500 border border-gray-100 dark:border-slate-700">
                     <div class="h-64 overflow-hidden">
                         {% if service.image is not empty or service.image_mobile is not empty %}
                             {% set image = service.image|first %}
@@ -39,45 +40,38 @@
 
                             {% set quality = service.quality|default(global_best_quality ? 'best' : 'standard') %}
                             {% set mobile_quality = service.mobile_quality|default(global_best_quality ? 'best' : 'standard') %}
-                            {% if quality == 'best' %}
-                                {% set desktop_format = variant ~ '-xl' %}
-                            {% else %}
-                                {% set desktop_format = variant ~ '-lg' %}
-                            {% endif %}
-                            {% if mobile_quality == 'best' %}
-                                {% set mobile_format = mobile_variant ~ '-xl' %}
-                            {% else %}
-                                {% set mobile_format = mobile_variant ~ '-md' %}
-                            {% endif %}
+                            {% set desktop_format = (quality == 'best' ? variant ~ '-xl' : variant ~ '-lg') %}
+                            {% set mobile_format = (mobile_quality == 'best' ? mobile_variant ~ '-xl' : mobile_variant ~ '-md') %}
 
                             <picture>
                                 <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
                                 <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['square-md'])|default(image.url) }}"
                                      alt="{{ service.title }}"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-colors duration-500"
                                      style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                             </picture>
                         {% else %}
-                            <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
+                            <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-colors duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
                         {% endif %}
                     </div>
                     <div class="p-8">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-blue-50 dark:bg-blue-900/40 flex items-center justify-center text-primary dark:text-blue-400 p-2 flex-shrink-0">
+                        <div class="flex items-center gap-4 mb-6">
+                            {# Einheitliche Icon-Box wie im Aktuelles-Block #}
+                            <div class="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-800 dark:text-slate-300 flex items-center justify-center shadow-sm flex-shrink-0 border border-slate-200 dark:border-slate-700 transition-colors duration-500">
                                 {% if service.icon is not empty %}
                                     {% set icon = service.icon|first %}
                                     <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-200">
                                 {% else %}
-                                    <span class="material-symbols-outlined text-primary dark:text-blue-400 text-2xl">verified</span>
+                                    <span class="material-symbols-outlined text-2xl">verified</span>
                                 {% endif %}
                             </div>
-                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">{{ service.title }}</h2>
+                            <h2 class="text-2xl font-bold text-slate-950 dark:text-white">{{ service.title }}</h2>
                         </div>
                         <p class="text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
                             {{ service.description|raw }}
                         </p>
                         {% if service.link is not empty %}
-                            <a class="inline-flex items-center font-semibold text-primary group-hover:gap-2 transition-all" href="{{ sulu_content_path(service.link|first.url) }}">
+                            <a class="inline-flex items-center font-semibold text-primary group-hover:gap-2 transition-colors" href="{{ sulu_content_path(service.link|first.url) }}">
                                 {{ 'Mehr erfahren'|trans }} <span class="material-symbols-outlined text-sm ml-1">arrow_forward</span>
                             </a>
                         {% endif %}

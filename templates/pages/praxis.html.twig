@@ -6,7 +6,7 @@
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
 
     {# Hero Section #}
-    <header class="relative pt-16 pb-20 bg-slate-50 dark:bg-slate-900/50 flex flex-col items-center w-full max-w-full overflow-x-hidden">
+    <header class="relative pt-16 pb-20 bg-slate-100 dark:bg-slate-800/50 flex flex-col items-center w-full max-w-full overflow-x-hidden transition-colors duration-500">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full flex flex-col items-center">
             <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center w-full min-w-0 max-w-full">
 
@@ -99,7 +99,7 @@
         </div>
     </header>
 
-    <main class="py-24">
+    <main class="py-24 transition-colors duration-500">
 
         {# Introduction #}
         {% if content.intro_text is not empty %}
@@ -112,7 +112,7 @@
 
         {# Gallery #}
         {% if content.gallery_images is not empty %}
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 transition-colors duration-500">
 
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">
                     {{ 'Einblicke in unsere Praxis'|trans }}

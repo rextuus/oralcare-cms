@@ -166,14 +166,14 @@
                             <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-2xl border border-blue-100 dark:border-blue-900/50">
                                 <span class="material-symbols-outlined text-primary dark:text-primary-light mb-2">emergency</span>
                                 <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Notfallversorgung'|trans }}</h4>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info|raw }}</p>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">{{ content.emergency_info|raw }}</div>
                             </div>
                         {% endif %}
                         {% if content.languages_info is not empty %}
                             <div class="bg-slate-50 dark:bg-slate-800/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
                                 <span class="material-symbols-outlined text-slate-500 mb-2">language</span>
                                 <h4 class="font-bold text-slate-900 dark:text-white mb-1">{{ 'Gesprochene Sprachen'|trans }}</h4>
-                                <p class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info|raw }}</p>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">{{ content.languages_info|raw }}</div>
                             </div>
                         {% endif %}
                     </div>
