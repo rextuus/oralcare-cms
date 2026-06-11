@@ -2,289 +2,207 @@
 
 {% block content %}
 
+    {% set tokens = {
+        card: {
+            soft: "bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-colors duration-500",
+            primary: "bg-primary/10 dark:bg-primary/20 border border-primary/20",
+            flat: "bg-transparent"
+        },
+
+        text: {
+            title: "text-slate-800 dark:text-slate-100",
+            body: "text-slate-600 dark:text-slate-300",
+            muted: "text-slate-500 dark:text-slate-400",
+            label: "text-xs uppercase tracking-wider text-slate-400 dark:text-slate-300 font-bold"
+        },
+
+        icon: {
+            circle: "w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0"
+        }
+    } %}
+
+
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
-    {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
     {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full max-w-full overflow-x-hidden">
-        <div class="mb-10 min-w-0 w-full overflow-hidden">
-            <h1 class="text-4xl font-bold font-display text-slate-900 dark:text-white mb-2 break-words hyphens-auto min-w-0 w-full max-w-full overflow-hidden">{{ content.title }}</h1>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full overflow-x-hidden">
+
+        {# ================= HEADER ================= #}
+        <div class="mb-10">
+            <h1 class="{{ tokens.text.title }} text-4xl font-bold mb-2 break-words">
+                {{ content.title }}
+            </h1>
+
             {% if content.subtitle is not empty %}
-                <p class="text-slate-500 dark:text-slate-400 break-words">{{ content.subtitle }}</p>
+                <p class="{{ tokens.text.muted }}">
+                    {{ content.subtitle }}
+                </p>
             {% endif %}
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 w-full min-w-0  transition-color duration-500">
-            <div class="lg:col-span-5 space-y-10 min-w-0 w-full overflow-hidden">
-                <section>
-                    <h2 class="flex items-center gap-3 mb-6 text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-500">
-    <span
-        class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
-        <span class="material-symbols-outlined">contact_support</span>
-    </span>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
-                        <span>
-        {{ 'So erreichen Sie uns'|trans }}
-    </span>
-                    </h2>
-                    <div class="space-y-4">
-                        {% set email = content.email|default(addressSettings.content.email|default('')) %}
-                        {% if email is not empty %}
-                            <a href="mailto:{{ email }}"
-                               class="flex items-center p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition-colors duration-500 cursor-pointer group">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined">mail</span>
-                                </div>
-                                <div class="flex-grow min-w-0">
-                                    <div
-                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-0.5">
-                                        {{ 'E-Mail'|trans }}
-                                    </div>
-                                    <div class="font-medium truncate text-slate-800 dark:text-slate-100">
-                                        {{ email }}
-                                    </div>
-                                </div>
-                                <span
-                                    class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">
-        chevron_right
-    </span>
-                            </a>
-                        {% endif %}
+            {# ================= LEFT ================= #}
+            <div class="lg:col-span-5 space-y-10">
 
-                        {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
-                        {% if phone is not empty %}
-                            <a href="tel:{{ phone|replace({' ': ''}) }}"
-                               class="flex items-center p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl hover:border-primary/50 transition-color duration-500 cursor-pointer group">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 group-hover:bg-primary group-hover:text-white transition-colors">
-                                    <span class="material-symbols-outlined">call</span>
-                                </div>
-                                <div class="flex-grow min-w-0">
-                                    <div
-                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-0.5">{{ 'Telefon'|trans }}</div>
-                                    <div
-                                        class="font-medium truncate text-slate-800 dark:text-slate-100 ">{{ phone }}</div>
-                                </div>
-                                <span
-                                    class="material-symbols-outlined text-slate-300 group-hover:text-primary transition-colors">chevron_right</span>
-                            </a>
-                        {% endif %}
+                {% import "_components/contact/section_title.html.twig" as title %}
+                {% import "_components/contact/icon.html.twig" as icon %}
+                {% import "_components/contact/faq.html.twig" as faq %}
 
-                        {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
-                            <a href="{{ sulu_content_path(content.booking_link.url) }}"
-                               class="flex items-center p-4 bg-primary/10 dark:bg-primary/20 border border-primary/20 dark:border-primary/40 rounded-2xl hover:border-primary/50 transition cursor-pointer group">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white mr-4 group-hover:bg-blue-600 transition-colors shadow-lg shadow-primary/20">
-                                    <span class="material-symbols-outlined">calendar_month</span>
-                                </div>
-                                <div class="flex-grow min-w-0">
-                                    <p class="text-xs uppercase tracking-wider text-primary/70 font-bold mb-0.5">{{ 'Online-Termin'|trans }}</p>
-                                    <p class="font-bold text-primary truncate">{{ 'Termin buchen'|trans }}</p>
-                                </div>
-                                <span
-                                    class="material-symbols-outlined text-primary/40 group-hover:text-primary transition-colors">chevron_right</span>
-                            </a>
-                        {% endif %}
+                {# CONTACT SECTION TITLE #}
+                {{ title.render('contact_support', 'So erreichen Sie uns') }}
 
-                        {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
-                        {% if hours is not empty %}
-                            <div
-                                class="flex items-start p-4 bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl transition-colors duration-500">
-                                <div
-                                    class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mr-4 shrink-0">
-                                    <span class="material-symbols-outlined">schedule</span>
-                                </div>
+                <div class="space-y-4">
 
-                                <div class="flex-grow">
-                                    <div
-                                        class="text-xs uppercase tracking-wider text-slate-400 dark:text-slate-100 font-bold mb-2">
-                                        {{ 'Öffnungszeiten'|trans }}
-                                    </div>
+                    {# ================= EMAIL ================= #}
+                    {% set email = content.email|default(addressSettings.content.email|default('')) %}
+                    {% if email is not empty %}
 
-                                    <div class="space-y-1">
-                                        {% for entry in hours %}
-                                            <div class="text-sm">
-                    <span class="text-slate-500 dark:text-slate-300">
-                        {{ entry.days }}:
-                    </span>
-                                                <span class="font-medium text-slate-800 dark:text-slate-100">
-                        {{ entry.time }}
-                    </span>
-                                            </div>
-                                        {% endfor %}
-                                    </div>
+                        <a href="mailto:{{ email }}"
+                           class="flex items-center p-4 {{ tokens.card.soft }} rounded-2xl group">
+
+                            {{ icon.render('mail') }}
+
+                            <div class="flex-grow ml-4">
+                                <div class="{{ tokens.text.label }}">E-Mail</div>
+                                <div class="{{ tokens.text.title }} truncate">
+                                    {{ email }}
                                 </div>
                             </div>
-                        {% endif %}
-                    </div>
-                </section>
 
-                {% if content.questions is not empty %}
-                    <section>
-                        <h2 class="flex items-center gap-3 mb-6 text-xl font-semibold text-slate-800 dark:text-slate-100 transition-colors duration-500">
-    <span
-        class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
-        <span class="material-symbols-outlined">quiz</span>
-    </span>
-
-                            <span>
-        {{ 'Häufige Fragen'|trans }}
-    </span>
-                        </h2>
-                        <div class="space-y-3">
-                            {% for item in content.questions %}
-                                <details
-                                    class="group bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden transition-colors duration-500">
-                                    <summary
-                                        class="flex justify-between items-center p-4 cursor-pointer font-medium text-slate-800 dark:text-slate-100 hover:bg-slate-100/50 dark:hover:bg-slate-600/30 transition-colors duration-300">
-                                        {{ item.question }}
-
-                                        <span
-                                            class="material-symbols-outlined text-slate-400 dark:text-slate-300 transition-transform duration-300 group-open:rotate-180">
-            expand_more
-        </span>
-                                    </summary>
-
-                                    <div class="px-4 pb-4 text-slate-600 dark:text-slate-300 leading-relaxed text-sm">
-                                        {{ item.answer|raw }}
-                                    </div>
-                                </details>
-                            {% endfor %}
-                        </div>
-                    </section>
-                {% endif %}
-            </div>
-
-            <div class="lg:col-span-7">
-                <div class="sticky top-28 space-y-6">
-                    <div class="bg-slate-50/10 dark:bg-slate-700/50 rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-700 transition-colors duration-500 p-2">
-                        <div
-                            class="relative w-full aspect-video lg:aspect-[16/10] rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 group">
-                            {% set map_link = content.map_link|default(addressSettings.content.map_link|default('')) %}
-
-                            {% if map_link is not empty %}
-                                <iframe
-                                    src="{{ map_link }}"
-                                    width="100%"
-                                    height="100%"
-                                    style="border:0;"
-                                    allowfullscreen=""
-                                    loading="lazy"
-                                    class="opacity-90 dark:opacity-75">
-                                </iframe>
-
-                                <div class="absolute inset-0 pointer-events-none flex items-center justify-center">
-                                    <div class="bg-primary p-3 rounded-full shadow-2xl">
-                                        <span class="material-symbols-outlined text-white text-3xl">
-                                            location_on
-                                        </span>
-                                    </div>
-                                </div>
-                            {% else %}
-                                <div
-                                    class="absolute inset-0 flex items-center justify-center text-slate-400 dark:text-slate-500">
-                                    {{ 'Keine Karte verfügbar'|trans }}
-                                </div>
-                            {% endif %}
-                        </div>
-
-                        <div class="p-6">
-                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                                <div class="flex items-start gap-4">
-                                    <div
-                                        class="w-12 h-12 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light shrink-0">
-                    <span class="material-symbols-outlined">
-                        location_on
-                    </span>
-                                    </div>
-
-                                    <div>
-                                        <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">
-                                            {{ 'Unser Standort'|trans }}
-                                        </h3>
-
-                                        {% set address = content.address|default(addressSettings.content.address|default('')) %}
-
-                                        <div class="text-slate-600 dark:text-slate-300 leading-relaxed">
-                                            {{ address|raw }}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="flex flex-col sm:flex-row gap-3">
-                                    {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
-
-                                    {% if phone is not empty %}
-                                        <a
-                                            href="tel:{{ phone|replace({' ': ''}) }}"
-                                            class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300 whitespace-nowrap"
-                                        >
-                        <span class="material-symbols-outlined">
-                            call
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-primary">
+                            chevron_right
                         </span>
 
-                                            {{ 'Jetzt anrufen'|trans }}
-                                        </a>
-                                    {% endif %}
+                        </a>
 
-                                    <a
-                                        href="https://www.google.com/maps/dir/?api=1&destination={{ address|url_encode }}"
-                                        target="_blank"
-                                        class="bg-slate-50 dark:bg-slate-600 border border-slate-200 dark:border-slate-500 hover:bg-slate-100 dark:hover:bg-slate-500 px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-colors duration-300 whitespace-nowrap text-slate-800 dark:text-slate-100"
-                                    >
-                    <span class="material-symbols-outlined">
-                        directions
-                    </span>
+                    {% endif %}
 
-                                        {{ 'Anfahrt'|trans }}
-                                    </a>
+                    {# ================= PHONE ================= #}
+                    {% set phone = content.phone|default(addressSettings.content.phone|default('')) %}
+                    {% if phone is not empty %}
+
+                        <a href="tel:{{ phone|replace({' ': ''}) }}"
+                           class="flex items-center p-4 {{ tokens.card.soft }} rounded-2xl group">
+
+                            {{ icon.render('call') }}
+
+                            <div class="flex-grow ml-4">
+                                <div class="{{ tokens.text.label }}">Telefon</div>
+                                <div class="{{ tokens.text.title }}">
+                                    {{ phone }}
                                 </div>
                             </div>
+
+                            <span class="material-symbols-outlined text-slate-300 group-hover:text-primary">
+                            chevron_right
+                        </span>
+
+                        </a>
+
+                    {% endif %}
+
+                    {# ================= BOOKING ================= #}
+                    {% if content.booking_link is not empty and common_settings.content.enable_online_booking|default(false) %}
+
+                        <a href="{{ sulu_content_path(content.booking_link.url) }}"
+                           class="flex items-center p-4 {{ tokens.card.primary }} rounded-2xl group">
+
+                            {{ icon.render('calendar_month') }}
+
+                            <div class="flex-grow ml-4">
+                                <div class="text-xs uppercase tracking-wider text-primary/70 font-bold">
+                                    Online-Termin
+                                </div>
+                                <div class="font-bold text-primary">
+                                    Termin buchen
+                                </div>
+                            </div>
+
+                            <span class="material-symbols-outlined text-primary/40 group-hover:text-primary">
+                            chevron_right
+                        </span>
+
+                        </a>
+
+                    {% endif %}
+
+                    {# ================= HOURS ================= #}
+                    {% set hours = content.hours|default(addressSettings.content.hours|default([])) %}
+                    {% if hours is not empty %}
+
+                        <div class="p-4 {{ tokens.card.soft }} rounded-2xl">
+
+                            <div class="flex items-center gap-4 mb-3">
+                                {{ icon.render('schedule') }}
+
+                                <div class="{{ tokens.text.label }}">
+                                    Öffnungszeiten
+                                </div>
+                            </div>
+
+                            <div class="space-y-1 text-sm">
+                                {% for entry in hours %}
+                                    <div class="{{ tokens.text.body }}">
+                                    <span class="{{ tokens.text.muted }}">
+                                        {{ entry.days }}:
+                                    </span>
+                                        {{ entry.time }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
                         </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {% endif %}
 
-                        {% if content.emergency_info is not empty %}
-                            <div class="bg-slate-50/10 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 transition-colors duration-500">
-
-                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mb-3">
-                                    <span class="material-symbols-outlined">emergency</span>
-                                </div>
-
-                                <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-1">
-                                    {{ 'Notfallversorgung'|trans }}
-                                </h4>
-
-                                <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    {{ content.emergency_info|raw }}
-                                </div>
-
-                            </div>
-                        {% endif %}
-
-
-                        {% if content.languages_info is not empty %}
-                            <div class="bg-slate-50/10 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 transition-colors duration-500">
-
-                                <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-slate-50 flex items-center justify-center text-primary dark:text-primary-light mb-3">
-                                    <span class="material-symbols-outlined">language</span>
-                                </div>
-
-                                <h4 class="font-bold text-slate-800 dark:text-slate-100 mb-1">
-                                    {{ 'Gesprochene Sprachen'|trans }}
-                                </h4>
-
-                                <div class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    {{ content.languages_info|raw }}
-                                </div>
-
-                            </div>
-                        {% endif %}
-
-                    </div>
                 </div>
+
+                {# ================= FAQ ================= #}
+                {% if content.questions is not empty %}
+                    {{ title.render('quiz', 'Häufige Fragen') }}
+                    {{ faq.render(content.questions) }}
+                {% endif %}
+
             </div>
+
+            {# ================= RIGHT ================= #}
+            <div class="lg:col-span-7 space-y-6">
+
+                {% import "_components/contact/map_card.html.twig" as map %}
+                {% import "_components/contact/info_card.html.twig" as info %}
+
+                {# MAP ================= #}
+                {{ map.render(
+                    content.map_link|default(addressSettings.content.map_link|default('')),
+                    content.address|default(addressSettings.content.address|default('')),
+                    content.phone|default(addressSettings.content.phone|default(''))
+                ) }}
+
+                {# INFO CARDS ================= #}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                    {% if content.emergency_info is not empty %}
+                        {{ info.render(
+                            'emergency',
+                            'Notfallversorgung',
+                            content.emergency_info
+                        ) }}
+                    {% endif %}
+
+                    {% if content.languages_info is not empty %}
+                        {{ info.render(
+                            'language',
+                            'Gesprochene Sprachen',
+                            content.languages_info
+                        ) }}
+                    {% endif %}
+
+                </div>
+
+            </div>
+
         </div>
     </div>
+
 {% endblock %}

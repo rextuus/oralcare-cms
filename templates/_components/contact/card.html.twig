@@ -1,0 +1,6 @@
+{# card.html.twig #}
+{% macro render(childrenClass, content) %}
+    <div class="bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 transition-colors duration-500">
+        {{ content|raw }}
+    </div>
+{% endmacro %}

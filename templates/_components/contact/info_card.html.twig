@@ -1,0 +1,18 @@
+{# info_card.html.twig #}
+{% macro render(icon, title, content) %}
+    <div class="bg-slate-50/10 dark:bg-slate-700/50 p-5 rounded-2xl border border-slate-200 dark:border-slate-700">
+
+        {% import "_components/contact/icon.html.twig" as iconUI %}
+        {{ iconUI.render(icon) }}
+
+        <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-3 mb-1">
+            {{ title }}
+        </h4>
+
+        <div class="text-sm text-slate-600 dark:text-slate-300">
+            {{ content|raw }}
+        </div>
+
+    </div>
+{% endmacro %}
+das

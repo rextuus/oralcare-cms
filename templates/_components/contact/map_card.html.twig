@@ -1,0 +1,52 @@
+{# map_card.html.twig #}
+{% macro render(map_link, address, phone) %}
+    <div class="bg-slate-50/10 dark:bg-slate-700/50 rounded-3xl border border-slate-200 dark:border-slate-700 overflow-hidden">
+
+        <div class="relative aspect-video lg:aspect-[16/10] bg-slate-100 dark:bg-slate-900">
+
+            {% if map_link %}
+                <iframe src="{{ map_link }}"
+                        class="w-full h-full opacity-90 dark:opacity-75"
+                        loading="lazy"
+                        style="border:0;"></iframe>
+            {% else %}
+                <div class="flex items-center justify-center h-full text-slate-400">
+                    Keine Karte verfügbar
+                </div>
+            {% endif %}
+
+        </div>
+
+        <div class="p-6 flex flex-col md:flex-row justify-between gap-6">
+
+            <div class="flex gap-4 items-start">
+                {% import "_components/contact/icon.html.twig" as iconUI %}
+                {{ iconUI.render('location_on') }}
+
+                <div>
+                    <h3 class="font-bold text-lg text-slate-800 dark:text-slate-100">
+                        Unser Standort
+                    </h3>
+                    <div class="text-slate-600 dark:text-slate-300">
+                        {{ address|raw }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                {% import "_components/contact/button.html.twig" as btn %}
+
+                {% if phone %}
+                    {{ btn.primary('tel:' ~ phone|replace({' ': ''}), 'call', 'Jetzt anrufen') }}
+                {% endif %}
+
+                {{ btn.secondary(
+                    'https://www.google.com/maps/dir/?api=1&destination=' ~ address|url_encode,
+                    'directions',
+                    'Anfahrt'
+                ) }}
+            </div>
+
+        </div>
+    </div>
+{% endmacro %}

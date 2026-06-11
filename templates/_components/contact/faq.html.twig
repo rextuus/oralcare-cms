@@ -1,0 +1,23 @@
+{# faq.html.twig #}
+{% macro render(questions) %}
+    <div class="space-y-3">
+
+        {% for item in questions %}
+            <details class="bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-hidden">
+
+                <summary class="p-4 cursor-pointer flex justify-between text-slate-800 dark:text-slate-100 font-medium hover:bg-slate-100/50 dark:hover:bg-slate-600/30 transition-colors">
+                    {{ item.question }}
+                    <span class="material-symbols-outlined text-slate-400 group-open:rotate-180 transition-transform">
+                    expand_more
+                </span>
+                </summary>
+
+                <div class="px-4 pb-4 text-sm text-slate-600 dark:text-slate-300">
+                    {{ item.answer|raw }}
+                </div>
+
+            </details>
+        {% endfor %}
+
+    </div>
+{% endmacro %}
