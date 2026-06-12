@@ -12,10 +12,10 @@
 
         <div class="flex flex-wrap md:justify-center gap-2 md:gap-3 mb-6 md:mb-12 overflow-x-auto pb-4 md:pb-0 no-scrollbar" id="team-filter">
             <button data-filter="all" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-primary text-white font-medium shadow-md shadow-blue-500/10 hover:opacity-90 transition-all duration-500 active-filter border border-primary text-xs md:text-base">{{ 'Alle'|trans }}</button>
-            <button data-filter="dentists" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Zahnärzte'|trans }}</button>
-            <button data-filter="reception" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Empfang'|trans }}</button>
-            <button data-filter="assistants" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Assistenz'|trans }}</button>
-            <button data-filter="prophylaxis" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-300 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Prophylaxe'|trans }}</button>
+            <button data-filter="dentists" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-950 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Zahnärzte'|trans }}</button>
+            <button data-filter="reception" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-950 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Empfang'|trans }}</button>
+            <button data-filter="assistants" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-950 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Assistenz'|trans }}</button>
+            <button data-filter="prophylaxis" class="filter-btn whitespace-nowrap px-4 md:px-6 py-2 rounded-full bg-white dark:bg-slate-900 text-slate-950 dark:text-slate-950 font-medium border border-slate-200 dark:border-slate-800 hover:border-primary transition-all duration-500 text-xs md:text-base">{{ 'Prophylaxe'|trans }}</button>
         </div>
 
         <div class="p-2 md:p-4 grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-2 md:gap-8 transition-color duration-500" id="team-grid">
@@ -114,18 +114,24 @@
     </div>
 
         {# Karriere CTA-Block #}
-        {% if content.careers_title is not empty or content.careers_text is not empty %}
-            <div class="mt-10 mb-10 bg-slate-200 dark:bg-slate-600 rounded-[40px] p-8 md:p-12 text-center border border-slate-200 dark:border-slate-800/60 transition-colors duration-500 ease-in-out">
-                <h2 class="text-2xl md:text-3xl font-display font-bold mb-4 ext-slate-950 dark:text-slate-100 transition-colors duration-500">{{ content.careers_title }}</h2>
-                <div class="text-slate-600 dark:text-slate-100 mb-8 max-w-xl mx-auto transition-colors duration-500">{{ content.careers_text|raw }}</div>
+    {% if content.careers_title is not empty or content.careers_text is not empty %}
+        <!-- Wrapper mit exakt denselben Breiten- und Padding-Klassen wie der obere Container -->
+        <div class="w-full max-w-7xl mx-auto px-1 sm:px-6 lg:px-8 mt-10 mb-10">
+            <div class="bg-blue-200 dark:bg-slate-600 rounded-[40px] p-8 md:p-12 text-center border border-slate-200 dark:border-slate-800/60 transition-colors duration-500 ease-in-out">
+                <h2 class="text-2xl md:text-3xl font-display font-bold mb-4 text-slate-950 dark:text-slate-100 transition-colors duration-500">
+                    {{ content.careers_title }}
+                </h2>
+                <div class="text-slate-600 dark:text-slate-100 mb-8 max-w-xl mx-auto transition-colors duration-500">
+                    {{ content.careers_text|raw }}
+                </div>
                 {% if content.careers_button_link is not empty %}
                     <a href="{{ sulu_content_path(content.careers_button_link|first.url) }}" class="inline-block bg-primary text-white font-bold px-8 py-3.5 rounded-xl hover:bg-blue-600 transition-all duration-500 shadow-xl shadow-blue-500/30">
                         {{ content.careers_button_text|default('Offene Stellen ansehen'|trans) }}
                     </a>
                 {% endif %}
             </div>
-        {% endif %}
-    </div>
+        </div>
+    {% endif %}
 
     <style>
         .no-scrollbar::-webkit-scrollbar { display: none; }

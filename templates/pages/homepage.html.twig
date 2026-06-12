@@ -477,9 +477,16 @@
                                     <h4 class="font-bold {{ tokens.text.title }} text-lg truncate">{{ 'Öffnungszeiten'|trans }}</h4>
                                     <div class="{{ tokens.text.body }} break-words overflow-hidden mt-0.5 leading-relaxed">
                                         {% if hours is not empty %}
+                                        <div class="space-y-1 text-sm">
                                             {% for entry in hours %}
-                                                {{ entry.days }}: {{ entry.time }}{% if not loop.last %}<br/>{% endif %}
+                                                <div class="{{ tokens.text.body }}">
+                                                <span class="{{ tokens.text.muted }}">
+                                                    {{ entry.days }}:
+                                                </span>
+                                                    {{ entry.time }}
+                                                </div>
                                             {% endfor %}
+                                        </div>
                                         {% else %}
                                             {{ 'Mo - Fr: 08:00 - 18:00'|trans }}<br/>
                                             {{ 'Sa: 09:00 - 14:00'|trans }}

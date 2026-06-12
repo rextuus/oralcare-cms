@@ -21,7 +21,7 @@ class DesignTokenExtension extends AbstractExtension implements GlobalsInterface
                 'text' => [
                     'title' => 'text-slate-800 dark:text-slate-100',
                     'body' => 'text-slate-600 dark:text-slate-300',
-                    'muted' => 'text-slate-500 dark:text-slate-400',
+                    'muted' => 'text-slate-900 dark:text-slate-400',
                     'label' => 'text-xs uppercase tracking-wider text-slate-400 dark:text-slate-300 font-bold',
                 ],
                 'icon' => [
