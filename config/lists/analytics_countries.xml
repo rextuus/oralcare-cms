@@ -3,15 +3,15 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://schemas.sulu.io/list-builder/list http://schemas.sulu.io/list-builder/list-1.0.xsd">
 
-    <key>analytics_origins</key>
+    <key>analytics_countries</key>
 
     <properties>
         <property name="id" visibility="no">
             <field-name>id</field-name>
         </property>
 
-        <property name="origin" visibility="yes" translation="Herkunft">
-            <field-name>origin</field-name>
+        <property name="country" visibility="yes" searchability="yes" translation="Land">
+            <field-name>country</field-name>
         </property>
 
         <property name="hits" visibility="yes" translation="Aufrufe">

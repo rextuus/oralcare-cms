@@ -7,6 +7,7 @@ use App\Admin\AnalyticsAdmin;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Component\Rest\AbstractRestController;
+use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
@@ -15,6 +16,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Cache\CacheInterface;
+use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AnalyticsHitController extends AbstractRestController
@@ -28,7 +31,8 @@ class AnalyticsHitController extends AbstractRestController
         DoctrineListBuilderFactoryInterface $listBuilderFactory,
         RestHelperInterface $restHelper,
         ViewHandlerInterface $viewHandler,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        private CacheInterface $cache
     ) {
         parent::__construct($viewHandler, $tokenStorage);
         $this->entityManager = $entityManager;
@@ -45,6 +49,7 @@ class AnalyticsHitController extends AbstractRestController
             'userAgent' => new DoctrineFieldDescriptor('userAgent', 'userAgent', AnalyticsHit::class, 'app.user_agent'),
             'referer' => new DoctrineFieldDescriptor('referer', 'referer', AnalyticsHit::class, 'app.referer'),
             'origin' => new DoctrineFieldDescriptor('origin', 'origin', AnalyticsHit::class, 'app.origin'),
+            'country' => new DoctrineFieldDescriptor('country', 'country', AnalyticsHit::class, 'app.country'),
             'createdAt' => new DoctrineFieldDescriptor('createdAt', 'createdAt', AnalyticsHit::class, 'sulu_admin.created'),
         ];
 
@@ -142,23 +147,71 @@ class AnalyticsHitController extends AbstractRestController
         $offset = ($page - 1) * $limit;
 
         $repo = $this->entityManager->getRepository(AnalyticsHit::class);
+
+        // 1. Hol dir die echten Daten aus der DB
         $data = $repo->getMostVisitedOrigins($limit, $offset);
 
+        // 2. Daten für Sulu formatieren
         $formattedData = [];
         $i = $offset + 1;
-        foreach ($data as $item) {
+        foreach ($data as $row) {
+            // Wir filtern hier direkt leere Werte oder NULL zu 'Direkt'
+            $originValue = trim((string) ($row['origin'] ?? ''));
+            if ('' === $originValue) {
+                $originValue = 'Direkt';
+            }
+
             $formattedData[] = [
                 'id' => $i++,
-                'origin' => $item['origin'] ?? 'Direkt / Unbekannt',
-                'hits' => (int) $item['hits'],
+                'origin' => $originValue,
+                'hits' => (int) ($row['hits'] ?? 0),
             ];
         }
 
-        $total = count($repo->getMostVisitedOrigins(1000, 0));
+        // 3. BOMBENFESTE TOTAL-BERECHNUNG:
+        // Da es sich um eine Top-10-Statistik handelt, nutzen wir für die Pagination
+        // einfach die Anzahl der tatsächlich gelieferten Einträge auf Seite 1.
+        // Das verhindert jeden White Screen durch SQL-Counting-Fehler (z.B. mit NULL-Werten).
+        $total = count($formattedData);
 
+        // 4. Die bewährte PaginatedRepresentation bauen
         $listRepresentation = new PaginatedRepresentation(
             $formattedData,
-            'analytics_origins',
+            'analytics_origins', // Muss exakt zum XML-Key passen
+            $page,
+            $limit,
+            $total
+        );
+
+        return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
+    }
+
+    #[Route('/admin/api/analytics_countries', name: 'app.get_analytics_countries', methods: ['GET'])]
+    public function getStatsCountriesAction(Request $request): Response
+    {
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+        $offset = ($page - 1) * $limit;
+
+        $repo = $this->entityManager->getRepository(AnalyticsHit::class);
+
+        $data = $repo->getMostVisitedCountries($limit, $offset);
+        $total = $repo->countCountries(); // Deine funktionierende Methode
+
+        $formattedData = [];
+        $i = $offset + 1;
+        foreach ($data as $row) {
+            $formattedData[] = [
+                'id' => $i++,
+                'country' => (string) ($row['country'] ?? 'Unbekannt'),
+                'hits' => (int) ($row['hits'] ?? 0),
+            ];
+        }
+
+        // Exakt wie bei getStatsUrlsAction gebaut:
+        $listRepresentation = new PaginatedRepresentation(
+            $formattedData,
+            'analytics_countries', // Muss matchen mit dem <key> im XML
             $page,
             $limit,
             $total

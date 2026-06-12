@@ -19,6 +19,9 @@
         <property name="origin" visibility="yes" searchability="yes" translation="app.origin">
             <field-name>origin</field-name>
         </property>
+        <property name="country" visibility="yes" searchability="yes" translation="app.country">
+            <field-name>country</field-name>
+        </property>
         <property name="createdAt" type="datetime" visibility="yes" translation="sulu_admin.created">
             <field-name>createdAt</field-name>
         </property>

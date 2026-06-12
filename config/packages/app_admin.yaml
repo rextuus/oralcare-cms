@@ -7,6 +7,12 @@ sulu_admin:
         analytics_urls:
             routes:
                 list: 'app.get_analytics_urls'
+        analytics_origins:
+            routes:
+                list: 'app.get_analytics_origins'
+        analytics_countries:
+            routes:
+                list: 'app.get_analytics_countries'
         analytics_daily:
             routes:
                 list: 'app.get_analytics_daily'

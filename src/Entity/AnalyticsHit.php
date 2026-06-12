@@ -7,7 +7,9 @@ use App\Repository\AnalyticsHitRepository;
 
 #[ORM\Entity(repositoryClass: AnalyticsHitRepository::class)]
 #[ORM\Table(name: 'app_analytics_hit')]
-#[ORM\Index(name: 'idx_url', columns: ['url'])]
+#[ORM\Index(name: 'idx_url_hits', columns: ['url', 'id'])]
+#[ORM\Index(name: 'idx_origin_hits', columns: ['origin', 'id'])]
+#[ORM\Index(name: 'idx_country_hits', columns: ['country', 'id'])]
 #[ORM\Index(name: 'idx_created_at', columns: ['created_at'])]
 class AnalyticsHit
 {
@@ -27,6 +29,9 @@ class AnalyticsHit
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $origin = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $country = null;
 
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
@@ -82,6 +87,17 @@ class AnalyticsHit
     public function setOrigin(?string $origin): self
     {
         $this->origin = $origin;
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
         return $this;
     }
 

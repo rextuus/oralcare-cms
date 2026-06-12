@@ -6,6 +6,10 @@
     <key>analytics_urls</key>
 
     <properties>
+        <property name="id" visibility="no">
+            <field-name>id</field-name>
+        </property>
+
         <property name="url" visibility="yes" searchability="yes" translation="Aufgerufene URL">
             <field-name>url</field-name>
         </property>

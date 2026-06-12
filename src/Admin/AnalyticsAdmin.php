@@ -13,6 +13,7 @@ class AnalyticsAdmin extends Admin
     public const LIST_VIEW = 'app.analytics_hits_list';
     public const STATS_URLS_VIEW = 'app.analytics_urls_list';
     public const STATS_ORIGINS_VIEW = 'app.analytics_origins_list';
+    public const STATS_COUNTRIES_VIEW = 'app.analytics_countries_list';
     public const STATS_DAILY_VIEW = 'app.analytics_daily_list';
     public const EDIT_FORM_VIEW = 'app.analytics_hit_edit_form';
     public const SECURITY_CONTEXT = 'sulu.modules.analytics';
@@ -45,6 +46,11 @@ class AnalyticsAdmin extends Admin
         $originsItem->setView(static::STATS_ORIGINS_VIEW);
         $analyticsItem->addChild($originsItem);
 
+        $countriesItem = new NavigationItem('app.analytics_countries');
+        $countriesItem->setLabel('Top Länder');
+        $countriesItem->setView(static::STATS_COUNTRIES_VIEW);
+        $analyticsItem->addChild($countriesItem);
+
         $dailyItem = new NavigationItem('app.analytics_daily');
         $dailyItem->setLabel('Traffic nach Tagen');
         $dailyItem->setView(static::STATS_DAILY_VIEW);
@@ -76,6 +82,13 @@ class AnalyticsAdmin extends Admin
             ->setTitle('Top 10 Herkunft')
             ->addListAdapters(['table']);
         $viewCollection->add($originsView);
+
+        $countriesView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_COUNTRIES_VIEW, '/analytics/countries')
+            ->setResourceKey('analytics_countries')
+            ->setListKey('analytics_countries')
+            ->setTitle('Top 10 Länder')
+            ->addListAdapters(['table']);
+        $viewCollection->add($countriesView);
 
         $dailyView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_DAILY_VIEW, '/analytics/daily')
             ->setResourceKey('analytics_daily')

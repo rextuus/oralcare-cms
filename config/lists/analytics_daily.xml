@@ -6,6 +6,10 @@
     <key>analytics_daily</key>
 
     <properties>
+        <property name="id" visibility="no">
+            <field-name>id</field-name>
+        </property>
+
         <property name="date" visibility="yes" translation="Datum">
             <field-name>date</field-name>
         </property>
