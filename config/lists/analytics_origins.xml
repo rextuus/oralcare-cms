@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<list xmlns="http://schemas.sulu.io/list-builder/list">
+    <key>analytics_origins</key>
+
+    <properties>
+        <property name="id" visibility="no">
+            <field-name>id</field-name>
+        </property>
+
+        <property name="origin" visibility="yes" searchability="yes" translation="app.origin">
+            <field-name>origin</field-name>
+        </property>
+
+        <property name="hits" type="integer" visibility="yes" translation="app.hits">
+            <field-name>hits</field-name>
+        </property>
+    </properties>
+</list>

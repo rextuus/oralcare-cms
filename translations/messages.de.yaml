@@ -1,0 +1,8 @@
+app.user_agent: User Agent
+app.referer: Referer
+app.origin: Herkunft
+app.hits: Aufrufe
+app.analytics_urls: Top URLs
+app.analytics_origins: Top Herkunft
+app.analytics_daily: Traffic nach Tagen
+app.analytics_hits: Logs
