@@ -7,9 +7,9 @@
     {% import "_components/contact/button.html.twig" as btn %}
 
     {# Hero Section #}
-    <header class="relative pt-24 pb-20 overflow-hidden w-full max-w-full overflow-x-hidden">
+    <header class="relative pt-10 pb-10 w-full max-w-full">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-            <div class="max-w-3xl min-w-0 flex flex-col items-center text-center mx-auto overflow-hidden">
+            <div class="max-w-3xl min-w-0 flex flex-col items-center text-center mx-auto">
                 {% if content.hero_badge is not empty %}
                     <span class="inline-block py-1 px-3 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary text-sm font-semibold mb-4 w-fit">
                         {{ content.hero_badge }}
@@ -19,9 +19,9 @@
                     {{ content.title|raw }}
                 </h1>
                 {% if content.hero_subtitle is not empty %}
-                    <p class="text-xl md:text-2xl {{ tokens.text.body }} leading-relaxed max-w-2xl break-words opacity-90">
+                    <div class="text-xl md:text-2xl {{ tokens.text.body }} leading-relaxed max-w-2xl break-words opacity-90">
                         {{ content.hero_subtitle|raw }}
-                    </p>
+                    </div>
                 {% endif %}
                 {% if content.hero_description is not empty %}
                     <div class="mt-8 text-lg {{ tokens.text.body }} leading-relaxed max-w-3xl opacity-80 prose dark:prose-invert">
@@ -30,17 +30,18 @@
                 {% endif %}
             </div>
         </div>
-        <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 rounded-full blur-[120px] -z-10"></div>
+        {# Sanfterer Verlaufshintergrund ohne harte Kanten #}
+        <div class="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[800px] bg-gradient-to-b from-primary/20 to-transparent rounded-full blur-[120px]"></div>
+        </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
-        <div class="bg-slate-50/50 dark:bg-slate-900/50 rounded-[3rem] p-8 md:p-12 lg:p-16 border border-slate-100 dark:border-slate-800 shadow-inner">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                {% import "_components/service_card.html.twig" as card %}
-                {% for service in content.services_list %}
-                    {{ card.render(service) }}
-                {% endfor %}
-            </div>
+    <main class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pb-24">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 lg:gap-8">
+            {% import "_components/service_card.html.twig" as card %}
+            {% for service in content.services_list %}
+                {{ card.render(service) }}
+            {% endfor %}
         </div>
 
         {# CTA Section #}

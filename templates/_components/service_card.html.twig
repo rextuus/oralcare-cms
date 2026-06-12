@@ -1,7 +1,22 @@
 {% macro render(service) %}
-    <article class="group flex flex-col {{ tokens.card.soft }} rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
-        <div class="h-64 overflow-hidden relative">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    <article class="group flex flex-col {{ tokens.card.soft }} rounded-2xl sm:rounded-3xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-500">
+        <div class="h-40 sm:h-48 overflow-hidden relative">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 opacity-60 sm:opacity-40 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+            {# Icon in der linken unteren Ecke des Bildes #}
+            <div class="{{ tokens.icon.service_card.container }}">
+                {% if service.icon is not empty %}
+                    {% set icon = service.icon|first %}
+                    {% if icon.thumbnails is defined and icon.thumbnails[tokens.icon.service_card.format] is defined %}
+                        <img src="{{ icon.thumbnails[tokens.icon.service_card.format] }}" alt="{{ icon.title }}" class="{{ tokens.icon.service_card.img }}">
+                    {% elseif icon.url is defined %}
+                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="{{ tokens.icon.service_card.img }}">
+                    {% endif %}
+                {% else %}
+                    <span class="material-symbols-outlined text-base sm:text-xl">verified</span>
+                {% endif %}
+            </div>
+
             {% if service.image is not empty or service.image_mobile is not empty %}
                 {% set image = service.image|first %}
                 {% set image_mobile = service.image_mobile|first|default(image) %}
@@ -24,24 +39,13 @@
                 <img alt="{{ service.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?q=80&w=800&auto=format&fit=crop">
             {% endif %}
         </div>
-        <div class="p-8">
-            <div class="flex items-center gap-4 mb-6">
-                {# Einheitliche Icon-Box wie im Kontakt-Bereich #}
-                <div class="{{ tokens.icon.circle }}">
-                    {% if service.icon is not empty %}
-                        {% set icon = service.icon|first %}
-                        <img src="{{ icon.url }}" alt="{{ icon.title }}" class="w-6 h-6 object-contain dark:brightness-0">
-                    {% else %}
-                        <span class="material-symbols-outlined text-2xl text-primary dark:text-slate-900">verified</span>
-                    {% endif %}
-                </div>
-                <h2 class="text-2xl font-bold {{ tokens.text.title }}">{{ service.title }}</h2>
-            </div>
-            <p class="{{ tokens.text.body }} mb-6 leading-relaxed">
+        <div class="px-3 py-4 sm:p-6 flex-1 flex flex-col">
+            <h2 class="text-sm sm:text-lg font-bold {{ tokens.text.title }} leading-tight mb-3 sm:mb-4">{{ service.title }}</h2>
+            <div class="{{ tokens.text.body }} mb-4 sm:mb-6 text-[13px] sm:text-sm leading-relaxed" style="-webkit-line-clamp: unset !important; display: block !important;">
                 {{ service.description|raw }}
-            </p>
+            </div>
             {% if service.link is not empty %}
-                <a class="inline-flex items-center font-bold text-primary hover:text-blue-600 transition-colors group/link" href="{{ sulu_content_path(service.link|first.url) }}">
+                <a class="mt-auto inline-flex items-center font-bold text-primary hover:text-blue-600 transition-colors group/link" href="{{ sulu_content_path(service.link|first.url) }}">
                     {{ 'Mehr erfahren'|trans }}
                     <span class="material-symbols-outlined text-sm ml-1 group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
                 </a>

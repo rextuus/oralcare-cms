@@ -14,7 +14,7 @@ class DesignTokenExtension extends AbstractExtension implements GlobalsInterface
         return [
             'tokens' => [
                 'card' => [
-                    'soft' => 'bg-slate-50/10 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-700 transition-colors duration-500',
+                    'soft' => 'bg-slate-50/10 dark:bg-slate-700/50 border border-slate-300 dark:border-slate-600 transition-colors duration-500',
                     'primary' => 'bg-primary/10 dark:bg-primary/20 border border-primary/20',
                     'flat' => 'bg-transparent',
                 ],
@@ -26,6 +26,11 @@ class DesignTokenExtension extends AbstractExtension implements GlobalsInterface
                 ],
                 'icon' => [
                     'circle' => 'w-12 h-12 rounded-full bg-blue-50 dark:bg-blue-200 flex items-center justify-center text-primary dark:text-slate-900 shrink-0',
+                    'service_card' => [
+                        'container' => 'absolute bottom-3 left-3 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm shadow-lg flex items-center justify-center text-primary dark:text-blue-400',
+                        'img' => 'w-4 h-4 sm:w-5 sm:h-5 object-contain',
+                        'format' => 'service-icon',
+                    ],
                 ],
                 'button' => [
                     'primary' => 'bg-primary hover:bg-blue-600 text-white dark:!text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-500/20 text-sm sm:text-base',
