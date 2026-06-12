@@ -12,6 +12,7 @@ class AnalyticsAdmin extends Admin
 {
     public const LIST_VIEW = 'app.analytics_hits_list';
     public const STATS_URLS_VIEW = 'app.analytics_urls_list';
+    public const STATS_ORIGINS_VIEW = 'app.analytics_origins_list';
     public const STATS_DAILY_VIEW = 'app.analytics_daily_list';
     public const EDIT_FORM_VIEW = 'app.analytics_hit_edit_form';
     public const SECURITY_CONTEXT = 'sulu.modules.analytics';
@@ -39,6 +40,11 @@ class AnalyticsAdmin extends Admin
         $urlsItem->setView(static::STATS_URLS_VIEW);
         $analyticsItem->addChild($urlsItem);
 
+        $originsItem = new NavigationItem('app.analytics_origins');
+        $originsItem->setLabel('Top Herkunft');
+        $originsItem->setView(static::STATS_ORIGINS_VIEW);
+        $analyticsItem->addChild($originsItem);
+
         $dailyItem = new NavigationItem('app.analytics_daily');
         $dailyItem->setLabel('Traffic nach Tagen');
         $dailyItem->setView(static::STATS_DAILY_VIEW);
@@ -63,6 +69,13 @@ class AnalyticsAdmin extends Admin
             ->setTitle('Top 10 URLs')
             ->addListAdapters(['table']);
         $viewCollection->add($urlsView);
+
+        $originsView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_ORIGINS_VIEW, '/analytics/origins')
+            ->setResourceKey('analytics_origins')
+            ->setListKey('analytics_origins')
+            ->setTitle('Top 10 Herkunft')
+            ->addListAdapters(['table']);
+        $viewCollection->add($originsView);
 
         $dailyView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_DAILY_VIEW, '/analytics/daily')
             ->setResourceKey('analytics_daily')

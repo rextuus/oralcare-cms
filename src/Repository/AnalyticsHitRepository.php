@@ -40,6 +40,18 @@ class AnalyticsHitRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function getMostVisitedOrigins(int $limit = 10, int $offset = 0): array
+    {
+        return $this->createQueryBuilder('h')
+            ->select('h.origin', 'COUNT(h.id) as hits')
+            ->groupBy('h.origin')
+            ->orderBy('hits', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     public function deleteImages(): int
     {
         return $this->createQueryBuilder('h')

@@ -134,6 +134,39 @@ class AnalyticsHitController extends AbstractRestController
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
     }
 
+    #[Route('/admin/api/analytics_origins', name: 'app.get_analytics_origins', methods: ['GET'])]
+    public function getStatsOriginsAction(Request $request): Response
+    {
+        $page = $request->query->getInt('page', 1);
+        $limit = $request->query->getInt('limit', 10);
+        $offset = ($page - 1) * $limit;
+
+        $repo = $this->entityManager->getRepository(AnalyticsHit::class);
+        $data = $repo->getMostVisitedOrigins($limit, $offset);
+
+        $formattedData = [];
+        $i = $offset + 1;
+        foreach ($data as $item) {
+            $formattedData[] = [
+                'id' => $i++,
+                'origin' => $item['origin'] ?? 'Direkt / Unbekannt',
+                'hits' => (int) $item['hits'],
+            ];
+        }
+
+        $total = count($repo->getMostVisitedOrigins(1000, 0));
+
+        $listRepresentation = new PaginatedRepresentation(
+            $formattedData,
+            'analytics_origins',
+            $page,
+            $limit,
+            $total
+        );
+
+        return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
+    }
+
     #[Route('/admin/api/analytics_hits/{id}', name: 'app.get_analytics_hit', methods: ['GET'])]
     public function getAction(int $id): Response
     {
