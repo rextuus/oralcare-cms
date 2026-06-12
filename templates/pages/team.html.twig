@@ -115,13 +115,12 @@
 
         {# Karriere CTA-Block #}
     {% if content.careers_title is not empty or content.careers_text is not empty %}
-        <!-- Wrapper mit exakt denselben Breiten- und Padding-Klassen wie der obere Container -->
-        <div class="w-full max-w-7xl mx-auto px-1 sm:px-6 lg:px-8 mt-10 mb-10">
-            <div class="bg-blue-200 dark:bg-slate-600 rounded-[40px] p-8 md:p-12 text-center border border-slate-200 dark:border-slate-800/60 transition-colors duration-500 ease-in-out">
+        <div class="w-full max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 mb-16">
+            <div class="bg-blue-200 dark:bg-slate-600 rounded-[40px] p-8 md:py-16 md:px-12 text-center border border-slate-200 dark:border-slate-800/60 transition-colors duration-500 ease-in-out">
                 <h2 class="text-2xl md:text-3xl font-display font-bold mb-4 text-slate-950 dark:text-slate-100 transition-colors duration-500">
                     {{ content.careers_title }}
                 </h2>
-                <div class="text-slate-600 dark:text-slate-100 mb-8 max-w-xl mx-auto transition-colors duration-500">
+                <div class="text-slate-600 dark:text-slate-100 mb-8 max-w-xl mx-auto transition-colors duration-500 leading-relaxed">
                     {{ content.careers_text|raw }}
                 </div>
                 {% if content.careers_button_link is not empty %}
