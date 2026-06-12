@@ -36,6 +36,18 @@ class DesignTokenExtension extends AbstractExtension implements GlobalsInterface
                     'primary' => 'bg-primary hover:bg-blue-600 text-white dark:!text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 shadow-xl shadow-blue-500/20 text-sm sm:text-base',
                     'secondary' => 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-800 dark:!text-slate-900 px-4 sm:px-6 py-3 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 text-sm sm:text-base',
                 ],
+                'menu' => [
+                    'mobile' => [
+                        'container' => 'bg-white/90 dark:bg-slate-800/90',
+                        'backdrop' => 'fixed inset-0 z-[99998] bg-slate-900/50 backdrop-blur-sm',
+                        'drawer' => 'fixed inset-y-0 right-0 z-[99999] w-full md:max-w-md bg-white dark:bg-slate-900 shadow-2xl transition-all duration-300',
+                        'header' => 'flex justify-between items-center mb-10 border-b border-slate-200 dark:border-slate-800 pb-6',
+                        'link' => 'text-2xl font-bold text-slate-800 dark:text-slate-300 hover:text-primary transition-colors',
+                        'link_active' => 'text-primary',
+                        'footer_border' => 'mt-auto pt-8 border-t border-slate-200 dark:border-slate-800',
+                        'close_button' => 'p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-black dark:text-white',
+                    ],
+                ],
             ],
         ];
     }

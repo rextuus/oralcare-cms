@@ -112,10 +112,10 @@
     {% include 'includes/header.html.twig' %}
 
     <!-- Mobile Menu Backdrop -->
-    <div class="fixed inset-0 z-[99998] bg-slate-900/50 backdrop-blur-sm" id="mobile-menu-backdrop" style="display: none !important;"></div>
+    <div class="{{ tokens.menu.mobile.backdrop }}" id="mobile-menu-backdrop" style="display: none !important;"></div>
 
     <!-- Mobile Menu Drawer -->
-    <div class="fixed inset-y-0 right-0 z-[99999] w-full md:max-w-md bg-white dark:bg-slate-900 shadow-2xl" id="mobile-menu" style="display: none !important;">
+    <div class="{{ tokens.menu.mobile.drawer }}" id="mobile-menu" style="display: none !important;">
         <div class="flex flex-col h-full relative">
             {% set footerSettings = sulu_snippet_load_by_area('footer_settings') %}
             {% set headerSettings = sulu_snippet_load_by_area('header_settings') %}
@@ -125,8 +125,8 @@
                 {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
             {% endif %}
 
-            <div class="p-6 h-full flex flex-col overflow-y-auto">
-                <div class="flex justify-between items-center mb-10 border-b border-slate-200 dark:border-slate-800 pb-6">
+            <div class="p-6 h-full flex flex-col overflow-y-auto {{ tokens.menu.mobile.container }}">
+                <div class="{{ tokens.menu.mobile.header }}">
                     <a href="{{ sulu_content_root_path() }}" class="flex items-center gap-2">
                         {% if common_settings and common_settings.content.logo is defined and common_settings.content.logo|length > 0 %}
                             {% set image = common_settings.content.logo %}
@@ -146,24 +146,24 @@
                         {% endif %}
                         <span class="font-display font-bold text-xl sm:text-2xl tracking-tight text-slate-900 dark:text-white">{{ common_settings.content.company_name|default('OralCare') }}<span class="text-primary">.</span></span>
                     </a>
-                    <button class="p-2 rounded-full hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors text-black dark:text-white" id="mobile-menu-close">
+                    <button class="{{ tokens.menu.mobile.close_button }}" id="mobile-menu-close">
                         <span class="material-symbols-outlined">close</span>
                     </button>
                 </div>
 
                 <nav class="flex flex-col space-y-6 mb-10">
-                    <a class="text-2xl font-bold text-black dark:text-slate-300 hover:text-primary transition-colors {{ app.request.pathInfo == sulu_content_root_path() ? 'text-primary' : '' }}" href="{{ sulu_content_root_path() }}">
+                    <a class="{{ tokens.menu.mobile.link }} {{ app.request.pathInfo == sulu_content_root_path() ? tokens.menu.mobile.link_active : '' }}" href="{{ sulu_content_root_path() }}">
                         {{ headerSettings.content.home_link_title|default('Home'|trans) }}
                     </a>
                     {% set navItems = sulu_page_navigation_root_tree('main', 1) %}
                     {% for item in navItems %}
-                        <a class="text-2xl font-bold text-black dark:text-slate-300 hover:text-primary transition-colors {{ app.request.pathInfo == sulu_content_path(item.url) ? 'text-primary' : '' }}" href="{{ sulu_content_path(item.url) }}">
+                        <a class="{{ tokens.menu.mobile.link }} {{ app.request.pathInfo == sulu_content_path(item.url) ? tokens.menu.mobile.link_active : '' }}" href="{{ sulu_content_path(item.url) }}">
                             {{ item.title }}
                         </a>
                     {% endfor %}
                 </nav>
 
-                <div class="mt-auto pt-8 border-t border-slate-200 dark:border-slate-800">
+                <div class="{{ tokens.menu.mobile.footer_border }}">
                     {% if addressSettings and addressSettings.content.phone is defined and addressSettings.content.phone %}
                         <a class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-medium mb-6 text-lg" href="tel:{{ addressSettings.content.phone|replace({' ': ''}) }}">
                             <span class="material-symbols-outlined text-primary text-2xl">call</span>
