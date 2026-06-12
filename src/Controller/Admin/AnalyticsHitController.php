@@ -44,6 +44,7 @@ class AnalyticsHitController extends AbstractRestController
             'url' => new DoctrineFieldDescriptor('url', 'url', AnalyticsHit::class, 'sulu_admin.url'),
             'userAgent' => new DoctrineFieldDescriptor('userAgent', 'userAgent', AnalyticsHit::class, 'app.user_agent'),
             'referer' => new DoctrineFieldDescriptor('referer', 'referer', AnalyticsHit::class, 'app.referer'),
+            'origin' => new DoctrineFieldDescriptor('origin', 'origin', AnalyticsHit::class, 'app.origin'),
             'createdAt' => new DoctrineFieldDescriptor('createdAt', 'createdAt', AnalyticsHit::class, 'sulu_admin.created'),
         ];
 

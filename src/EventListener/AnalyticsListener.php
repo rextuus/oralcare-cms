@@ -40,6 +40,16 @@ readonly class AnalyticsListener
         $hit->setUserAgent($request->headers->get('User-Agent'));
         $hit->setReferer($request->headers->get('referer'));
 
+        // Bestimme die Herkunft
+        $origin = $request->query->get('utm_source');
+        if (!$origin) {
+            $referer = $request->headers->get('referer');
+            if ($referer) {
+                $origin = parse_url($referer, PHP_URL_HOST);
+            }
+        }
+        $hit->setOrigin($origin);
+
         $this->entityManager->persist($hit);
         $this->entityManager->flush();
     }

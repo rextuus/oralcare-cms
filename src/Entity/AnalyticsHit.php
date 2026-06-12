@@ -25,6 +25,9 @@ class AnalyticsHit
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $referer = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $origin = null;
+
     #[ORM\Column]
     private \DateTimeImmutable $createdAt;
 
@@ -68,6 +71,17 @@ class AnalyticsHit
     public function setReferer(?string $referer): self
     {
         $this->referer = $referer;
+        return $this;
+    }
+
+    public function getOrigin(): ?string
+    {
+        return $this->origin;
+    }
+
+    public function setOrigin(?string $origin): self
+    {
+        $this->origin = $origin;
         return $this;
     }
 
