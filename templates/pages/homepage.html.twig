@@ -143,7 +143,7 @@
                                     <source media="(max-width: 639px)" srcset="{{ image_mobile.thumbnails[mobile_format]|default(image_mobile.url) }}">
                                     <img src="{{ image.thumbnails[desktop_format]|default(image.thumbnails['square-md'])|default(image.url) }}"
                                          alt="{{ image.title }}"
-                                         class="rounded-3xl {{ variant == 'horizontal' ? 'h-48' : (variant == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover shadow-lg border border-slate-200 dark:border-slate-800 transition-all duration-500 dark:brightness-95 dark:group-hover:brightness-100 block max-w-full"
+                                         class="rounded-3xl {{ variant == 'horizontal' ? 'h-48' : (variant == 'vertical' ? 'h-80' : 'h-64') }} w-full object-cover border border-slate-200 dark:border-slate-800 transition-all duration-500 dark:brightness-95 dark:group-hover:brightness-100 block max-w-full"
                                          style="object-position: {{ image.focusX|default(50) }}% {{ image.focusY|default(50) }}%">
                                 </picture>
                             {% endif %}
