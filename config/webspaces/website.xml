@@ -24,13 +24,19 @@
     <navigation>
         <contexts>
             <context key="main">
-                <meta><title lang="de">Hauptnavigation</title></meta>
+                <meta>
+                    <title lang="de">Hauptnavigation</title>
+                </meta>
             </context>
             <context key="footer">
-                <meta><title lang="de">Footer Navigation</title></meta>
+                <meta>
+                    <title lang="de">Footer Navigation</title>
+                </meta>
             </context>
             <context key="services">
-                <meta><title lang="de">Leistungs-Navigation</title></meta>
+                <meta>
+                    <title lang="de">Leistungs-Navigation</title>
+                </meta>
             </context>
         </contexts>
     </navigation>
@@ -49,20 +55,16 @@
                     <urls>
                         <url language="de">zahnarztpraxis-kaldauen.de</url>
                         <url language="de">www.zahnarztpraxis-kaldauen.de</url>
-                        <url language="en">zahnarztpraxis-kaldauen.de/{locale}</url>
-                        <url language="en">www.zahnarztpraxis-kaldauen.de/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="stage">
                     <urls>
                         <url language="de">{host}</url>
-                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="test">
                     <urls>
                         <url language="de">{host}</url>
-                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="dev">
@@ -70,9 +72,6 @@
                         <url language="de">localhost:8080</url>
                         <url language="de">localhost</url>
                         <url language="de">{host}</url>
-                        <url language="en">localhost:8080/{locale}</url>
-                        <url language="en">localhost/{locale}</url>
-                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
             </environments>
