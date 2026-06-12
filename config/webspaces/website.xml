@@ -55,16 +55,20 @@
                     <urls>
                         <url language="de">zahnarztpraxis-kaldauen.de</url>
                         <url language="de">www.zahnarztpraxis-kaldauen.de</url>
+                        <url language="en">zahnarztpraxis-kaldauen.de/{locale}</url>
+                        <url language="en">www.zahnarztpraxis-kaldauen.de/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="stage">
                     <urls>
                         <url language="de">{host}</url>
+                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="test">
                     <urls>
                         <url language="de">{host}</url>
+                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
                 <environment type="dev">
@@ -72,6 +76,9 @@
                         <url language="de">localhost:8080</url>
                         <url language="de">localhost</url>
                         <url language="de">{host}</url>
+                        <url language="en">localhost:8080/{locale}</url>
+                        <url language="en">localhost/{locale}</url>
+                        <url language="en">{host}/{locale}</url>
                     </urls>
                 </environment>
             </environments>
