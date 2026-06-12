@@ -55,6 +55,12 @@
                         <title lang="de">Hero Untertitel</title>
                     </meta>
                 </property>
+                <property name="hero_description" type="text_editor">
+                    <meta>
+                        <title lang="en">Hero Description</title>
+                        <title lang="de">Hero Beschreibung</title>
+                    </meta>
+                </property>
             </properties>
         </section>
 
