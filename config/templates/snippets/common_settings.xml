@@ -52,6 +52,13 @@
                 <param name="type" value="toggler"/>
             </params>
         </property>
+
+        <property name="dr_flex_practice_id" type="text_line">
+            <meta>
+                <title lang="en">Dr. Flex Practice ID</title>
+                <title lang="de">Dr. Flex Praxis-ID</title>
+            </meta>
+        </property>
     </properties>
 
     <areas>

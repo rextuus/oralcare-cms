@@ -1,6 +1,7 @@
 {# button.html.twig #}
-{% macro primary(href, icon, label) %}
+{% macro primary(href, icon, label, onclick) %}
     <a href="{{ href }}"
+       {% if onclick %}onclick="{{ onclick }}"{% endif %}
        class="{{ tokens.button.primary }}">
         {% if icon %}
             <span class="material-symbols-outlined shrink-0">{{ icon }}</span>
@@ -9,8 +10,9 @@
     </a>
 {% endmacro %}
 
-{% macro secondary(href, icon, label) %}
+{% macro secondary(href, icon, label, onclick) %}
     <a href="{{ href }}"
+       {% if onclick %}onclick="{{ onclick }}"{% endif %}
        class="{{ tokens.button.secondary }}">
         {% if icon %}
             <span class="material-symbols-outlined shrink-0">{{ icon }}</span>

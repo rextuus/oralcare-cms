@@ -107,6 +107,17 @@
         {{ encore_entry_link_tags('app', null, 'website') }}
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
     {% endblock %}
+
+    {% if common_settings.content.dr_flex_practice_id|default(false) %}
+        <script>
+            window.drFlexSettings = {
+                medicalPracticeId: "{{ common_settings.content.dr_flex_practice_id }}",
+                modal: true,
+                alwaysModal: true
+            };
+        </script>
+        <script src="https://dr-flex.de/embed.js?medicalPracticeId={{ common_settings.content.dr_flex_practice_id }}&v={{ date().timestamp }}"></script>
+    {% endif %}
 </head>
 <body class="bg-background-light dark:bg-background-dark text-black dark:text-slate-300 font-sans transition-colors duration-300">
     {% include 'includes/header.html.twig' %}
@@ -121,7 +132,9 @@
             {% set headerSettings = sulu_snippet_load_by_area('header_settings') %}
             {% set addressSettings = sulu_snippet_load_by_area('address_settings') %}
             {% set booking_url = sulu_content_path('/contact') %}
-            {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
+            {% if common_settings.content.dr_flex_practice_id|default(false) %}
+                {% set booking_url = 'javascript:triggerDrFlex()' %}
+            {% elseif headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
                 {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
             {% endif %}
 
@@ -187,6 +200,64 @@
     {% include 'includes/footer.html.twig' %}
 
     <script>
+        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        const closeMenu = () => {
+            if (mobileMenu) mobileMenu.style.setProperty('display', 'none', 'important');
+            if (mobileMenuBackdrop) mobileMenuBackdrop.style.setProperty('display', 'none', 'important');
+            document.body.style.overflow = '';
+        };
+
+        window.triggerDrFlex = function(options) {
+            closeMenu();
+
+            var practiceId = "{{ common_settings.content.dr_flex_practice_id }}";
+            if (typeof options === 'number' || typeof options === 'string' && !isNaN(options)) {
+                practiceId = options;
+                options = {};
+            }
+
+            options = options || {};
+
+            var originalInnerWidth = window.innerWidth;
+            var originalUserAgent = navigator.userAgent;
+
+            try {
+                // Force modal by spoofing desktop
+                Object.defineProperty(window, 'innerWidth', {
+                    get: function() { return 1280; },
+                    configurable: true
+                });
+                Object.defineProperty(navigator, 'userAgent', {
+                    get: function() { return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'; },
+                    configurable: true
+                });
+            } catch (e) { console.error("Could not override device properties", e); }
+
+            try {
+                if (typeof window.toggleDrFlexAppointments === 'function') {
+                    window.toggleDrFlexAppointments(practiceId, options);
+                } else {
+                    window.open('https://dr-flex.de/embed?medicalPracticeId=' + practiceId, '_blank');
+                }
+            } catch (e) {
+                console.error('Dr. Flex toggle failed', e);
+                window.open('https://dr-flex.de/embed?medicalPracticeId=' + practiceId, '_blank');
+            } finally {
+                // Restore original properties
+                try {
+                    delete window.innerWidth;
+                    window.innerWidth = originalInnerWidth;
+                    delete navigator.userAgent;
+                    // Note: navigator.userAgent might not be restorable via delete if it wasn't configurable
+                    // but we set it to configurable: true above.
+                } catch (e) { /* ignore */ }
+            }
+        };
+
         const themeToggle = document.getElementById('theme-toggle');
         const html = document.documentElement;
         // Check for saved theme
@@ -207,15 +278,8 @@
             });
         }
 
-        const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
-        const mobileMenuClose = document.getElementById('mobile-menu-close');
-        const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
-        const mobileMenu = document.getElementById('mobile-menu');
-
-        const closeMenu = () => {
-            if (mobileMenu) mobileMenu.style.setProperty('display', 'none', 'important');
-            if (mobileMenuBackdrop) mobileMenuBackdrop.style.setProperty('display', 'none', 'important');
-            document.body.style.overflow = '';
+        const closeMenuOnEvent = () => {
+            closeMenu();
         };
 
         if (mobileMenuToggle && mobileMenu) {

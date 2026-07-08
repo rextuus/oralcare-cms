@@ -32,7 +32,12 @@
                     </div>
                     <div class="flex flex-col sm:flex-row gap-4">
                         {% if common_settings.content.enable_online_booking|default(false) %}
-                            {{ btn.primary(sulu_content_path('/contact'), 'calendar_today', 'Termin online buchen'|trans) }}
+                            {% set booking_url = sulu_content_path('/contact') %}
+                            {% set booking_onclick = null %}
+                            {% if common_settings.content.dr_flex_practice_id|default(false) %}
+                                {% set booking_url = 'javascript:triggerDrFlex()' %}
+                            {% endif %}
+                            {{ btn.primary(booking_url, 'calendar_today', 'Termin online buchen'|trans, booking_onclick) }}
                         {% endif %}
                         {# Der zweite Button wechselt jetzt ebenfalls flüssig den Rahmen, Hintergrund und Textfarbe #}
                         {{ btn.secondary(

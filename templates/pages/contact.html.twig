@@ -98,7 +98,12 @@
                                     </div>
                                 </div>
                             </div>
-                            {{ btn.primary(sulu_content_path(content.booking_link.url), null, 'Buchen'|trans) }}
+                            {% set booking_url = sulu_content_path(content.booking_link.url) %}
+                            {% set booking_onclick = null %}
+                            {% if common_settings.content.dr_flex_practice_id|default(false) %}
+                                {% set booking_url = 'javascript:triggerDrFlex()' %}
+                            {% endif %}
+                            {{ btn.primary(booking_url, null, 'Buchen'|trans, booking_onclick) }}
                         </div>
                     {% endif %}
 

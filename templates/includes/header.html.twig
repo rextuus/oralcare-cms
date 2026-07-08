@@ -44,7 +44,10 @@
 
                 {% if common_settings.content.enable_online_booking|default(false) %}
                     {% set booking_url = sulu_content_path('/contact') %}
-                    {% if headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
+                    {% set booking_onclick = null %}
+                    {% if common_settings.content.dr_flex_practice_id|default(false) %}
+                        {% set booking_url = 'javascript:triggerDrFlex()' %}
+                    {% elseif headerSettings and headerSettings.content.booking_button_link is defined and headerSettings.content.booking_button_link is not empty %}
                         {% set booking_url = sulu_content_path(headerSettings.content.booking_button_link|first.url) %}
                     {% endif %}
                     <a href="{{ booking_url }}" class="hidden sm:inline-block bg-primary hover:bg-blue-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all shadow-lg shadow-blue-500/25">
