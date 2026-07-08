@@ -92,6 +92,11 @@
         /*        @apply text-slate-900 dark:text-slate-300;*/
         /*    }*/
         /*}*/
+        #drflex-appointments-iframe {
+            max-width: 100vw !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
     </style>
 
     {% block meta %}
@@ -241,10 +246,12 @@
                 const drFlexIframe = document.getElementById('drflex-appointments-iframe');
                 if (drFlexIframe) {
                     try {
-                        // Keep properties spoofed
-                        if (window.innerWidth !== 1280) {
+                        // Keep properties spoofed - use a smaller "desktop" width that might trigger better responsiveness
+                        // while still satisfying Dr. Flex's modal condition (usually width > 1024 or similar)
+                        var targetWidth = 1025;
+                        if (window.innerWidth !== targetWidth) {
                             Object.defineProperty(window, 'innerWidth', {
-                                get: function() { return 1280; },
+                                get: function() { return targetWidth; },
                                 configurable: true
                             });
                         }
@@ -268,6 +275,12 @@
                                 return window._originalOpen(url, target);
                             };
                         }
+
+                        // Try to fix mobile scrolling if desktop mode is forced
+                        if (drFlexIframe.parentElement && drFlexIframe.parentElement.style.overflowX !== 'auto') {
+                            drFlexIframe.parentElement.style.overflowX = 'auto';
+                            drFlexIframe.parentElement.style.webkitOverflowScrolling = 'touch';
+                        }
                     } catch (e) {}
                     requestAnimationFrame(forceDesktop);
                 } else {
@@ -282,7 +295,7 @@
             try {
                 // Initial override
                 Object.defineProperty(window, 'innerWidth', {
-                    get: function() { return 1280; },
+                    get: function() { return 1025; },
                     configurable: true
                 });
                 Object.defineProperty(navigator, 'userAgent', {
