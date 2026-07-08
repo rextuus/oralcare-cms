@@ -211,7 +211,7 @@
             document.body.style.overflow = '';
         };
 
-        window.triggerDrFlex = function(options) {
+            window.triggerDrFlex = function(options) {
             closeMenu();
 
             var practiceId = "{{ common_settings.content.dr_flex_practice_id }}";
@@ -225,8 +225,62 @@
             var originalInnerWidth = window.innerWidth;
             var originalUserAgent = navigator.userAgent;
 
+            // Define restoration function
+            window._restoreDrFlexProperties = function() {
+                try {
+                    delete window.innerWidth;
+                    window.innerWidth = originalInnerWidth;
+                    delete navigator.userAgent;
+                    // Note: navigator.userAgent might not be restorable via delete in some browsers
+                    // but we set it to configurable: true
+                } catch (e) { /* ignore */ }
+            };
+
+            // Force properties to stay in desktop mode
+            const forceDesktop = () => {
+                const drFlexIframe = document.getElementById('drflex-appointments-iframe');
+                if (drFlexIframe) {
+                    try {
+                        // Keep properties spoofed
+                        if (window.innerWidth !== 1280) {
+                            Object.defineProperty(window, 'innerWidth', {
+                                get: function() { return 1280; },
+                                configurable: true
+                            });
+                        }
+                        if (!navigator.userAgent.includes('Windows')) {
+                            Object.defineProperty(navigator, 'userAgent', {
+                                get: function() { return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'; },
+                                configurable: true
+                            });
+                        }
+
+                        // IMPORTANT: Override window.open globally while the iframe is active
+                        // to prevent Dr. Flex from opening a new tab on mobile.
+                        if (!window._originalOpen) {
+                            window._originalOpen = window.open;
+                            window.open = function(url, target) {
+                                console.log("Dr. Flex tried to open a new tab:", url);
+                                // If it's the booking URL, we ignore it because the modal is already handling it
+                                if (url && url.includes('dr-flex.de')) {
+                                    return null;
+                                }
+                                return window._originalOpen(url, target);
+                            };
+                        }
+                    } catch (e) {}
+                    requestAnimationFrame(forceDesktop);
+                } else {
+                    // Restore window.open when iframe is gone
+                    if (window._originalOpen) {
+                        window.open = window._originalOpen;
+                        delete window._originalOpen;
+                    }
+                }
+            };
+
             try {
-                // Force modal by spoofing desktop
+                // Initial override
                 Object.defineProperty(window, 'innerWidth', {
                     get: function() { return 1280; },
                     configurable: true
@@ -237,25 +291,44 @@
                 });
             } catch (e) { console.error("Could not override device properties", e); }
 
+            // Start monitoring the iframe to keep it in desktop mode
+            setTimeout(forceDesktop, 100);
+
+            // Listen for Dr. Flex close message
+            const messageHandler = function(event) {
+                // The close signal from Dr. Flex iframe
+                if (event.data === 'close' || (event.data && event.data.type === 'close')) {
+                    const drFlexIframe = document.getElementById('drflex-appointments-iframe');
+                    if (drFlexIframe) {
+                        // Immediately stop any further execution or propagation within the iframe context
+                        // by removing it from DOM before any other listeners can react.
+                        drFlexIframe.remove();
+                    }
+                    window._restoreDrFlexProperties();
+                    window.removeEventListener('message', messageHandler);
+
+                    // Prevent any default behavior that might be triggered by the same event
+                    if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+                }
+            };
+            window.addEventListener('message', messageHandler, true); // Use capture phase to be first
+
             try {
                 if (typeof window.toggleDrFlexAppointments === 'function') {
                     window.toggleDrFlexAppointments(practiceId, options);
                 } else {
                     window.open('https://dr-flex.de/embed?medicalPracticeId=' + practiceId, '_blank');
+                    window._restoreDrFlexProperties();
                 }
             } catch (e) {
                 console.error('Dr. Flex toggle failed', e);
                 window.open('https://dr-flex.de/embed?medicalPracticeId=' + practiceId, '_blank');
-            } finally {
-                // Restore original properties
-                try {
-                    delete window.innerWidth;
-                    window.innerWidth = originalInnerWidth;
-                    delete navigator.userAgent;
-                    // Note: navigator.userAgent might not be restorable via delete if it wasn't configurable
-                    // but we set it to configurable: true above.
-                } catch (e) { /* ignore */ }
+                window._restoreDrFlexProperties();
             }
+            // We NO LONGER use a timeout here to restore properties,
+            // because that might be what's causing the "close" logic to fail
+            // if it fires while we already restored mobile state.
+            // We only restore on message or if someone opens the link.
         };
 
         const themeToggle = document.getElementById('theme-toggle');
