@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% set common_settings = sulu_snippet_load_by_area('common_settings') %}
+{% set target_url = content.target_url|default('/')|replace({':8080:8080': ':8080'}) %}
+{% set mode = (content.mode is iterable ? content.mode|first : content.mode)|default('redirect') %}
+
+{% block meta %}
+    {{ parent() }}
+    {% if mode == 'booking' %}
+        <meta http-equiv="refresh" content="0; url={{ target_url }}?booking=1">
+    {% else %}
+        <meta http-equiv="refresh" content="0; url={{ target_url }}">
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <script>
+        (function () {
+            var targetUrl = "{{ target_url }}";
+            var mode = "{{ mode }}";
+
+            if (mode === 'booking') {
+                // Dr. Flex Buchung
+                {% if common_settings.content.dr_flex_practice_id|default(false) %}
+                    // URL für Dr. Flex redirect
+                    var separator = targetUrl.indexOf('?') !== -1 ? '&' : '?';
+                    window.location.href = targetUrl + separator + "booking=1";
+                {% else %}
+                    // Fallback, falls kein Dr. Flex konfiguriert
+                    window.location.href = targetUrl;
+                {% endif %}
+            } else {
+                // Einfache Weiterleitung
+                window.location.href = targetUrl;
+            }
+        })();
+    </script>
+
+    {# Fallback für den Fall, dass JavaScript deaktiviert ist #}
+    <noscript>
+        <meta http-equiv="refresh" content="0; url={% if mode == 'booking' %}{{ target_url }}{{ target_url|default('') is not empty ? (target_url|default('') matches '{[?]}' ? '&' : '?') : '' }}booking=1{% else %}{{ target_url }}{% endif %}">
+    </noscript>
+
+    <div class="min-h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
+        <div class="text-center p-8">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+            <p class="text-slate-600 dark:text-slate-300 text-lg">
+                {{ 'Weiterleitung...'|trans }}
+            </p>
+        </div>
+    </div>
+{% endblock %}

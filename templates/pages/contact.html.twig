@@ -185,4 +185,30 @@
         </div>
     </div>
 
+{% block javascripts %}
+    {{ parent() }}
+    {% if common_settings.content.dr_flex_practice_id|default(false) %}
+    <script>
+        (function () {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('booking') === '1') {
+                // URL bereinigen ohne Seitenreload
+                var cleanUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, cleanUrl);
+                // Dr. Flex öffnen sobald das Skript geladen ist
+                if (typeof window.triggerDrFlex === 'function') {
+                    window.triggerDrFlex();
+                } else {
+                    window.addEventListener('load', function () {
+                        if (typeof window.triggerDrFlex === 'function') {
+                            window.triggerDrFlex();
+                        }
+                    });
+                }
+            }
+        })();
+    </script>
+    {% endif %}
+{% endblock %}
+
 {% endblock %}

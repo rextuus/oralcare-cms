@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<template xmlns="http://schemas.sulu.io/template/template"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://schemas.sulu.io/template/template http://schemas.sulu.io/template/template-1.0.xsd">
+
+    <key>qr_landing</key>
+
+    <view>pages/qr_landing</view>
+    <controller>Sulu\Content\UserInterface\Controller\Website\ContentController::indexAction</controller>
+    <cacheLifetime>0</cacheLifetime>
+
+    <meta>
+        <title lang="en">QR Landing Page</title>
+        <title lang="de">QR Landing Page</title>
+    </meta>
+
+    <properties>
+        <property name="title" type="text_line" mandatory="true">
+            <meta>
+                <title lang="en">Title</title>
+                <title lang="de">Titel</title>
+            </meta>
+            <params>
+                <param name="headline" value="true"/>
+            </params>
+            <tag name="sulu.rlp.part"/>
+        </property>
+
+        <property name="url" type="route" mandatory="true">
+            <meta>
+                <title lang="en">Resourcelocator</title>
+                <title lang="de">Adresse</title>
+            </meta>
+            <tag name="sulu.rlp"/>
+        </property>
+
+        <property name="mode" type="select" mandatory="true">
+            <meta>
+                <title lang="de">Modus</title>
+            </meta>
+            <params>
+                <param name="values" type="collection">
+                    <param name="booking">
+                        <meta>
+                            <title lang="de">Weiterleitung zu Booking (Dr. Flex)</title>
+                        </meta>
+                    </param>
+                    <param name="redirect">
+                        <meta>
+                            <title lang="de">Einfache Weiterleitung</title>
+                        </meta>
+                    </param>
+                </param>
+            </params>
+        </property>
+
+        <property name="target_url" type="link" mandatory="true">
+            <meta>
+                <title lang="de">Ziel-URL</title>
+            </meta>
+            <params>
+                <param name="enable_anchor" value="true"/>
+                <param name="enable_query" value="true"/>
+            </params>
+        </property>
+    </properties>
+
+</template>
