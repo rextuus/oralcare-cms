@@ -65,3 +65,6 @@ yarn-error.log
 /_design/
 /.junie/
 /assets/admin/.!!Aap/
+
+# Deploy
+/backups/
