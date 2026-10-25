@@ -64,6 +64,23 @@ fi
 echo "📦 Installiere PHP-Abhängigkeiten..."
 php_exec composer install $COMPOSER_FLAGS
 
+echo "🗄️ Aktualisiere Datenbank-Schema..."
+# Das Projekt nutzt keine Migrations, Sulu-Updates bringen aber Schema-Änderungen mit.
+# Automatisch angewendet wird nur, was keine Daten löscht (DROP FOREIGN KEY/INDEX werden neu angelegt).
+SCHEMA_SQL=$(php_exec bin/adminconsole doctrine:schema:update --dump-sql)
+if echo "$SCHEMA_SQL" | grep -q "Nothing to update"; then
+    echo "   Schema ist aktuell."
+elif echo "$SCHEMA_SQL" | grep -iE '\bDROP\b' | grep -viqE 'DROP (FOREIGN KEY|INDEX)'; then
+    echo "$SCHEMA_SQL"
+    echo "❌ Die Schema-Änderung würde Tabellen oder Spalten löschen. Nicht automatisch angewendet."
+    echo "   Prüfen und ggf. von Hand ausführen: docker compose exec php bin/adminconsole doctrine:schema:update --force"
+    echo "   DB-Backup liegt in $PROJECT_DIR/backups/"
+    exit 1
+else
+    echo "$SCHEMA_SQL"
+    php_exec bin/adminconsole doctrine:schema:update --force
+fi
+
 echo "🛡️ Prüfe auf bekannte Sicherheitslücken..."
 if ! php_exec composer audit --locked; then
     echo "⚠️  composer audit meldet Sicherheitslücken – siehe oben. Deploy läuft weiter, bitte zeitnah updaten."
@@ -77,12 +94,6 @@ echo "🧹 Cache leeren und aufwärmen..."
 php_exec bin/adminconsole cache:clear
 php_exec bin/websiteconsole cache:clear
 php_exec bin/websiteconsole cache:warmup
-
-echo "🔍 Prüfe Datenbank-Schema..."
-if ! php_exec bin/adminconsole doctrine:schema:update --dump-sql | grep -q "Nothing to update"; then
-    echo "⚠️  Das DB-Schema weicht vom Code ab. Bitte prüfen mit:"
-    echo "    docker compose exec php bin/adminconsole doctrine:schema:update --dump-sql"
-fi
 
 echo "🔓 Setze Schreibrechte..."
 php_exec chown -R www-data:www-data var public/uploads public/build
