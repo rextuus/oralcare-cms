@@ -16,15 +16,37 @@ if ! docker info >/dev/null 2>&1; then
     exit 1
 fi
 
+ensure_db_running() {
+    # Startet den DB-Container, falls er (z.B. nach einem Server-Neustart) nicht läuft
+    docker compose up -d database
+    echo -n "⏳ Warte auf Datenbank"
+    for _ in $(seq 1 60); do
+        if docker compose exec -T database sh -c 'mysqladmin ping -uroot -p"$MYSQL_ROOT_PASSWORD" --silent' >/dev/null 2>&1; then
+            echo " ✅"
+            return 0
+        fi
+        echo -n "."
+        sleep 2
+    done
+    echo
+    echo "❌ Datenbank ist nach 2 Minuten nicht erreichbar. Logs: docker compose logs database"
+    exit 1
+}
+
 backup_db() {
+    ensure_db_running
     echo "🗄️ Sichere Datenbank..."
     mkdir -p backups
     local file="backups/db_$(date +%Y-%m-%d_%H-%M-%S)_$(git rev-parse --short HEAD).sql.gz"
     # Zugangsdaten kommen aus den Env-Variablen des DB-Containers, nicht aus diesem Skript
-    docker compose exec -T database sh -c \
+    if ! docker compose exec -T database sh -c \
         'exec mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" --single-transaction --routines "$MYSQL_DATABASE"' \
-        | gzip > "$file"
-    echo "   → $file"
+        | gzip > "$file"; then
+        rm -f "$file"
+        echo "❌ Datenbank-Backup fehlgeschlagen. Deploy abgebrochen."
+        exit 1
+    fi
+    echo "   → $file ($(du -h "$file" | cut -f1))"
     # Nur die letzten 10 Backups behalten
     ls -1t backups/db_*.sql.gz | tail -n +11 | xargs -r rm --
 }
