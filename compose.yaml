@@ -4,6 +4,8 @@ services:
   # --- NEU: Der Webserver für Sulu ---
   php:
     build: .
+    # Nach Absturz oder Server-Neustart automatisch wieder starten
+    restart: unless-stopped
     ports:
       - "8080:80"
     volumes:
@@ -17,6 +19,7 @@ services:
   ###> doctrine/doctrine-bundle ###
   database:
     image: mysql:${MYSQL_VERSION:-8.4}
+    restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-su_myapp}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ChangeMe}
