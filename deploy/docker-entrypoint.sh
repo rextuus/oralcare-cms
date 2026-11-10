@@ -5,9 +5,10 @@ set -e
 cd /var/www/html
 
 # Leere, frisch angelegte Mounts gehören sonst root; Inhalte werden beim Umzug einmalig per chown gesetzt.
+www_uid=$(id -u www-data)
 for dir in var/storage var/share var/indexes public/uploads; do
     mkdir -p "$dir"
-    [ "$(stat -c %u "$dir")" = "33" ] || chown www-data:www-data "$dir"
+    [ "$(stat -c %u "$dir")" = "$www_uid" ] || chown www-data:www-data "$dir"
 done
 
 exec docker-php-entrypoint "$@"

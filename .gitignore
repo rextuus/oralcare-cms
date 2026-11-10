@@ -68,3 +68,11 @@ yarn-error.log
 
 # Deploy
 /backups/
+
+# Dumps und Archive mit Patientendaten – nie ins Repo
+/db_dump.sql
+/sicherheit_vor_export.sql
+/uploads_backup.tar.gz
+*.sql
+/img.png
+/sync_from_live.sh
