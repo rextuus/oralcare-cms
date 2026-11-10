@@ -1,0 +1,85 @@
+# Komodo-Stack „oralcare“ (Produktion auf abyss)
+#
+# Komodo: Stack aus Git-Repo rextuus/oralcare-cms (Branch main), Datei deploy/compose.yaml.
+# Secrets/Variablen kommen aus dem Environment des Stacks (siehe deploy/UMZUG.md).
+# Projektname muss „oralcare“ sein, damit das bestehende DB-Volume weiterverwendet wird.
+
+name: oralcare
+
+services:
+  php:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+      target: prod
+    image: oralcare-cms:prod
+    restart: unless-stopped
+    ports:
+      - "${ORALCARE_BIND:-10.0.0.2:8192}:80"
+    environment:
+      APP_ENV: prod
+      APP_DEBUG: "0"
+      APP_SECRET: ${ORALCARE_APP_SECRET:?ORALCARE_APP_SECRET fehlt}
+      DATABASE_URL: ${ORALCARE_DATABASE_URL:?ORALCARE_DATABASE_URL fehlt}
+      MAILER_DSN: ${ORALCARE_MAILER_DSN:-null://null}
+      # Fehlermeldungen an Sentry (live bisher aus .env.local); leer = Sentry aus
+      SENTRY_DSN: ${ORALCARE_SENTRY_DSN:-}
+      # Caddy auf dem VPS; nötig für https-URLs und echte Besucher-IPs (public/index.php)
+      TRUSTED_PROXIES: ${REVERSE_PROXY_IPS:-10.0.0.1}
+    volumes:
+      - ${ORALCARE_DATA_DIR:-/srv/oralcare}/storage:/var/www/html/var/storage
+      - ${ORALCARE_DATA_DIR:-/srv/oralcare}/uploads:/var/www/html/public/uploads
+      - ${ORALCARE_DATA_DIR:-/srv/oralcare}/share:/var/www/html/var/share
+      - ${ORALCARE_DATA_DIR:-/srv/oralcare}/indexes:/var/www/html/var/indexes
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      # Bewusst /admin/ statt der Startseite: Sulus HTTP-Cache unterscheidet nicht zwischen http und https.
+      # Ein interner http-Abruf der Website würde gecachte Seiten mit http://-Canonical/hreflang füllen.
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "--max-time", "8", "http://localhost/admin/"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
+  database:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      # Wirkt nur beim allerersten Anlegen eines leeren Volumes; das bestehende behält sein Passwort
+      MYSQL_ROOT_PASSWORD: ${ORALCARE_DB_ROOT_PASSWORD:?ORALCARE_DB_ROOT_PASSWORD fehlt}
+      MYSQL_DATABASE: su_myapp
+    volumes:
+      - database_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 10s
+      timeout: 5s
+      start_period: 30s
+      retries: 10
+
+  # Nur für die Komodo-Procedure „oralcare-backup“ (RunStackService, no_deps). replicas: 0 → startet nicht
+  # beim Deploy, wird aber mitgebaut; `docker compose run backup` startet ihn einmalig.
+  backup:
+    build:
+      context: ..
+      dockerfile: deploy/backup/Dockerfile
+    image: oralcare-backup:local
+    deploy:
+      replicas: 0
+    restart: "no"
+    environment:
+      MYSQL_PWD: ${ORALCARE_DB_ROOT_PASSWORD:?ORALCARE_DB_ROOT_PASSWORD fehlt}
+      DB_HOST: database
+      TZ: Europe/Berlin
+    volumes:
+      - ${ORALCARE_DATA_DIR:-/srv/oralcare}/storage:/data/storage:ro
+      # Snapshots und link-dest müssen im selben Mount liegen, sonst gehen keine Hardlinks
+      - ${ORALCARE_BACKUP_DIR:-/srv/backups/oralcare}:/backups
+
+volumes:
+  database_data:
+    # Bestehendes Volume des bisherigen Stacks – nie neu anlegen lassen
+    external: true
+    name: ${ORALCARE_DB_VOLUME:-oralcare_database_data}

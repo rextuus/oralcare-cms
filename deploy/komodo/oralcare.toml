@@ -1,0 +1,111 @@
+# oralcare – Komodo-Ressourcen (Resource Sync). Aufbau wie deploy/komodo/wedora.toml im Wedora-Repo (geprüft gegen
+# Komodo v2.3.3).
+#
+# Einbinden: Komodo → Syncs → New Resource Sync, Quelle = dieses Repo, Resource Path = deploy/komodo/oralcare.toml.
+# Hier stehen keine Secrets. Alles in [[…]] sind Komodo-Variablen (Settings → Variables, Häkchen „Secret“);
+# Werte und Herkunft: deploy/UMZUG.md, Schritt 2.3.
+# Achtung: Komodo ersetzt einen unbekannten [[NAME]] nicht und meldet auch keinen Fehler. Deshalb prüft
+# pre-deploy.sh die geschriebene .env.prod.local und bricht ab, wenn noch ein [[…]] darin steht.
+
+[[stack]]
+name = "oralcare"
+description = "Website Zahnarztpraxis Kaldauen – Sulu (deploy/compose.yaml)"
+tags = ["oralcare"]
+# Ein Sync legt den Stack nur an bzw. gleicht ihn an. Deployt wird bewusst von Hand („Deploy“).
+deploy = false
+
+[stack.config]
+links = ["https://zahnarztpraxis-kaldauen.de"]
+# Name des Servers in Komodo (Servers-Liste), nicht der Hostname.
+server = "abyss"
+
+# Quelle: GitHub-Repo über den in Komodo hinterlegten GitHub-Account (wie Wedora/Debes).
+git_provider = "github.com"
+git_https = true
+git_account = "rextuus"
+repo = "rextuus/oralcare-cms"
+branch = "main"
+# Leer = neuester Commit von branch. Für einen Rollback hier einen Commit-Hash eintragen und deployen.
+commit = ""
+# Nicht neu klonen: Daten liegen ohnehin außerhalb (/srv/oralcare), .env.prod.local schreibt Komodo neu.
+reclone = false
+
+# Ergibt: docker compose -p oralcare -f deploy/compose.yaml --env-file .env.prod.local …
+# project_name MUSS „oralcare“ bleiben (Container und Netz wie bisher; das DB-Volume ist zusätzlich external).
+# .env.prod.local liegt in der Repo-Wurzel, steht in .gitignore und .dockerignore und landet nie im Image.
+file_paths = ["deploy/compose.yaml"]
+project_name = "oralcare"
+env_file_path = ".env.prod.local"
+
+# Wird bei jedem Deploy nach .env.prod.local geschrieben (KEY=wert, Rechte 600). Secrets in einfachen
+# Anführungszeichen: Compose nimmt sie dann wörtlich ($ im Passwort wird nicht ersetzt).
+# Die Werte MÜSSEN die bisherigen sein (Herkunft: deploy/UMZUG.md 2.3) – das DB-Volume behält sein Root-Passwort,
+# und ein neues APP_SECRET meldet alle Admins ab.
+environment = """
+# Secrets
+ORALCARE_APP_SECRET = '[[ORALCARE_APP_SECRET]]'
+ORALCARE_DATABASE_URL = '[[ORALCARE_DATABASE_URL]]'
+ORALCARE_DB_ROOT_PASSWORD = '[[ORALCARE_DB_ROOT_PASSWORD]]'
+ORALCARE_SENTRY_DSN = '[[ORALCARE_SENTRY_DSN]]'
+# null://null = keine Mails (die Seite verschickt derzeit nichts); später z. B. smtp://user:pass@host:587
+ORALCARE_MAILER_DSN = null://null
+
+# Eingang: Caddy auf dem VPS (10.0.0.1) → WireGuard → abyss 10.0.0.2:8192
+ORALCARE_BIND = 10.0.0.2:8192
+REVERSE_PROXY_IPS = 10.0.0.1
+
+# Daten auf dem Host (einmalig anlegen, deploy/UMZUG.md 2.2) und Sicherungen
+ORALCARE_DATA_DIR = /srv/oralcare
+ORALCARE_BACKUP_DIR = /srv/backups/oralcare
+"""
+
+# Das Image wird auf dem Server gebaut (docker compose build vor up), auch das des Dienstes backup.
+run_build = true
+# Kein „compose pull“ vor jedem Deploy: mysql ist auf 8.4 gepinnt, und up holt fehlende Images selbst.
+auto_pull = false
+destroy_before_deploy = false
+
+# Ergibt: docker compose … up -d --wait --wait-timeout 300
+# --wait: Der Deploy gilt erst als erfolgreich, wenn php und database „healthy“ sind; sonst zeigt Komodo ihn als
+# fehlgeschlagen. Der Dienst backup (replicas: 0) stört dabei nicht (lokal getestet).
+extra_args = ["--wait", "--wait-timeout", "300"]
+
+# backup läuft nur auf Abruf (Procedure unten, pre-deploy.sh). Ohne diese Liste würde Komodo den Stack wegen des
+# nicht laufenden Dienstes als „Unhealthy“ anzeigen.
+ignore_services = ["backup"]
+
+# Vor dem Bauen: Secrets prüfen, DB-Volume prüfen, Datenbank sichern (im Periphery-Container im Stack-Ordner;
+# Exit ≠ 0 bricht ab). Die Dumps landen als pre-deploy_*.sql.gz in /srv/backups/oralcare/db, die letzten 5 bleiben.
+pre_deploy.path = "."
+pre_deploy.command = "sh deploy/komodo/pre-deploy.sh"
+
+# Kein automatisches Deploy bei Push oder neuen Images – deployt wird bewusst.
+webhook_enabled = false
+poll_for_updates = false
+auto_update = false
+send_alerts = true
+
+# ---------------------------------------------------------------------------------------------------------
+# Tägliche Sicherung um 02:30 (Debes 03:00, Wedora 03:30): führt `docker compose run --rm --no-TTY --no-deps backup`
+# im Stack aus – DB-Dump und Snapshot der Originalbilder in /srv/backups/oralcare, je 14 bleiben liegen.
+# no_deps: Ändert ein noch nicht deployter Commit den Dienst database, würde `compose run` ihn sonst nebenbei neu
+# erstellen. Läuft der Stack nicht, scheitert der Dump absichtlich, und Komodo alarmiert (failure_alert).
+
+[[procedure]]
+name = "oralcare-backup"
+description = "oralcare: tägliche Sicherung (Datenbank + Originalbilder) nach /srv/backups/oralcare (14 Stände)"
+tags = ["oralcare"]
+
+[procedure.config]
+schedule_format = "English"
+schedule = "Every day at 02:30"
+schedule_timezone = "Europe/Berlin"
+schedule_enabled = true
+schedule_alert = false
+failure_alert = true
+
+[[procedure.config.stage]]
+name = "Datenbank und Bilder sichern"
+executions = [
+  { execution.type = "RunStackService", execution.params = { stack = "oralcare", service = "backup", no_tty = true, no_deps = true } },
+]
