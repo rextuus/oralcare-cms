@@ -5,7 +5,7 @@
 # ---------------------------------------------------------------------------
 # Basis: PHP + Apache mit denselben Extensions wie das bisherige Image
 # ---------------------------------------------------------------------------
-FROM php:8.5-apache AS base
+FROM php:8.5.12-apache AS base
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf \
@@ -43,7 +43,7 @@ RUN composer dump-autoload --no-dev --optimize --no-interaction
 # ---------------------------------------------------------------------------
 # Frontend: Website (Encore) und Sulu-Admin (braucht JS aus vendor/sulu/sulu)
 # ---------------------------------------------------------------------------
-FROM node:20-bookworm-slim AS assets
+FROM node:20.20.2-bookworm-slim AS assets
 
 WORKDIR /app
 # Sulus Admin-Webpack liest composer.json/.lock (Version fürs Cache-Busting) und JS aus mehreren vendor-Paketen

@@ -18,7 +18,7 @@ services:
 
   ###> doctrine/doctrine-bundle ###
   database:
-    image: mysql:${MYSQL_VERSION:-8.4}
+    image: mysql:8.4.13
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE:-su_myapp}

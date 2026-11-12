@@ -3,7 +3,7 @@ version: '3'
 services:
 ###> symfony/mailer ###
   mailer:
-    image: axllent/mailpit
+    image: axllent/mailpit:v1.33.1
     ports:
       - "1025"
       - "8025"

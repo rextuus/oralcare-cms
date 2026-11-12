@@ -61,7 +61,7 @@ ORALCARE_BACKUP_DIR = /srv/backups/oralcare
 
 # Das Image wird auf dem Server gebaut (docker compose build vor up), auch das des Dienstes backup.
 run_build = true
-# Kein „compose pull“ vor jedem Deploy: mysql ist auf 8.4 gepinnt, und up holt fehlende Images selbst.
+# Kein „compose pull“ vor jedem Deploy: mysql ist auf 8.4.13 gepinnt, und up holt fehlende Images selbst.
 auto_pull = false
 destroy_before_deploy = false
 
