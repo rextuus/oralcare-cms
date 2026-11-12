@@ -43,7 +43,7 @@ RUN composer dump-autoload --no-dev --optimize --no-interaction
 # ---------------------------------------------------------------------------
 # Frontend: Website (Encore) und Sulu-Admin (braucht JS aus vendor/sulu/sulu)
 # ---------------------------------------------------------------------------
-FROM node:20.20.2-bookworm-slim AS assets
+FROM node:26.13.0-bookworm-slim AS assets
 
 WORKDIR /app
 # Sulus Admin-Webpack liest composer.json/.lock (Version fürs Cache-Busting) und JS aus mehreren vendor-Paketen
