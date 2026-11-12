@@ -1,0 +1,55 @@
+# Wöchentliche Update-PRs (montags 06:00 Berlin) für alles, was in Produktion läuft.
+# Sicherheitslücken kommen unabhängig davon sofort über die Dependabot Security Updates
+# (GitHub: Settings → Code security).
+version: 2
+
+updates:
+  # PHP-Pakete (composer.json/composer.lock, Sulu/Symfony)
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+    groups:
+      composer-patch:
+        update-types: ["patch"]
+
+  # Frontend (package.json/package-lock.json): Webpack Encore im Wurzelverzeichnis
+  # und die Sulu-Admin-Oberfläche in assets/admin.
+  - package-ecosystem: "npm"
+    directories:
+      - "/"
+      - "/assets/admin"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+    groups:
+      npm-minor-patch:
+        update-types: ["minor", "patch"]
+
+  # Basis-Images in den Dockerfiles (php-apache, node, mysql fürs Backup). Nicht gruppiert: ein PR je Image.
+  - package-ecosystem: "docker"
+    directories:
+      - "/"
+      - "/deploy"
+      - "/deploy/backup"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
+
+  # Images in compose.yaml, compose.override.yaml und deploy/compose.yaml (mysql, mailpit). Nicht gruppiert.
+  - package-ecosystem: "docker-compose"
+    directories:
+      - "/"
+      - "/deploy"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Berlin"
