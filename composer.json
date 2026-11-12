@@ -29,7 +29,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "cmsig/seal-loupe-adapter": "^0.12.2",
-        "doctrine/doctrine-bundle": "^2.13",
+        "doctrine/doctrine-bundle": "^3.3",
         "doctrine/doctrine-fixtures-bundle": "^3.6 || ^4.0",
         "friendsofsymfony/http-cache-bundle": "^3.0",
         "scheb/2fa-bundle": "^7.3",
