@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repository;
 
 use App\Entity\AnalyticsHit;
@@ -17,91 +19,81 @@ class AnalyticsHitRepository extends ServiceEntityRepository
         parent::__construct($registry, AnalyticsHit::class);
     }
 
+    /**
+     * Aufrufe je Tag (Y-m-d) ab $from, aufsteigend.
+     *
+     * @return list<array{date: string, count: int}>
+     */
     public function countByDay(\DateTimeInterface $from): array
     {
-        $qb = $this->createQueryBuilder('h')
+        /** @var list<array{date: mixed, count: mixed}> $rows */
+        $rows = $this->createQueryBuilder('h')
             ->select('SUBSTRING(h.createdAt, 1, 10) as date', 'COUNT(h.id) as count')
             ->where('h.createdAt >= :from')
             ->setParameter('from', $from)
             ->groupBy('date')
-            ->orderBy('date', 'ASC');
+            ->orderBy('date', 'ASC')
+            ->getQuery()
+            ->getResult();
 
-        return $qb->getQuery()->getResult();
+        return \array_map(static fn (array $row): array => [
+            'date' => self::toString($row['date']) ?? '',
+            'count' => self::toInt($row['count']),
+        ], $rows);
     }
 
+    /**
+     * @return list<array{url: string, hits: int}>
+     */
     public function getMostVisitedUrls(int $limit = 10, int $offset = 0): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT url, COUNT(id) as hits
-                FROM app_analytics_hit
-                GROUP BY url
-                ORDER BY hits DESC
-                LIMIT :limit OFFSET :offset';
-
-        return $conn->fetchAllAssociative($sql, [
-            'limit' => $limit,
-            'offset' => $offset,
-        ], [
-            'limit' => ParameterType::INTEGER,
-            'offset' => ParameterType::INTEGER,
-        ]);
+        return \array_map(static fn (array $row): array => [
+            'url' => self::toString($row['value']) ?? '',
+            'hits' => $row['hits'],
+        ], $this->topBy('url', $limit, $offset));
     }
 
     public function countUrls(): int
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT COUNT(DISTINCT url) FROM app_analytics_hit';
-        return (int) $conn->fetchOne($sql);
+        return $this->countDistinct('url');
     }
 
+    /**
+     * Herkunft null = direkter Aufruf (kein Referer, kein utm_source).
+     *
+     * @return list<array{origin: ?string, hits: int}>
+     */
     public function getMostVisitedOrigins(int $limit = 10, int $offset = 0): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT origin, COUNT(id) as hits
-                FROM app_analytics_hit
-                GROUP BY origin
-                ORDER BY hits DESC
-                LIMIT :limit OFFSET :offset';
-
-        return $conn->fetchAllAssociative($sql, [
-            'limit' => $limit,
-            'offset' => $offset,
-        ], [
-            'limit' => ParameterType::INTEGER,
-            'offset' => ParameterType::INTEGER,
-        ]);
+        return \array_map(static fn (array $row): array => [
+            'origin' => self::toString($row['value']),
+            'hits' => $row['hits'],
+        ], $this->topBy('origin', $limit, $offset));
     }
 
+    /** Ohne direkte Aufrufe: COUNT(DISTINCT) zählt NULL nicht mit. */
     public function countOrigins(): int
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT COUNT(DISTINCT origin) FROM app_analytics_hit';
-        return (int) $conn->fetchOne($sql);
+        return $this->countDistinct('origin');
     }
 
+    /**
+     * Land null = unbekannt.
+     *
+     * @return list<array{country: ?string, hits: int}>
+     */
     public function getMostVisitedCountries(int $limit = 10, int $offset = 0): array
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT country, COUNT(id) as hits
-                FROM app_analytics_hit
-                GROUP BY country
-                ORDER BY hits DESC
-                LIMIT :limit OFFSET :offset';
-
-        return $conn->fetchAllAssociative($sql, [
-            'limit' => $limit,
-            'offset' => $offset,
-        ], [
-            'limit' => ParameterType::INTEGER,
-            'offset' => ParameterType::INTEGER,
-        ]);
+        return \array_map(static fn (array $row): array => [
+            'country' => self::toString($row['value']),
+            'hits' => $row['hits'],
+        ], $this->topBy('country', $limit, $offset));
     }
 
+    /** Ohne unbekannte Länder: COUNT(DISTINCT) zählt NULL nicht mit. */
     public function countCountries(): int
     {
-        $conn = $this->getEntityManager()->getConnection();
-        $sql = 'SELECT COUNT(DISTINCT country) FROM app_analytics_hit';
-        return (int) $conn->fetchOne($sql);
+        return $this->countDistinct('country');
     }
 
     public function deleteImages(): int
@@ -117,5 +109,48 @@ class AnalyticsHitRepository extends ServiceEntityRepository
             ->setParameter('gif', '%.gif%')
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * Häufigste Werte einer Spalte, absteigend nach Aufrufen.
+     *
+     * @param 'url'|'origin'|'country' $column
+     *
+     * @return list<array{value: mixed, hits: int}>
+     */
+    private function topBy(string $column, int $limit, int $offset): array
+    {
+        $rows = $this->getEntityManager()->getConnection()->fetchAllAssociative(
+            "SELECT {$column} AS value, COUNT(id) AS hits
+                FROM app_analytics_hit
+                GROUP BY {$column}
+                ORDER BY hits DESC
+                LIMIT :limit OFFSET :offset",
+            ['limit' => $limit, 'offset' => $offset],
+            ['limit' => ParameterType::INTEGER, 'offset' => ParameterType::INTEGER],
+        );
+
+        return \array_map(static fn (array $row): array => [
+            'value' => $row['value'] ?? null,
+            'hits' => self::toInt($row['hits'] ?? 0),
+        ], $rows);
+    }
+
+    /** @param 'url'|'origin'|'country' $column */
+    private function countDistinct(string $column): int
+    {
+        return self::toInt(
+            $this->getEntityManager()->getConnection()->fetchOne("SELECT COUNT(DISTINCT {$column}) FROM app_analytics_hit"),
+        );
+    }
+
+    private static function toInt(mixed $value): int
+    {
+        return \is_numeric($value) ? (int) $value : 0;
+    }
+
+    private static function toString(mixed $value): ?string
+    {
+        return \is_scalar($value) ? (string) $value : null;
     }
 }

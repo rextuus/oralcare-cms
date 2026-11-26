@@ -4,7 +4,7 @@
 
     {% set common_settings = sulu_snippet_load_by_area('common_settings') %}
     {% set global_best_quality = common_settings.content.force_best_quality|default(false) %}
-    {% import "_components/contact/button.html.twig" as btn %}
+    {% import '_components/contact/button.html.twig' as btn %}
 
     {# Hero Section #}
     <header class="relative pt-10 pb-10 w-full max-w-full">
@@ -38,7 +38,7 @@
 
     <main class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 pb-24">
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6 lg:gap-8">
-            {% import "_components/service_card.html.twig" as card %}
+            {% import '_components/service_card.html.twig' as card %}
             {% for service in content.services_list %}
                 {{ card.render(service) }}
             {% endfor %}
@@ -58,7 +58,7 @@
                         {{ btn.secondary(
                             sulu_content_path(content.cta_button_link|first.url),
                             'calendar_month',
-                            content.cta_button_text|default('Termin jetzt buchen'|trans)
+                            content.cta_button_text|default('Termin jetzt buchen'|trans),
                         ) }}
                     {% endif %}
                 </div>

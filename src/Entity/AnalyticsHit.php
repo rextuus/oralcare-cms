@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnalyticsHitRepository;
+use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnalyticsHitRepository::class)]
 #[ORM\Table(name: 'app_analytics_hit')]
@@ -19,7 +21,7 @@ class AnalyticsHit
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $url = null;
+    private string $url = '';
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $userAgent = null;
@@ -46,14 +48,15 @@ class AnalyticsHit
         return $this->id;
     }
 
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->url;
     }
 
     public function setUrl(string $url): self
     {
-        $this->url = $url;
+        $this->url = $this->fit($url, 255);
+
         return $this;
     }
 
@@ -64,7 +67,8 @@ class AnalyticsHit
 
     public function setUserAgent(?string $userAgent): self
     {
-        $this->userAgent = $userAgent;
+        $this->userAgent = $this->fit($userAgent, 255);
+
         return $this;
     }
 
@@ -75,7 +79,8 @@ class AnalyticsHit
 
     public function setReferer(?string $referer): self
     {
-        $this->referer = $referer;
+        $this->referer = $this->fit($referer, 255);
+
         return $this;
     }
 
@@ -86,7 +91,8 @@ class AnalyticsHit
 
     public function setOrigin(?string $origin): self
     {
-        $this->origin = $origin;
+        $this->origin = $this->fit($origin, 255);
+
         return $this;
     }
 
@@ -97,12 +103,24 @@ class AnalyticsHit
 
     public function setCountry(?string $country): self
     {
-        $this->country = $country;
+        $this->country = $this->fit($country, 10);
+
         return $this;
     }
 
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    /**
+     * Auf die Spaltenlänge kürzen: MySQL bricht im Strict-Mode sonst mit „Data too long“ ab – und der Listener
+     * schreibt bei jedem Seitenaufruf, die Seite wäre dann ein 500er.
+     *
+     * @return ($value is null ? null : string)
+     */
+    private function fit(?string $value, int $length): ?string
+    {
+        return null === $value ? null : \mb_substr($value, 0, $length);
     }
 }

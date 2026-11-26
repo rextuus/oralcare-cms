@@ -1,13 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
-use App\Entity\AnalyticsHit;
 use App\Admin\AnalyticsAdmin;
+use App\Entity\AnalyticsHit;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\View\ViewHandlerInterface;
 use Sulu\Component\Rest\AbstractRestController;
-use Sulu\Component\Rest\ListBuilder\CollectionRepresentation;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactoryInterface;
 use Sulu\Component\Rest\ListBuilder\Doctrine\FieldDescriptor\DoctrineFieldDescriptor;
 use Sulu\Component\Rest\ListBuilder\PaginatedRepresentation;
@@ -16,28 +17,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\Cache\CacheInterface;
-use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AnalyticsHitController extends AbstractRestController
 {
-    private EntityManagerInterface $entityManager;
-    private DoctrineListBuilderFactoryInterface $listBuilderFactory;
-    private RestHelperInterface $restHelper;
-
     public function __construct(
-        EntityManagerInterface $entityManager,
-        DoctrineListBuilderFactoryInterface $listBuilderFactory,
-        RestHelperInterface $restHelper,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly DoctrineListBuilderFactoryInterface $listBuilderFactory,
+        private readonly RestHelperInterface $restHelper,
         ViewHandlerInterface $viewHandler,
         TokenStorageInterface $tokenStorage,
-        private CacheInterface $cache
     ) {
         parent::__construct($viewHandler, $tokenStorage);
-        $this->entityManager = $entityManager;
-        $this->listBuilderFactory = $listBuilderFactory;
-        $this->restHelper = $restHelper;
     }
 
     #[Route('/admin/api/analytics_hits', name: 'app.get_analytics_hits', methods: ['GET'])]
@@ -67,7 +58,7 @@ class AnalyticsHitController extends AbstractRestController
             'analytics_hits',
             (int) $listBuilder->getCurrentPage(),
             (int) $listBuilder->getLimit(),
-            (int) $listBuilder->count()
+            (int) $listBuilder->count(),
         );
 
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
@@ -93,14 +84,14 @@ class AnalyticsHitController extends AbstractRestController
             ];
         }
 
-        $total = count($repo->getMostVisitedUrls(1000, 0));
+        $total = \count($repo->getMostVisitedUrls(1000, 0));
 
         $listRepresentation = new PaginatedRepresentation(
             $formattedData,
             'analytics_urls',
             $page,
             $limit,
-            $total
+            $total,
         );
 
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
@@ -126,14 +117,14 @@ class AnalyticsHitController extends AbstractRestController
             ];
         }
 
-        $total = count($formattedData);
+        $total = \count($formattedData);
 
         $listRepresentation = new PaginatedRepresentation(
             $formattedData,
             'analytics_daily',
             $page,
             $limit,
-            $total
+            $total,
         );
 
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
@@ -156,7 +147,7 @@ class AnalyticsHitController extends AbstractRestController
         $i = $offset + 1;
         foreach ($data as $row) {
             // Wir filtern hier direkt leere Werte oder NULL zu 'Direkt'
-            $originValue = trim((string) ($row['origin'] ?? ''));
+            $originValue = \trim((string) ($row['origin'] ?? ''));
             if ('' === $originValue) {
                 $originValue = 'Direkt';
             }
@@ -164,7 +155,7 @@ class AnalyticsHitController extends AbstractRestController
             $formattedData[] = [
                 'id' => $i++,
                 'origin' => $originValue,
-                'hits' => (int) ($row['hits'] ?? 0),
+                'hits' => $row['hits'],
             ];
         }
 
@@ -172,7 +163,7 @@ class AnalyticsHitController extends AbstractRestController
         // Da es sich um eine Top-10-Statistik handelt, nutzen wir für die Pagination
         // einfach die Anzahl der tatsächlich gelieferten Einträge auf Seite 1.
         // Das verhindert jeden White Screen durch SQL-Counting-Fehler (z.B. mit NULL-Werten).
-        $total = count($formattedData);
+        $total = \count($formattedData);
 
         // 4. Die bewährte PaginatedRepresentation bauen
         $listRepresentation = new PaginatedRepresentation(
@@ -180,7 +171,7 @@ class AnalyticsHitController extends AbstractRestController
             'analytics_origins', // Muss exakt zum XML-Key passen
             $page,
             $limit,
-            $total
+            $total,
         );
 
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
@@ -204,7 +195,7 @@ class AnalyticsHitController extends AbstractRestController
             $formattedData[] = [
                 'id' => $i++,
                 'country' => (string) ($row['country'] ?? 'Unbekannt'),
-                'hits' => (int) ($row['hits'] ?? 0),
+                'hits' => $row['hits'],
             ];
         }
 
@@ -214,7 +205,7 @@ class AnalyticsHitController extends AbstractRestController
             'analytics_countries', // Muss matchen mit dem <key> im XML
             $page,
             $limit,
-            $total
+            $total,
         );
 
         return $this->handleView($this->view($listRepresentation, Response::HTTP_OK));
@@ -224,7 +215,7 @@ class AnalyticsHitController extends AbstractRestController
     public function getAction(int $id): Response
     {
         $hit = $this->entityManager->getRepository(AnalyticsHit::class)->find($id);
-        if (!$hit) {
+        if (!$hit instanceof AnalyticsHit) {
             throw new NotFoundHttpException();
         }
 
@@ -235,7 +226,7 @@ class AnalyticsHitController extends AbstractRestController
     public function deleteAction(int $id): Response
     {
         $hit = $this->entityManager->getRepository(AnalyticsHit::class)->find($id);
-        if ($hit) {
+        if ($hit instanceof AnalyticsHit) {
             $this->entityManager->remove($hit);
             $this->entityManager->flush();
         }

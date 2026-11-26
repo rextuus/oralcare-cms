@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Command;
 
 use App\Repository\AnalyticsHitRepository;
@@ -16,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class AnalyticsCleanupCommand extends Command
 {
     public function __construct(
-        private AnalyticsHitRepository $analyticsHitRepository
+        private readonly AnalyticsHitRepository $analyticsHitRepository,
     ) {
         parent::__construct();
     }
@@ -31,7 +33,7 @@ class AnalyticsCleanupCommand extends Command
 
         $count = $this->analyticsHitRepository->deleteImages();
 
-        $io->success(sprintf('%d Einträge wurden erfolgreich gelöscht.', $count));
+        $io->success(\sprintf('%d Einträge wurden erfolgreich gelöscht.', $count));
 
         return Command::SUCCESS;
     }

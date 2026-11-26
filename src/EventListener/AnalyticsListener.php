@@ -1,9 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\EventListener;
 
 use App\Entity\AnalyticsHit;
 use Doctrine\ORM\EntityManagerInterface;
+use Sulu\Component\Localization\Localization;
 use Sulu\Component\Webspace\Analyzer\Attributes\RequestAttributes;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -13,13 +16,13 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 readonly class AnalyticsListener
 {
     public function __construct(
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
     ) {
     }
 
     public function onKernelRequest(RequestEvent $event): void
     {
-        if ($event->getRequestType() !== HttpKernelInterface::MAIN_REQUEST) {
+        if (HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType()) {
             return;
         }
 
@@ -27,16 +30,16 @@ readonly class AnalyticsListener
         $path = $request->getPathInfo();
 
         // Ignoriere Admin-Bereich und Profiler/Debug-Routen
-        if (str_starts_with($path, '/admin') || str_starts_with($path, '/_')) {
+        if (\str_starts_with($path, '/admin') || \str_starts_with($path, '/_')) {
             return;
         }
 
         // Ignoriere statische Dateien
-        if (preg_match('/\.(js|css|png|jpg|jpeg|gif|ico|svg|webp|webmanifest|xml|txt)$/i', $path)
-            || str_contains($path, '/media/')
-            || str_contains($path, '/uploads/')
-            || str_contains($path, '/js/')
-            || str_contains($path, '/css/')
+        if (\preg_match('/\.(js|css|png|jpg|jpeg|gif|ico|svg|webp|webmanifest|xml|txt)$/i', $path)
+            || \str_contains($path, '/media/')
+            || \str_contains($path, '/uploads/')
+            || \str_contains($path, '/js/')
+            || \str_contains($path, '/css/')
         ) {
             return;
         }
@@ -48,10 +51,13 @@ readonly class AnalyticsListener
 
         // Bestimme die Herkunft (Marketing/Referer)
         $origin = $request->query->get('utm_source');
-        if (!$origin) {
+        if (!\is_string($origin) || '' === $origin) {
+            $origin = null;
             $referer = $request->headers->get('referer');
             if ($referer) {
-                $origin = parse_url($referer, PHP_URL_HOST);
+                // parse_url() liefert bei kaputten Adressen false, ohne Host null
+                $host = \parse_url($referer, \PHP_URL_HOST);
+                $origin = \is_string($host) && '' !== $host ? $host : null;
             }
         }
         $hit->setOrigin($origin);
@@ -67,13 +73,12 @@ readonly class AnalyticsListener
         }
 
         // 2. Option: Aus der Sulu-Lokalisierung (falls im Webspace de_de, de_at, etc. aktiv ist)
-        if (empty($country) && $request->attributes->has('_sulu')) {
-            /** @var RequestAttributes $suluAttributes */
-            $suluAttributes = $request->attributes->get('_sulu');
+        $suluAttributes = $request->attributes->get('_sulu');
+        if (empty($country) && $suluAttributes instanceof RequestAttributes) {
             $localization = $suluAttributes->getAttribute('localization');
 
-            if ($localization && method_exists($localization, 'getCountry') && $localization->getCountry()) {
-                $country = strtoupper($localization->getCountry());
+            if ($localization instanceof Localization && $localization->getCountry()) {
+                $country = \strtoupper($localization->getCountry());
             }
         }
 
@@ -81,10 +86,10 @@ readonly class AnalyticsListener
         if (empty($country)) {
             $languages = $request->getLanguages(); // Liefert z.B. ['de_DE', 'de', 'en_US']
             foreach ($languages as $lang) {
-                if (str_contains($lang, '_') || str_contains($lang, '-')) {
-                    $parts = preg_split('/[_-]/', $lang);
-                    if (isset($parts[1]) && strlen($parts[1]) === 2) {
-                        $country = strtoupper($parts[1]);
+                if (\str_contains($lang, '_') || \str_contains($lang, '-')) {
+                    $parts = \preg_split('/[_-]/', $lang);
+                    if (isset($parts[1]) && 2 === \strlen($parts[1])) {
+                        $country = \strtoupper($parts[1]);
                         break;
                     }
                 }
@@ -98,7 +103,7 @@ readonly class AnalyticsListener
         // }
 
         // Land in Entität speichern (wenn ermittelt und nicht 'XX' für unbekannt bei Cloudflare)
-        if ($country && $country !== 'XX') {
+        if ($country && 'XX' !== $country) {
             $hit->setCountry($country);
         }
         // ==========================================

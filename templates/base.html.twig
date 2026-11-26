@@ -125,7 +125,7 @@
     {% endif %}
 </head>
 <body class="bg-background-light dark:bg-background-dark text-black dark:text-slate-300 font-sans transition-colors duration-300">
-    {% include 'includes/header.html.twig' %}
+    {{ include('includes/header.html.twig') }}
 
     <!-- Mobile Menu Backdrop -->
     <div class="{{ tokens.menu.mobile.backdrop }}" id="mobile-menu-backdrop" style="display: none !important;"></div>
@@ -202,7 +202,7 @@
         {% block content %}{% endblock %}
     </main>
 
-    {% include 'includes/footer.html.twig' %}
+    {{ include('includes/footer.html.twig') }}
 
     <script>
         const mobileMenuToggle = document.getElementById('mobile-menu-toggle');

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Admin;
 
 use Sulu\Bundle\AdminBundle\Admin\Admin;
@@ -18,11 +20,8 @@ class AnalyticsAdmin extends Admin
     public const EDIT_FORM_VIEW = 'app.analytics_hit_edit_form';
     public const SECURITY_CONTEXT = 'sulu.modules.analytics';
 
-    private ViewBuilderFactoryInterface $viewBuilderFactory;
-
-    public function __construct(ViewBuilderFactoryInterface $viewBuilderFactory)
+    public function __construct(private readonly ViewBuilderFactoryInterface $viewBuilderFactory)
     {
-        $this->viewBuilderFactory = $viewBuilderFactory;
     }
 
     public function configureNavigationItems(NavigationItemCollection $navigationItemCollection): void
@@ -33,27 +32,27 @@ class AnalyticsAdmin extends Admin
 
         $logsItem = new NavigationItem('app.analytics_hits');
         $logsItem->setLabel('Logs');
-        $logsItem->setView(static::LIST_VIEW);
+        $logsItem->setView(self::LIST_VIEW);
         $analyticsItem->addChild($logsItem);
 
         $urlsItem = new NavigationItem('app.analytics_urls');
         $urlsItem->setLabel('Top URLs');
-        $urlsItem->setView(static::STATS_URLS_VIEW);
+        $urlsItem->setView(self::STATS_URLS_VIEW);
         $analyticsItem->addChild($urlsItem);
 
         $originsItem = new NavigationItem('app.analytics_origins');
         $originsItem->setLabel('Top Herkunft');
-        $originsItem->setView(static::STATS_ORIGINS_VIEW);
+        $originsItem->setView(self::STATS_ORIGINS_VIEW);
         $analyticsItem->addChild($originsItem);
 
         $countriesItem = new NavigationItem('app.analytics_countries');
         $countriesItem->setLabel('Top Länder');
-        $countriesItem->setView(static::STATS_COUNTRIES_VIEW);
+        $countriesItem->setView(self::STATS_COUNTRIES_VIEW);
         $analyticsItem->addChild($countriesItem);
 
         $dailyItem = new NavigationItem('app.analytics_daily');
         $dailyItem->setLabel('Traffic nach Tagen');
-        $dailyItem->setView(static::STATS_DAILY_VIEW);
+        $dailyItem->setView(self::STATS_DAILY_VIEW);
         $analyticsItem->addChild($dailyItem);
 
         $navigationItemCollection->add($analyticsItem);
@@ -61,53 +60,53 @@ class AnalyticsAdmin extends Admin
 
     public function configureViews(ViewCollection $viewCollection): void
     {
-        $listView = $this->viewBuilderFactory->createListViewBuilder(static::LIST_VIEW, '/analytics/logs')
+        $listView = $this->viewBuilderFactory->createListViewBuilder(self::LIST_VIEW, '/analytics/logs')
             ->setResourceKey('analytics_hits')
             ->setListKey('analytics_hits')
             ->setTitle('Analytics Logs')
             ->addListAdapters(['table'])
-            ->setEditView(static::EDIT_FORM_VIEW);
+            ->setEditView(self::EDIT_FORM_VIEW);
         $viewCollection->add($listView);
 
-        $urlsView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_URLS_VIEW, '/analytics/urls')
+        $urlsView = $this->viewBuilderFactory->createListViewBuilder(self::STATS_URLS_VIEW, '/analytics/urls')
             ->setResourceKey('analytics_urls')
             ->setListKey('analytics_urls')
             ->setTitle('Top 10 URLs')
             ->addListAdapters(['table']);
         $viewCollection->add($urlsView);
 
-        $originsView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_ORIGINS_VIEW, '/analytics/origins')
+        $originsView = $this->viewBuilderFactory->createListViewBuilder(self::STATS_ORIGINS_VIEW, '/analytics/origins')
             ->setResourceKey('analytics_origins')
             ->setListKey('analytics_origins')
             ->setTitle('Top 10 Herkunft')
             ->addListAdapters(['table']);
         $viewCollection->add($originsView);
 
-        $countriesView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_COUNTRIES_VIEW, '/analytics/countries')
+        $countriesView = $this->viewBuilderFactory->createListViewBuilder(self::STATS_COUNTRIES_VIEW, '/analytics/countries')
             ->setResourceKey('analytics_countries')
             ->setListKey('analytics_countries')
             ->setTitle('Top 10 Länder')
             ->addListAdapters(['table']);
         $viewCollection->add($countriesView);
 
-        $dailyView = $this->viewBuilderFactory->createListViewBuilder(static::STATS_DAILY_VIEW, '/analytics/daily')
+        $dailyView = $this->viewBuilderFactory->createListViewBuilder(self::STATS_DAILY_VIEW, '/analytics/daily')
             ->setResourceKey('analytics_daily')
             ->setListKey('analytics_daily')
             ->setTitle('Traffic Verlauf (Letzte 30 Tage)')
             ->addListAdapters(['table']);
         $viewCollection->add($dailyView);
 
-        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(static::EDIT_FORM_VIEW, '/analytics/logs/:id')
+        $editFormView = $this->viewBuilderFactory->createResourceTabViewBuilder(self::EDIT_FORM_VIEW, '/analytics/logs/:id')
             ->setResourceKey('analytics_hits')
-            ->setBackView(static::LIST_VIEW);
+            ->setBackView(self::LIST_VIEW);
         $viewCollection->add($editFormView);
 
-        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(static::EDIT_FORM_VIEW . '.details', '/details')
+        $editDetailsFormView = $this->viewBuilderFactory->createFormViewBuilder(self::EDIT_FORM_VIEW . '.details', '/details')
             ->setResourceKey('analytics_hits')
             ->setFormKey('analytics_hit_details')
             ->setTabTitle('Details')
             ->addToolbarActions([])
-            ->setParent(static::EDIT_FORM_VIEW);
+            ->setParent(self::EDIT_FORM_VIEW);
         $viewCollection->add($editDetailsFormView);
     }
 
@@ -116,7 +115,7 @@ class AnalyticsAdmin extends Admin
         return [
             'Sulu' => [
                 'Custom' => [
-                    static::SECURITY_CONTEXT => [
+                    self::SECURITY_CONTEXT => [
                         'view',
                     ],
                 ],

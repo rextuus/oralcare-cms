@@ -29,9 +29,9 @@ class AppFixtures extends Fixture
 
         for ($i = 0; $i < 20; ++$i) {
             $hit = new AnalyticsHit();
-            $hit->setUrl('http://localhost:8080' . $urls[array_rand($urls)]);
-            $hit->setUserAgent($userAgents[array_rand($userAgents)]);
-            if (rand(0, 1)) {
+            $hit->setUrl('http://localhost:8080' . $urls[\array_rand($urls)]);
+            $hit->setUserAgent($userAgents[\array_rand($userAgents)]);
+            if (\random_int(0, 1)) {
                 $hit->setReferer('https://www.google.com');
             }
 

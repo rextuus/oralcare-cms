@@ -48,7 +48,7 @@
         "symfony/runtime": "^7.4",
         "symfony/security-bundle": "^7.4",
         "symfony/twig-bundle": "^7.4",
-        "symfony/webpack-encore-bundle": "*"
+        "symfony/webpack-encore-bundle": "^2.4"
     },
     "require-dev": {
         "cmsig/seal-memory-adapter": "^0.12.2",
